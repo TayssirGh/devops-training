@@ -1,0 +1,17 @@
+<div>
+  <h2>Generate QR</h2>
+  <div>
+    <b>input your content here :</b>
+    <input type="text" [(ngModel)]="value">
+    <button (click)="sendQR()">Send</button>
+  </div>
+</div>
+<div>
+  <h2>Access logs</h2>
+  <div *ngFor="let result of results">
+    <span><b> Date : </b> {{result.access_date | date: 'medium'}}</span>
+    <span><b> ID : </b> {{result.qr_id}}</span>
+    <span *ngIf="result.is_s3"><b> value : </b> <img  class="img-size" [src]="result.qr_url" [alt]="result.qr_id"></span>
+    <span *ngIf="!result.is_s3"><b> value : </b> <img class="img-size" [src]="'./assets/data'+result.qr_url" [alt]="result.qr_id"></span>
+  </div>
+</div>
