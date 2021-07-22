@@ -201,15 +201,13 @@ you apply the knowledge acquired in the previous section. (Follow the links for 
     - [Section 2 :](exercices/ex3-section-2.md) Next, you need to render your applications accessible through a gateway
     - [Section 3 :](exercices/ex3-section-3.md) Configure the automatic deployment of the docker-compose environment on a raspberry-pi
     - [Section 4 :](exercices/ex3-section-4.md) Furthermore, you will be creating a Kubernetes deployment configuration for the application suite
-    - [Section 5 :](exercices/ex3-section-5.md) Configure the automatic deployment of the kubernetes environment on a raspberry-pi overriding that of docker-compose
-    - [Section 6 :](exercices/ex3-section-6.md) Lastly, you need to document all your actions, code, and configurations.
+    - [Section 5 :](exercices/ex3-section-5.md) Lastly, configure the automatic deployment of the kubernetes environment on a raspberry-pi overriding that of docker-compose
 4. Your last task will revolve around the following :
-    - [Section 1 :](exercices/ex4-section-1.md) Creating a script that initializes a Kubernetes cluster on different machines
-    - [Section 2 :](exercices/ex4-section-2.md) Configuring auto deployment of different environments of the application suite into the previously created
+    - [Section 1 :](exercices/ex4-section-1.md) Configuring auto deployment of different environments of the application suite into the previously created
         Kubernetes clusters
-    - [Section 3 :](exercices/ex4-section-3.md) Configuring S3 storage on the machines
-    - [Section 4 :](exercices/ex4-section-4.md) Configuring automated backups of sensitive data
-    - [Section 5 :](exercices/ex4-section-5.md) Deploying and configuring tools that will help you ingest logs from these clusters as well as monitoring the
+    - [Section 2 :](exercices/ex4-section-2.md) Configuring S3 storage on the machines
+    - [Section 3 :](exercices/ex4-section-3.md) Configuring automated backups of sensitive data
+    - [Section 4 :](exercices/ex4-section-4.md) Deploying and configuring tools that will help you ingest logs from these clusters as well as monitoring the
         health of the deployed applications
 
 Please refer to [the outline document](exercices/outlines.md) before you start working.       

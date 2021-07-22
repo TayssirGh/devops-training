@@ -3,7 +3,7 @@
 ## Machines
 
 All along your training, you will be provided with a Raspberry Pi onto which you will deploy your applications and
-expose them to the internet. The Raspberry Pi you will be provided with will have a domain name configured onto it
+expose them to the internet. The Raspberry Pi you will be provided with will have a _wildcard_ domain name configured onto it
 through the use of a `DDNS` service that will allow you to access your machine remotely.
 
 The domain name that will be provided to you is what you will use for configuring access to your applications in
@@ -18,8 +18,9 @@ names :
   your production branch.
 - `t-<your-number>-prod` : This is the branch that will represent your accepted, turned-in work. Accepted results of
   each exercice will be merged from the development branch into this one upon completion and validation.
+- `t-<your-number>-dev-*` : For any additional branches that you need to create.
 
-`<your-number` represents, well... your number. If you are the first to start the training, your number should be `01`.
+`<your-number>` represents, well... your number. If you are the first to start the training, your number should be `01`.
 After which, each and every subsequent trainee should increment this number to get theirs.
 
 ## Turning in the work
@@ -63,6 +64,7 @@ your will find an environment variable called `MONGODB_ATLAS_URI` that contains 
 The `MONGODB_ATLAS_URI` variable is the same value to use for the `MONGO_URI` variable for configuring the `backend`
 application.
 
-The `MONGO_DB` inside the configuration of your `backend` application should adhere to the following pattern : 
+The `MONGO_DB` inside the configuration of your `backend` application should adhere to the following pattern :
+
 * `t<your-number>Dev`: for local tests and deployment
 * `t<your-number>Prod`: for production deployments on the Raspberry Pi

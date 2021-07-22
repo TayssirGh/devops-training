@@ -1,1 +1,0 @@
-# Exercice 3, Section 6
