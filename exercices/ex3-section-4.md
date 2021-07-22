@@ -50,7 +50,7 @@ For this subsection of the exercice, you are to :
 In order to run in the results of this exercice, you need to be able to provide the following files
 under [applications folder](../applications) :
 
-* `init-k3d-cluster` : A bash script containing the commands that
+* `init-k3d-cluster.sh` : A bash script containing the commands that
   creates [the k3d cluster mentioned in the above section](#section-4a)
 * `training-cluster` : A folder containing all the files that configure and deploy the applications inside the
   Kubernetes cluster [as specified in the above section](#section-4b)
@@ -59,6 +59,7 @@ For turning in the results of [section 4.C](#section-4c), you need to :
 
 * Update the files created `training-cluster` for the purposes of the [section 4.B](#section-4b)
 * Provide the demanded bash script under `training-cluster/seal-secrets.sh`
+* update the `init-k3d-cluster.sh` script with the commands that install SealedSecrets inside your Kubernetes cluster.
 
 :warning: For the purposes of [section 4.B](#section-4b) and for this exercice only, the created secrets may be
 committed to Git.
