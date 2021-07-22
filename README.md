@@ -198,9 +198,11 @@ you apply the knowledge acquired in the previous section. (Follow the links for 
 3. After mastering application runtime, containerization, and CI/CD, you will be configuring deployments for the
    applications
     - [Section 1 :](exercices/ex3-section-1.md) You will start by creating a docker compose deployment configuration for the application suite
-    - [Section 2 :](exercices/ex3-section-2.md) Next, you will be configuring gateway for the application
-    - [Section 3 :](exercices/ex3-section-3.md) Furthermore, you will be creating a Kubernetes deployment configuration for the application suite
-    - [Section 4 :](exercices/ex3-section-4.md) Lastly, you need to document all your actions, code, and configurations.
+    - [Section 2 :](exercices/ex3-section-2.md) Next, you need to render your applications accessible through a gateway
+    - [Section 3 :](exercices/ex3-section-3.md) Configure the automatic deployment of the docker-compose environment on a raspberry-pi
+    - [Section 4 :](exercices/ex3-section-4.md) Furthermore, you will be creating a Kubernetes deployment configuration for the application suite
+    - [Section 5 :](exercices/ex3-section-5.md) Configure the automatic deployment of the kubernetes environment on a raspberry-pi overriding that of docker-compose
+    - [Section 6 :](exercices/ex3-section-6.md) Lastly, you need to document all your actions, code, and configurations.
 4. Your last task will revolve around the following :
     - [Section 1 :](exercices/ex4-section-1.md) Creating a script that initializes a Kubernetes cluster on different machines
     - [Section 2 :](exercices/ex4-section-2.md) Configuring auto deployment of different environments of the application suite into the previously created
