@@ -205,9 +205,8 @@ you apply the knowledge acquired in the previous section. (Follow the links for 
 4. Your last task will revolve around the following :
     - [Section 1 :](exercices/ex4-section-1.md) Configuring auto deployment of different environments of the application suite into the previously created
         Kubernetes clusters
-    - [Section 2 :](exercices/ex4-section-2.md) Configuring S3 storage on the machines
-    - [Section 3 :](exercices/ex4-section-3.md) Configuring automated backups of sensitive data
-    - [Section 4 :](exercices/ex4-section-4.md) Deploying and configuring tools that will help you ingest logs from these clusters as well as monitoring the
+    - [Section 2 :](exercices/ex4-section-2.md) Configuring automated backups of sensitive data
+    - [Section 3 :](exercices/ex4-section-3.md) Deploying and configuring tools that will help you ingest logs from these clusters as well as monitoring the
         health of the deployed applications
 
 Please refer to [the outline document](exercices/outlines.md) before you start working.       
@@ -230,6 +229,6 @@ helps you acquire fundamentals and apply them. In reality, tools change all the 
 date with all the new tools and technologies. What differentiates a good engineer from another is the comprehension of
 the basics as well as their pragmatism and rationale behind their decision.
 
-<p style="text-align: right">
-Best of luck.</p>
+
+Best of luck.
 
