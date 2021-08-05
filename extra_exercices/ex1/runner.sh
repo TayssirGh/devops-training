@@ -21,6 +21,7 @@ run_uptime() {
 }
 
 while true; do
+  echo "[$(date '+%x %X %Z')] Attempting to ping ${WEBSITE_URL}"
   run_uptime
   sleep "$SLEEP_DURATION"
 done
