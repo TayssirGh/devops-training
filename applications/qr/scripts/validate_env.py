@@ -34,7 +34,7 @@ class EnvValidator:
 
     @staticmethod
     def use_bucket():
-        return os.getenv('USE_BUCKET', False)
+        return True if os.getenv('USE_BUCKET', "false") == "true" else False
 
     @staticmethod
     def bucket_endpoint():
