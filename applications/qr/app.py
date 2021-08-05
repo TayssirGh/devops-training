@@ -20,4 +20,3 @@ def generate_qr(qr: QR):
         return {"res": res, "s3": EnvValidator.use_bucket()}
     else:
         return {"res": resulting_qr_path.replace(EnvValidator.qr_tmp_folder(), ""), "s3": EnvValidator.use_bucket()}
-
