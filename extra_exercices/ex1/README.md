@@ -25,4 +25,5 @@ Under [this folder](.), you are to provide the following files :
 * `debian.Dockerfile` : The Dockerfile of the debian-based image
 * `alpine.Dockerfile` : The Dockerfile of the alpine-based image
 * `Dockerfile` : The Dockerfile of the alpine-based image wil environment variables validation script
+* `entrypoint.sh` : The entrypoint for `Dockerfile` with env variables validation.
 * `builder.sh` : A shell script that allows for the building of your Docker Images
