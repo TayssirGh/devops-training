@@ -7,3 +7,5 @@ RUN npm run build --prod
 #stage 2 : for production
 FROM nginx:alpine
 COPY --from=website_build /website/dist/website /usr/share/nginx/html
+EXPOSE 9080
+CMD ["nginx", "-g", "daemon off;"]

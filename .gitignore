@@ -38,3 +38,6 @@ applications/website/src/assets/configs/app-config.json
 # System Files
 **/.DS_Store
 **/Thumbs.db
+/results/ex-1-s2/backend.env
+/results/ex-1-s2/qr.env
+/results/ex-1-s2/app-config.json
