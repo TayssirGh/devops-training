@@ -3,8 +3,7 @@ FROM node:14 as build-stage
 WORKDIR /app
 
 COPY package.json package.json
-RUN npm i
-
+RUN npm install
 COPY . .
 RUN npm run build
 # npm run build nous génére des fichiers sous /app/dist/website

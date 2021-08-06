@@ -2,10 +2,8 @@ FROM python:3
 
 WORKDIR /app
 
-ENV APP_PORT "8420"
-
 COPY requirements.txt requirements.txt
-RUN pip i -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
