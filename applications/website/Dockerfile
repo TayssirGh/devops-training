@@ -1,8 +1,9 @@
 # stage 1 : building the app 
 FROM node:14 AS website_build
 WORKDIR /website
-COPY . .
+COPY package.json package.json
 RUN  npm install 
+COPY . .
 RUN npm run build --prod
 
 #stage 2 : for production 
