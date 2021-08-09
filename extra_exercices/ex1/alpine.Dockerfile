@@ -1,8 +1,9 @@
 FROM alpine:3.14
 
-RUN apk add --no-cache mysql-client
+RUN apk  update && apk add --no-cache curl bash
 
 ENV WEBSITE_URL=""
 ENV SLEEP_DURATION=""
 
-ENTRYPOINT ["mysql"]
+COPY runner.sh /runner.sh
+ENTRYPOINT /runner.sh

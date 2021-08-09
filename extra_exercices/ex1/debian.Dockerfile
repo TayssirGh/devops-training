@@ -1,7 +1,6 @@
-FROM debian:latest
+FROM debian
 
-WORKDIR /exex
-COPY runner.sh runnner.sh
-RUN   apt-get update && apt-get install -y apt-cacher-ng
+RUN apt-get update -y && apt-get install -y curl
 
-CMD ["bash"]
+COPY runner.sh /runner.sh
+ENTRYPOINT /runner.sh
