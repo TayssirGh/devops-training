@@ -1,0 +1,37 @@
+    image: docker:latest
+    variables:
+     DOCKER_DRIVER: overlay2
+    stages:
+      - build
+      - push
+    services:
+      - docker:dind
+    before_script:
+      # docker login needs the password to be passed through stdin for security
+      # we use $CI_JOB_TOKEN here which is a special token provided by GitLab
+      - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+      - docker version
+      - docker info
+
+    after_script:
+      - docker logout registry.gitlab.com
+    Build:
+      stage: build
+      script:
+        - docker pull $CI_REGISTRY_IMAGE:latest || true
+        - >
+          docker build
+          --pull
+          --cache-from $CI_REGISTRY_IMAGE:latest
+          --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+          .
+        - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    Push_When_tag:
+      stage: push
+      only:
+        # We want this job to be ran on tags only.
+        - tags
+      script:
+        - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+        - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
