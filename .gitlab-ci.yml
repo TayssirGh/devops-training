@@ -4,7 +4,7 @@ stages:
 qr_build:
   stage: CI
   before_script:
-    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin $T001_PASSWORD
+    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
   script:
     -  chmod +x ./ci-scripts/image-builder.sh
     - . ./ci-scripts/image-builder.sh
@@ -14,7 +14,7 @@ qr_build:
 website_build:
   stage: CI
   before_script:
-    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin $T001_PASSWORD
+    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
   script:
     -  chmod +x ./ci-scripts/image-builder.sh
     - . ./ci-scripts/image-builder.sh
@@ -24,7 +24,7 @@ website_build:
 backend_build:
   stage: CI
   before_script:
-    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin $T001_PASSWORD
+    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
   script:
     -  chmod +x ./ci-scripts/image-builder.sh
     - . ./ci-scripts/image-builder.sh
