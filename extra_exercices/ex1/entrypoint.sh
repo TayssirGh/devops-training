@@ -9,4 +9,5 @@
     echo "The 'SLEEP_DURATION' variable is required!"
     exit 1
   fi
+
 exec ./runner.sh
