@@ -58,7 +58,7 @@ The tags for your docker images, should be one of the following :
 
 ## Database
 
-In order to be able to have a persistent and reliable database for your application, under the Gitlab Environment file,
+In order to be able to have a persistent and reliable database for your application, under the Gitlab CI Environment Variables,
 your will find an environment variable called `MONGODB_ATLAS_URI` that contains the URI for connecting to the database.
 
 The `MONGODB_ATLAS_URI` variable is the same value to use for the `MONGO_URI` variable for configuring the `backend`
