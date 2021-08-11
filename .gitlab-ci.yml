@@ -1,0 +1,51 @@
+stages:
+  - CI
+  
+before_script:
+    - echo "$T002_DOCKER_HUB_TOKEN" | docker login $t_002_CI_REGISTRY --username $t_002_CI_REGISTRY_USER --password-stdin
+
+qr_build:
+  stage: CI
+  script:
+    -  chmod +x ./ci-scripts/image-builder.sh 
+    - ./ci-scripts/image-builder.sh  
+  variables:
+     IMAGE_NAME : qr
+  rules:
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables : 
+            TAG_IMAGE : "dev"
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables : 
+          TAG_IMAGE : "prod"   
+
+website_build:
+  stage: CI
+  script:
+    -  chmod +x ./ci-scripts/image-builder.sh
+    - ./ci-scripts/image-builder.sh
+  variables:
+    IMAGE_NAME : website
+  rules:
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables: 
+        TAG_IMAGE: "dev"
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables : 
+        TAG_IMAGE : "prod"   
+
+    
+backend_build:
+  stage: CI
+  script:
+    -  chmod +x ./ci-scripts/image-builder.sh 
+    - ./ci-scripts/image-builder.sh 
+  variables:
+    IMAGE_NAME : backend
+  rules:
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables: 
+          TAG_IMAGE: "dev"
+    - if : $CI_COMMIT_REF_NAME  == "t-002-dev" 
+      variables: 
+          TAG_IMAGE: "prod"   
