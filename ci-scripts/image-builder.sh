@@ -1,12 +1,17 @@
 #!/bin/bash
-build(){
-if [[ "$CI_COMMIT_REF_NAME" == "t-001-dev" ]]; then
-    docker build -t  "${T001_USERNAME}/t001-${IMAGE_NAME}:dev"  -f ./applications/${IMAGE_NAME}/Dockerfile ./applications/${IMAGE_NAME}
-    docker push "${T001_USERNAME}/t001-${IMAGE_NAME}:dev"
-else
-    docker build -t  "${T001_USERNAME}/t001-${IMAGE_NAME}:prod"  -f ./applications/${IMAGE_NAME}/Dockerfile ./applications/${IMAGE_NAME}
-    docker push "${T001_USERNAME}/t001-${IMAGE_NAME}:prod"
-fi
+
+build() {
+  tag=${1}
+
+  echo "Building ${T001_USERNAME}/t001-${IMAGE_NAME}:${tag}"
+  docker build -t "${T001_USERNAME}/t001-${IMAGE_NAME}:${tag}" \
+    -f "./applications/${IMAGE_NAME}/Dockerfile" "./applications/${IMAGE_NAME}"
+
+  echo "Pushing ${T001_USERNAME}/t001-${IMAGE_NAME}:${tag}"
+  docker push "${T001_USERNAME}/t001-${IMAGE_NAME}:${tag}"
 }
-echo  "${T001_USERNAME}/t001-${IMAGE_NAME}"
-build
+
+for tag in ${IMAGE_TAG}; do
+  echo "Building tag : ${tag}"
+  build "${tag}"
+done
