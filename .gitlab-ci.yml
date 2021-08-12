@@ -7,10 +7,10 @@ before_script:
 qr_build:
   stage: CI
   rules:
-    - if: $CI_COMMIT_REF == "t-001-prod"
+    - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
         IMAGE_TAG: "latest prod"
-    - if: $CI_COMMIT_REF == "t-001-dev"
+    - if: $CI_COMMIT_REF_NAME == "t-001-dev"
       variables:
         IMAGE_TAG: "dev"
   script:
@@ -21,10 +21,10 @@ qr_build:
 website_build:
   stage: CI
   rules:
-    - if: $CI_COMMIT_REF == "t-001-prod"
+    - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
         IMAGE_TAG: "latest prod"
-    - if: $CI_COMMIT_REF == "t-001-dev"
+    - if: $CI_COMMIT_REF_NAME == "t-001-dev"
       variables:
         IMAGE_TAG: "dev"
   script:
@@ -35,10 +35,10 @@ website_build:
 backend_build:
   stage: CI
   rules:
-    - if: $CI_COMMIT_REF == "t-001-prod"
+    - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
         IMAGE_TAG: "latest prod"
-    - if: $CI_COMMIT_REF == "t-001-dev"
+    - if: $CI_COMMIT_REF_NAME == "t-001-dev"
       variables:
         IMAGE_TAG: "dev"
   script:
