@@ -2,7 +2,7 @@ stages:
   - CI
 
 before_script:
-  - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
+  - echo "authentication to docker $T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
 
 qr_build:
   stage: CI
