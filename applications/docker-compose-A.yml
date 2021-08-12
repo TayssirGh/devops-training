@@ -1,0 +1,10 @@
+version: '3.0'
+services:
+    web_backend:
+      images: mghodben/backend
+      ports:
+          - "8082:8085"
+    web_website:
+      images: mghodben/website
+      ports:
+        - "80:8086"
