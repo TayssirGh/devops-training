@@ -1,11 +1,12 @@
 stages:
   - CI
-
 before_script:
   - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
 
 qr_build:
   stage: CI
+  tags:
+    - devop-training
   rules:
     - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
@@ -20,6 +21,8 @@ qr_build:
 
 website_build:
   stage: CI
+  tags:
+    - devop-training
   rules:
     - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
@@ -34,6 +37,8 @@ website_build:
 
 backend_build:
   stage: CI
+  tags:
+    - devop-training
   rules:
     - if: $CI_COMMIT_REF_NAME == "t-001-prod"
       variables:
