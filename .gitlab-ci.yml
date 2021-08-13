@@ -2,15 +2,15 @@
     - CI
 
   before_script:
-    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
+    - echo "$T003_DOCKER_HUB_TOKEN" | docker login -u $T003_USR --password-stdin
 
   qr_build:
     stage: CI
     rules:
-      - if: $CI_COMMIT_IMAGE_NAME == "t-001-prod"
+      - if: $CI_COMMIT_REF_NAME == "t-003-prod"
         variables:
           IMAGE_TAG: "latest prod"
-      - if: $CI_COMMIT_IMAGE_NAME == "t-001-dev"
+      - if: $CI_COMMIT_REF_NAME == "t-003-dev"
         variables:
           IMAGE_TAG: "dev"
     script:
