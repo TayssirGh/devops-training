@@ -1,0 +1,46 @@
+  stages:
+    - CI
+
+  before_script:
+    - echo "$T001_DOCKER_HUB_TOKEN" | docker login -u "$T001_USERNAME" --password-stdin
+
+  qr_build:
+    stage: CI
+    rules:
+      - if: $CI_COMMIT_IMAGE_NAME == "t-001-prod"
+        variables:
+          IMAGE_TAG: "latest prod"
+      - if: $CI_COMMIT_IMAGE_NAME == "t-001-dev"
+        variables:
+          IMAGE_TAG: "dev"
+    script:
+      - ./ci-scripts/image-builder.sh
+    variables:
+      IMAGE_NAME : "qr"
+
+  website_build_prod:
+    stage: CI
+    only:
+      - /^(t\-001\-prod)$/
+    script:
+      - ./ci-scripts/image-builder.sh
+    variables:
+      IMAGE_TAG: "prod latest"
+      IMAGE_NAME : "website"
+
+  website_build_dev:
+    stage: CI
+    only:
+      - /^(t\-001\-dev)$/
+    script:
+      - ./ci-scripts/image-builder.sh
+    variables:
+      IMAGE_TAG: "dev"
+      IMAGE_NAME : "website"
+
+  backend_build:
+    stage: CI
+    script:
+      - ./ci-scripts/image-builder.sh
+    variables:
+      IMAGE_NAME : "backend"
