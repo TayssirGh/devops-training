@@ -6,6 +6,8 @@
 
   qr_build:
     stage: CI
+    tags:
+      - devops-training
     rules:
       - if: $CI_COMMIT_REF_NAME == "t-003-prod"
         variables:
@@ -20,6 +22,8 @@
 
   website_build_prod:
     stage: CI
+    tags:
+      - devops-training
     only:
       - /^(t\-001\-prod)$/
     script:
@@ -30,6 +34,8 @@
 
   website_build_dev:
     stage: CI
+    tags:
+      - devops-training
     only:
       - /^(t\-001\-dev)$/
     script:
@@ -40,6 +46,8 @@
 
   backend_build:
     stage: CI
+    tags:
+      - devops-training
     script:
       - ./ci-scripts/image-builder.sh
     variables:
