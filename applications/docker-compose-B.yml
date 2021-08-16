@@ -1,0 +1,45 @@
+version: '3.0'
+services:
+  web_backend_b:
+    image: mghodben/t001-backend
+    links:
+      - web_backend
+  web_website_b:
+    image: mghodben/t001-website
+    links:
+      - web_website
+  qr_b:
+    image: mghodben/t001-qr
+    links:
+      - qr
+  # Settings and configurations the minio container
+  # start 1 docker containers running minio server instances.
+  # using nginx to deploy minio container
+  # it through port 9000.
+  minio1:
+    image: minio/minio:RELEASE.2021-08-05T22-01-19Z
+    hostname: minio1
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    expose:
+      - "9000"
+    volumes:
+      - data1:/data
+    command: server /data --console-address ":9001"
+
+  nginx:
+    image: nginx:1.19.2-alpine
+    hostname: nginx
+    ports:
+      - "9000:9000"
+    depends_on:
+      - minio1
+
+volumes:
+  data1:
