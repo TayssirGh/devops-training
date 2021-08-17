@@ -4,7 +4,7 @@
 **/venv
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
-**/.env
+applications/backend.env
 
 # compiled output
 **/dist
@@ -43,3 +43,7 @@ applications/website/src/assets/configs/app-config.json
 /extra_exercices/ex1/alpine.env
 /extra_exercices/ex1/debian.env
 /command.txt
+/applications/backend.env
+/applications/qr.env
+/applications/qr/.env
+/applications/backend/.env

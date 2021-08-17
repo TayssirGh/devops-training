@@ -4,18 +4,30 @@ services:
       image: mghodben/t001-backend
       ports:
           - "8082:8085"
+      env_file:
+        - backend.env
+      environment:
+        - NODE_ENV=production
+      networks:
+        - qr-network
     web_website:
       image: mghodben/t001-website
       ports:
         - "80:8086"
       volumes:
-        - shared-volume:$SHARED_VOLUME_WEBSITE
+        - shared-volume:/usr/src/website
+      networks:
+        - qr-network
     qr:
       image: mghodben/t001-qr
       ports:
         - "8085:8087"
+      env_file:
+        - qr.env
+      environment:
+        - NODE_ENV=production
       volumes:
-        - shared-volume:$SHARED_VOLUME_QR
+        - shared-volume:/app
       networks:
         - qr-network
 volumes:
