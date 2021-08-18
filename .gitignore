@@ -42,3 +42,5 @@ applications/website/src/assets/configs/app-config.json
 backend.env
 qr.env
 environment.ts
+#file 
+generated_qr
