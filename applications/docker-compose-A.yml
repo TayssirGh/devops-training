@@ -1,24 +1,38 @@
 version: "3.8"
 services:
     backend:
-        image: abdelkaderbrahem/t002-backend
+        image: abdelkaderbrahem/t002-backend:dev
+        container_name: backend 
         ports:
             - 8082:8082
         env_file: 
             - backend.env
+        environment:
+            - NODE_ENV=production
+          
     website :
-        image : abdelkaderbrahem/t002-website
+        image : abdelkaderbrahem/t002-website:dev
+        container_name: website
         ports:
-            - 80:80
+            - 8000:80
+        volumes: 
+            - app-volume:/assets/data
     qr:
-        image: abdelkaderbrahem/t002-qr
+        image: abdelkaderbrahem/t002-qr:dev
+        container_name: qr 
         ports:
             - 8420:8420
         networks: 
             - private-network
         env_file: 
             - qr.env
+        volumes: 
+            - app-volume:/usr/share/nginx/html/generated_qr
+        environment:
+            - NODE_ENV=production
         
 networks:
     private-network:
-              
+volumes:
+    app-volume: 
+                  
