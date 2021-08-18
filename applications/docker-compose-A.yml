@@ -24,7 +24,7 @@ services  :
 
   qr :
     build :
-        context : ./applications/qr/scripts
+        context : ./applications/qr
     image : Dockerfile
     env_file:
       -.env
