@@ -12,3 +12,9 @@ services:
         image: abdelkaderbrahem/t002-qr
         ports:
             - 8420:8420
+        networks: 
+            - private-network
+
+networks:
+    private-network:
+              
