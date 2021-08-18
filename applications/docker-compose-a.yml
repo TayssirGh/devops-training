@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+    backend:
+        image: abdelkaderbrahem/t002-backend
+        ports:
+            - 8082:8082
+    website :
+        image : abdelkaderbrahem/t002-website
+        ports:
+            - 80:80
+    qr:
+        image: abdelkaderbrahem/t002-qr
+        ports:
+            - 8420:8420
