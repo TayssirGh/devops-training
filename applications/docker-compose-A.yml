@@ -1,0 +1,39 @@
+version : '3'
+
+services  :
+
+  backend :
+    build :
+        context: ./applications/backend/services
+    image : Dockerfile
+    ports:
+      - "8082:8082"
+    env_file:
+      -.env
+
+  website :
+    build :
+        context : ./applications/website/src
+    image : Dockerfile
+    ports :
+      - "80:80"
+  volumes :
+    - app:applications/qr/scripts
+  networks:
+    - app-netw
+
+  qr :
+    build :
+        context : ./applications/qr/scripts
+    image : Dockerfile
+    env_file:
+      -.env
+  volumes :
+  - app:applications/qr/scripts
+  networks:
+    - app-netw
+
+volumes:
+  app:
+networks:
+  app-netw:
