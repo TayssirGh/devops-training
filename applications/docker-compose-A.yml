@@ -4,6 +4,8 @@ services:
         image: abdelkaderbrahem/t002-backend
         ports:
             - 8082:8082
+        env_file: 
+            - backend.env
     website :
         image : abdelkaderbrahem/t002-website
         ports:
@@ -14,7 +16,9 @@ services:
             - 8420:8420
         networks: 
             - private-network
-
+        env_file: 
+            - qr.env
+        
 networks:
     private-network:
               
