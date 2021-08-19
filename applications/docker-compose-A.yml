@@ -20,11 +20,12 @@ services:
         ports:
             - 80:80
         volumes: 
-            - app-volume:/assets/data
+            - app-volume:/usr/share/nginx/html/assets/data
         environment:
             - NODE_ENV=production
         networks: 
             - private-network
+            
     qr:
         build : 
             context: ./qr
@@ -37,7 +38,8 @@ services:
         env_file: 
             - qr.env
         volumes: 
-            - app-volume:/usr/share/nginx/html/generated_qr
+            - app-volume:/generated_qr
+
 networks:
     private-network:
 volumes:
