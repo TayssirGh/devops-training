@@ -1,7 +1,7 @@
 version: '3.0'
 services:
     web_backend:
-      image: mghodben/t001-backend
+      image: backend
       build: backend/
       ports:
           - "8082:3000"
@@ -12,19 +12,19 @@ services:
       networks:
         - qr-network
     web_website:
-      image: mghodben/t001-website
+      image: front_image
       build: website/
       ports:
-        - "8090:80"
+        - "80:80"
       volumes:
         - shared-volume:/usr/share/nginx/html
       networks:
         - qr-network
     qr:
-      image: mghodben/t001-qr
+      image: qr
       build: qr/
       ports:
-        - "8085:8420"
+        - "8085:8085"
       env_file:
         - qr.env
       volumes:
