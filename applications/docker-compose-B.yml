@@ -1,0 +1,19 @@
+version : '2'
+
+services:
+
+  backend:
+    extends:
+      file: docker-compose-A.yml
+      service: backend
+
+  qr:
+    extends:
+      file: docker-compose-A.yml
+      service: qr
+
+  website:
+    extends:
+      file: docker-compose-A.yml
+      service: website
+

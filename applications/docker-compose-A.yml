@@ -2,35 +2,35 @@ version : '3'
 
 services  :
 
-  backend :
-    build :
-        context: ./applications/backend/services
-    image : orcasifilus/t-003-backend
+  backend:
+    build:
+        context: ./backend
+    image: orcasifilus/t-003-backend
     ports:
-      - "8082:8082"
+      - "8082:3000"
     env_file:
-      -.env
+      - ./backend/.env
 
-  website :
-    build :
-        context : ./applications/website/src
+  qr :
+    build:
+        context: ./qr
+    image : orcasifilus/t-003-qr
+    env_file:
+      - ./qr/.env
+    volumes:
+    - app:/qr/scripts/qr_generator.py
+    networks:
+    - app-netw
+
+  website:
+    build:
+        context: ./website/src
     image : orcasifilus/t-003-website
     ports :
       - "80:80"
-  volumes :
-    - app:applications/qr/scripts
-  networks:
-    - app-netw
-
-  qr :
-    build :
-        context : ./applications/qr
-    image : orcasifilus/t-003-qr
-    env_file:
-      -.env
-  volumes :
-  - app:applications/qr/scripts
-  networks:
+    volumes :
+    - app:/website/src/assets/data
+    networks:
     - app-netw
 
 volumes:
