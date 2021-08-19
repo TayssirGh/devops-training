@@ -1,6 +1,8 @@
 version: "3.8"
 services:
     backend:
+        build : 
+            context: ./backend
         image: abdelkaderbrahem/t002-backend:dev
         container_name: backend 
         ports:
@@ -11,15 +13,20 @@ services:
             - NODE_ENV=production
           
     website :
+        build : 
+            context: ./website
         image : abdelkaderbrahem/t002-website:dev
         container_name: website
         ports:
-            - 8000:80
+            - 80:80
         volumes: 
             - app-volume:/assets/data
         environment:
             - NODE_ENV=production
+
     qr:
+        build : 
+            context: ./qr
         image: abdelkaderbrahem/t002-qr:dev
         container_name: qr 
         ports:
@@ -30,8 +37,6 @@ services:
             - qr.env
         volumes: 
             - app-volume:/usr/share/nginx/html/generated_qr
-      
-        
 networks:
     private-network:
 volumes:
