@@ -17,6 +17,8 @@ services:
             - 8000:80
         volumes: 
             - app-volume:/assets/data
+        environment:
+            - NODE_ENV=production
     qr:
         image: abdelkaderbrahem/t002-qr:dev
         container_name: qr 
@@ -28,8 +30,7 @@ services:
             - qr.env
         volumes: 
             - app-volume:/usr/share/nginx/html/generated_qr
-        environment:
-            - NODE_ENV=production
+      
         
 networks:
     private-network:
