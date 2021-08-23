@@ -41,6 +41,7 @@ applications/website/src/assets/configs/app-config.json
 #env
 backend.env
 qr.env
+minio.env
 environment.ts
 #file 
 generated_qr

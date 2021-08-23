@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  qr:
+    environment:
+        - USE_BUCKET=true
+        - BUCKET_ENDPOINT=minio_image
+        - BUCKET_ACCESS_KEY=miniominio
+        - BUCKET_SECRET_KEY=gadour123
+        - BUCKET_NAME=minio
+        - BUCKET_PATH=${PWD}/data:/data
+
+  minio:
+    image: minio/minio
+    environment:
+        - minio.env
+    ports:
+      - "9000:9000"
+    command: server /data
+    volumes:
+      - ${PWD}/data:/data
