@@ -1,27 +1,9 @@
-version: '3.0'
 services:
-  web_backend_b:
-    image: mghodben/t001-backend
-    links:
-      - web_backend
-    env_file:
-      - backend.env
-    environment:
-      - NODE_ENV=production
-  web_website_b:
-    image: mghodben/t001-website
-    links:
-      - web_website
-  qr_b:
-    image: mghodben/t001-qr
-    links:
-      - qr
+  qr:
     env_file:
       - qr.env
-    environment:
-      - NODE_ENV=production
 
-  minio1:
+  minio:
     image: minio/minio:RELEASE.2021-08-05T22-01-19Z
     hostname: minio1
     environment:
@@ -34,21 +16,8 @@ services:
       retries: 3
     expose:
       - "9000"
-      - "9001"
-    volumes:
-      - data1:/data
-    command: server /data --console-address ":9001"
-
-  nginx:
-    image: nginx:1.19.2-alpine
-    hostname: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "9000:9000"
-      - "9001:9001"
     depends_on:
-      - minio1
-
-volumes:
-  data1:
+      - qr
+    volumes:
+      - ./data
+    command: server /data --console-address ":9001"

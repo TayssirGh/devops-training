@@ -1,37 +1,42 @@
 version: '3.0'
 services:
-    web_backend:
-      image: backend
-      build: backend/
+    backend:
+      image: mghodben/t001-backend
       ports:
-          - "8082:3000"
+          - 8082:3000
       env_file:
-        - backend.env
+        - backend/.env
+      depends_on:
+        - qr
       environment:
         - NODE_ENV=production
       networks:
         - qr-network
-    web_website:
-      image: front_image
-      build: website/
+        - public-net
+    website:
+      image: mghodben/t001-website
       ports:
-        - "80:80"
+        - 4200:80
       volumes:
-        - shared-volume:/usr/share/nginx/html
+        - shared-volume:/usr/share/nginx/html/assets/data
+        - ./app-config.json:/usr/share/nginx/html/assets/configs/app-config.json
       networks:
-        - qr-network
+        - public-net
+      depends_on:
+        - backend
     qr:
-      image: qr
-      build: qr/
+      image: mghodben/t001-qr
       ports:
-        - "8085:8085"
+        - 8420:8420
       env_file:
-        - qr.env
-      volumes:
-        - shared-volume:/usr/share/nginx/html
+        - qr/.env
       networks:
         - qr-network
+      volumes:
+        - shared-volume:/app/generated_qr
 volumes:
   shared-volume:
 networks:
-   qr-network:
+  qr-network:
+    external: false
+  public-net:
