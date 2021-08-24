@@ -12,9 +12,10 @@ class S3Manager:
         self.secretKey = EnvValidator.bucket_secret_key()
         self.bucketName = EnvValidator.bucket_name()
         self.bucketPath = EnvValidator.bucket_path()
+        self.bucketRegion = EnvValidator.bucket_region()
 
-        self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
-                                 secret_key=self.secretKey)
+        self.minioClient = Minio(self.endpoint, access_key=self.accessKey, secure=False,
+                                 region=self.bucketRegion, secret_key=self.secretKey)
 
     def init_bucket(self):
         if not self.minioClient.bucket_exists(self.bucketName):

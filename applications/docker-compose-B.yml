@@ -2,15 +2,18 @@ version: "3.8"
 services:
   qr:
     environment:
-        - USE_BUCKET=true
-        - BUCKET_ENDPOINT=minio_image
-        - BUCKET_ACCESS_KEY=miniominio
-        - BUCKET_SECRET_KEY=gadour123
-        - BUCKET_NAME=minio
-        - BUCKET_PATH=${PWD}/data:/data
-
+      USE_BUCKET: 'true'
+      BUCKET_ENDPOINT: "minio:9000"
+      BUCKET_ACCESS_KEY: "2YRRYBSWG1SXAXS1YNB1"
+      BUCKET_SECRET_KEY: "d3TVGKNUtfmShBUhXW6YiMKo4gBHk1zGG3xQ4MaL"
+      BUCKET_NAME: minio
+      BUCKET_PATH: "./data:/data"
+    build: 
+      context: ./qr
+      dockerfile: Dockerfile
   minio:
     image: minio/minio
+    container_name: minio
     environment:
         - minio.env
     ports:
@@ -18,3 +21,6 @@ services:
     command: server /data
     volumes:
       - ${PWD}/data:/data
+    networks: 
+      - private-network
+      - public-network

@@ -39,6 +39,8 @@ services:
             - qr.env
         volumes: 
             - app-volume:/app/generated_qr:z
+        depends_on:
+          - minio
 
 networks:
     public-network:   
