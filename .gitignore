@@ -47,3 +47,4 @@ applications/backend/.env
 /applications/qr/.env
 /applications/backend.env
 /applications/qr.env
+/applications/minio.env
