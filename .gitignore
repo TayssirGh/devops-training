@@ -44,4 +44,5 @@ qr.env
 minio.env
 environment.ts
 #file 
+applications/data
 generated_qr
