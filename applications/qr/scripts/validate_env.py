@@ -18,6 +18,9 @@ class EnvValidator:
             if EnvValidator.bucket_name() is None:
                 print("Missing the 'BUCKET_NAME' environment variable.")
                 exit(1)
+            if EnvValidator.bucket_region() is None:
+                print("Missing the 'BUCKET_REGION' environment variable.")
+                exit(1)
 
 
     @staticmethod
@@ -55,3 +58,7 @@ class EnvValidator:
     @staticmethod
     def bucket_path():
         return os.getenv('BUCKET_PATH')
+
+    @staticmethod
+    def bucket_region():
+        return os.getenv('BUCKET_REGION')
