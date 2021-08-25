@@ -1,0 +1,80 @@
+version: "3.8"
+services:
+    backend:
+        image: abdelkaderbrahem/t002-backend:dev
+        container_name: backend 
+        ports:
+          - 8082:8082
+        env_file: 
+          - backend.env
+        environment:
+          - NODE_ENV=production
+        networks: 
+          - private-network
+          - public-network
+        build: 
+            context: backend          
+ 
+    website :
+        image : abdelkaderbrahem/t002-website:dev
+        container_name: website
+        ports:
+          - 8080:8080
+        depends_on: 
+          - backend
+        volumes: 
+          - app-volume:/usr/share/nginx/html/assets/data:z
+          - ./app-config.json:/usr/share/nginx/html/assets/configs/app-config.json
+        environment:
+          - NODE_ENV=production
+        networks: 
+          - public-network
+          - proxi-network          
+        build: 
+            context: website
+ 
+    qr:
+        image: abdelkaderbrahem/t002-qr:dev
+        container_name: qr 
+        ports:
+          - 8420:8420
+        networks: 
+          - private-network
+        env_file: 
+          - qr.env
+        volumes: 
+          - app-volume:/app/generated_qr:z
+        depends_on:
+          - minio
+        build: 
+            context: qr
+    
+    minio:
+        image: minio/minio
+        environment:
+          - minio.env
+        ports:
+          - "9000:9000"
+          - "9001:9001"
+        command: server /data --console-address ":9001"
+        volumes:
+          - ./data:/data
+        networks: 
+          - private-network
+          - public-network       
+
+    nginx:
+        image: nginx:1.19.2-alpine
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+        ports:
+          - "80:80"
+        networks: 
+          - proxi-network            
+networks:
+    public-network:   
+    private-network:
+    proxi-network:   
+volumes:
+    app-volume: 
+                
