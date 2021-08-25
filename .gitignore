@@ -43,6 +43,7 @@ backend.env
 qr.env
 minio.env
 environment.ts
+nginx.conf
 #file 
 applications/data
 generated_qr
