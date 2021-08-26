@@ -6,6 +6,7 @@ import {AppClientService} from "./app-client.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
   title = 'Training';
   results: Array<{
@@ -23,7 +24,18 @@ export class AppComponent implements OnInit {
   public getLogs() {
     this.appService.getLogs().then(results => {
       this.results = results;
+      this.changeMinioUrl()
     })
+  }
+
+  changeMinioUrl(){
+    for(let i=0; i<this.results.length; i++){
+      if(this.results[i].is_s3){
+        this.results[i].qr_url=this.results[i].qr_url.replace("minio:9000", "localhost/minio")
+        console.log(this.results[i].qr_url);
+      }
+  }
+
   }
 
   sendQR() {
@@ -34,6 +46,7 @@ export class AppComponent implements OnInit {
         });
       this.value = "";
     }
+
   }
 
   ngOnInit(): void {
