@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  APP_PORT: "3000"
+  QR_URL: "http://qr-service:8420/"
+  MONGO_DB: "t002Dev"

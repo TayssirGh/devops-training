@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: qr-deployment
+  labels: 
+    app: qr
+spec: 
+  template: 
+      metadata: 
+        name: qr-pod
+        labels: 
+          app: qr 
+      spec: 
+        containers: 
+          - image: abdelkaderbrahem/t002-qr:dev
+            name: qr
+            ports:
+              - containerPort: 8420
+            envFrom:
+              - configMapRef:
+                  name: qr-config            
+  selector:
+      matchLabels:
+        app: qr

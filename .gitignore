@@ -38,3 +38,8 @@ applications/website/src/assets/configs/app-config.json
 # System Files
 **/.DS_Store
 **/Thumbs.db
+applications/backend.env
+applications/deployment/
+applications/minio.env
+applications/nginx.conf
+applications/qr.env

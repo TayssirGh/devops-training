@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: website-deployment
+  labels: 
+    app: website
+    type: front-website
+spec: 
+  template: 
+    metadata: 
+      name: website-pod
+      labels: 
+        app: website 
+        type: front-end     
+    spec:
+      containers:
+      - name: website
+        image: abdelkaderbrahem/t002-website:dev
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html/assets/configs
+            name: config-volume
+      volumes:
+      - name: config-volume
+        configMap:
+          name: website-config
+  replicas: 1
+  selector:
+      matchLabels:
+          type: front-end
