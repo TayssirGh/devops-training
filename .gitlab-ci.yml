@@ -12,6 +12,8 @@ qr_build_push:
   script:
     - chmod 0755 ci-scripts/build_push_images.sh
     - ci-scripts/build_push_images.sh
+  tags:
+    t005-build
 
 
 backend_build_push:
@@ -22,6 +24,8 @@ backend_build_push:
   script:
     - chmod 0755 ci-scripts/build_push_images.sh
     - ci-scripts/build_push_images.sh
+  tags:
+    t005-build
 
 website_build_push:
   stage: build_push
@@ -31,3 +35,5 @@ website_build_push:
   script:
     - chmod 0755 ci-scripts/build_push_images.sh
     - ci-scripts/build_push_images.sh
+  tags:
+    t005-build
