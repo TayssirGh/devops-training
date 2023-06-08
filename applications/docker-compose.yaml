@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   database:
-    image: mong
+    image: mongodb
     ports:
       - "3306:3306"
     volumes:
