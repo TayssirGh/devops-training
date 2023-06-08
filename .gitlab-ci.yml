@@ -1,0 +1,36 @@
+stages:
+  - build_push
+
+before_script:
+  - echo "dckr_pat_v66QsJpIqnywBIVosSaY49V-mXY" | docker login -u xqliza --password-stdin
+
+qr_build_push:
+  stage: build_push
+  variables:
+    image_name : qr
+    image_tag: dev
+    registry_name: xqliza
+  script:
+    - chmod 0755 ci-scripts/build_push_images.sh
+    - ci-scripts/build_push_images.sh
+
+
+backend_build_push:
+  stage: build_push
+  variables:
+    image_name : backend
+    image_tag: dev
+    registry_name: xqliza
+  script:
+    - chmod 0755 ci-scripts/build_push_images.sh
+    - ci-scripts/build_push_images.sh
+
+website_build_push:
+  stage: build_push
+  variables:
+    image_name : website
+    image_tag: dev
+    registry_name: xqliza
+  script:
+    - chmod 0755 ci-scripts/build_push_images.sh
+    - ci-scripts/build_push_images.sh
