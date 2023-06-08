@@ -23,7 +23,7 @@ backend_build_push:
     image_tag: dev
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
-    - ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
   tags:
     - t005-build
 
@@ -34,6 +34,6 @@ website_build_push:
     image_tag: dev
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
-    - ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
   tags:
     - t005-build
