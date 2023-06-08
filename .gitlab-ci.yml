@@ -2,6 +2,7 @@ stages:
   - build_push
 
 before_script:
+  - apk add --no-cache docker openrc
   - service docker start
   - echo "$T005_DOCKER_HUB_TOKEN" | docker login -u $T005_REGISTRY_USER_NAME --password-stdin
 
