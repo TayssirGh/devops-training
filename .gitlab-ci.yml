@@ -10,7 +10,7 @@ qr_build_push:
     image_name : qr
     image_tag: dev
   script:
-    - chmod 0755 c./i-scripts/build_push_images.sh
+    - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t006-build-protected
