@@ -1,0 +1,49 @@
+version: '3'
+services:
+
+  qr:
+    extends: 
+      file: docker-compose-A.yml
+      service: qr
+    networks:
+    - qr_network
+    depends_on:
+      - minios3
+
+  website:
+    extends: 
+      file: docker-compose-A.yml
+      service: website
+    depends_on:
+      - backend
+
+  backend:
+    extends: 
+      file: docker-compose-A.yml
+      service: backend
+    depends_on:
+      - qr
+    networks:
+    - qr_network
+    
+  minios3:
+    image: minio/minio
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123
+    volumes:
+      - ./minio_data:/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    networks:
+      - qr_network
+    command: server /data --console-address ":9001"
+
+networks:
+  qr_network:
+
+volumes:
+  minio_data:
+  qrVolume:
+  

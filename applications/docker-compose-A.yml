@@ -7,7 +7,12 @@ services:
     build:
       context: ./qr
     restart: always
-    ports: "8420:8420"
+    ports: 
+      - "8420:8420"
+    env_file:
+      - qr/.env.example
+    volumes:
+      - qrVolume:/app/scripts/generated_qr
 
   backend:
     image: backend
@@ -15,9 +20,10 @@ services:
     build:
       context: ./backend
     restart: always
-    ports: "3000:3000"
-    depends_on:
-      - qr   
+    ports: 
+      - "3000:3000"
+    env_file:
+      - backend/.env.example
 
   website:
     image: website
@@ -25,8 +31,10 @@ services:
     build:
       context: ./website
     restart: always
-    ports: "4200:4200"
-    depends_on:
-      - backend
+    ports: 
+      - "4200:4200"
+    volumes:
+      - qrVolume:/app/scripts/generated_qr
 
-  
+volumes:
+  qrVolume:
