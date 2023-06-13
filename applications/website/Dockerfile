@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY . .
 
+RUN npm install -g @angular/cli@7.3.9
+
 RUN npm install
 
 RUN npm build
 
-CMD ["npm", "start"]
-
-EXPOSE 4200
+CMD ["ng", "serve", "--host", "0.0.0.0"]

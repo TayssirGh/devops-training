@@ -1,13 +1,11 @@
-FROM python:3.8.17-slim-buster AS qr
+FROM python:3.8-slim-buster AS qr
 
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-RUN pip install -r requirements.txt 
+RUN pip3 install --no-cache-dir -r requirements.txt 
 
-COPY . /app/
+COPY . .
 
-CMD ["uvicorn", "app:atom" "--host", "0.0.0.0" "--port", "8420"]
-
-EXPOSE 8420
+CMD ["uvicorn", "app:atom" ,"--host", "0.0.0.0" ,"--port", "8420"]
