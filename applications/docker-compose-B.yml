@@ -25,7 +25,7 @@ services:
       - qr
     networks:
     - qr_network
-    
+
   minios3:
     image: minio/minio
     environment:
@@ -46,4 +46,3 @@ networks:
 volumes:
   minio_data:
   qrVolume:
-  
