@@ -6,9 +6,12 @@ COPY package.json /app/package.json
 
 RUN npm install
 
-RUN npm install -g @angular/cli@7.3.9
-
 COPY . .
 
-CMD [ "ng", "serve", "--host", "0.0.0.0"]
-#CMD ng serve --host 0.0.0.0
+RUN npm run build --prod
+
+FROM nginx:alpine as nginxproxy
+
+COPY --from=website /app/dist/website /usr/share/nginx/html
+
+COPY /nginx.conf /etc/nginx/conf.d/default.conf

@@ -3,36 +3,24 @@ services:
 
   qr:
     image: qr
-    container_name: qr
     build:
       context: ./qr
-    restart: always
-    ports: 
-      - "8420:8420"
     env_file:
-      - qr/.env.example
+      - qr/.env
     volumes:
       - qrVolume:/app/scripts/generated_qr
 
   backend:
     image: backend
-    container_name: backend
     build:
       context: ./backend
-    restart: always
-    ports: 
-      - "3000:3000"
     env_file:
-      - backend/.env.example
+      - backend/.env
 
   website:
     image: website
-    container_name: website
     build:
       context: ./website
-    restart: always
-    ports: 
-      - "4200:4200"
     volumes:
       - qrVolume:/app/scripts/generated_qr
 

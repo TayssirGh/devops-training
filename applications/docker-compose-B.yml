@@ -2,29 +2,19 @@ version: '3'
 services:
 
   qr:
-    extends: 
+    extends:
       file: docker-compose-A.yml
       service: qr
-    networks:
-    - qr_network
-    depends_on:
-      - minios3
 
   website:
-    extends: 
+    extends:
       file: docker-compose-A.yml
       service: website
-    depends_on:
-      - backend
 
   backend:
-    extends: 
+    extends:
       file: docker-compose-A.yml
       service: backend
-    depends_on:
-      - qr
-    networks:
-    - qr_network
 
   minios3:
     image: minio/minio
@@ -36,13 +26,7 @@ services:
     ports:
       - 9000:9000
       - 9001:9001
-    networks:
-      - qr_network
     command: server /data --console-address ":9001"
-
-networks:
-  qr_network:
 
 volumes:
   minio_data:
-  qrVolume:
