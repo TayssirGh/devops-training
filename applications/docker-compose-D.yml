@@ -61,12 +61,15 @@ services:
     image: nginx:latest
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - website
       - minio
       - backend
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./ssl/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./ssl/localhost/localhost.crt:/etc/localhost.crt
+      - ./ssl/localhost/localhost.decrypted.key:/etc/localhost.decrypted.key
       -  ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
     networks:
       - qr_net
