@@ -1,0 +1,91 @@
+version: '3.9'
+
+services:
+  qr:
+    build: 
+      context: ./qr
+      dockerfile: Dockerfile
+    env_file:
+      - ./qr/.env
+    volumes:
+      - qr_data:/app/scripts/generated_qr
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+    networks:
+      - qr_net
+    depends_on:
+      - minio
+
+    
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    ports:
+      - 8082:3000
+    networks:
+      - qr_net
+    depends_on:
+      - qr
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+
+  website:
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    volumes:
+      - qr_data:/app/scripts/generated_qr
+      - app_data:/usr/share/nginx/html/assets/data:z
+      - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+    networks:
+      - public_network
+    
+
+    # deploy:
+    #   mode: replicated
+    #   replicas: 2
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data --console-address ":9001"
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - ./minio-data:/data
+    networks:
+      - qr_net
+      - public_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    depends_on:
+      - website
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      -  ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+    networks:
+      - qr_net
+      - public_network
+    
+volumes:
+  minio-data:
+  qr_data:
+  app_data:
+
+
+networks:
+  public_network:
+  qr_net:
+    external: false  
+

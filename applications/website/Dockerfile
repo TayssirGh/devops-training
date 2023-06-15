@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install -g @angular/cli@7.3.9
-
 RUN npm install
 
-RUN npm build
+RUN npm run build --prod
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+FROM nginx:latest
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=website /app/dist/website /app

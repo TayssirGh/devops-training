@@ -24,7 +24,8 @@ services:
     extends:
       file: ./docker-compose-A.yml
       service: website
-
+    depends_on:
+      - backend
 
   minio:
     image: minio/minio
