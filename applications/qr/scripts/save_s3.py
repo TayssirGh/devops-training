@@ -1,13 +1,15 @@
 from minio import Minio
 import os
-
+import socket
 from .validate_env import EnvValidator
 
 
 class S3Manager:
 
     def __init__(self):
-        self.endpoint = EnvValidator.bucket_endpoint()
+        host_name = socket.gethostbyname(EnvValidator.bucket_endpoint().split(":")[0])
+        port = EnvValidator.bucket_endpoint().split(":")[1]
+        self.endpoint = "%s:%s" % (host_name, port)
         self.accessKey = EnvValidator.bucket_access_key()
         self.secretKey = EnvValidator.bucket_secret_key()
         self.bucketName = EnvValidator.bucket_name()

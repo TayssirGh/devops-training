@@ -12,7 +12,7 @@ services:
       - minios3
 
   website:
-    container_name: website
+    container_name: websiteA
     extends:
       file: docker-compose-B.yml
       service: website
