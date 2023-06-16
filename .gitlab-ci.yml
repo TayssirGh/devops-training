@@ -26,7 +26,7 @@ backend_build_push:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t006-build-protected
+    - t006-deploy
 
 website_build_push:
   stage: build_push
@@ -36,5 +36,13 @@ website_build_push:
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t006-deploy
+
+deploy_stage:
+  stage: deploy
+  script:
+    - chmod 0755 ./ci-scripts/launch-C.sh
+    - sh ./ci-scripts/deploy.sh
   tags:
     - t006-deploy
