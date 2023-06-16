@@ -39,6 +39,4 @@ applications/website/src/assets/configs/app-config.json
 **/.DS_Store
 **/Thumbs.db
 
-
-applications/minio_data
 applications/ssl/**

@@ -1,5 +1,6 @@
 stages:
   - build_push
+  - deploy
 
 before_script:
   - echo "$T006_DOCKER_HUB_TOKEN" | docker login -u $T006_REGISTRY_USER_NAME --password-stdin
@@ -8,19 +9,19 @@ qr_build_push:
   stage: build_push
   variables:
     image_name : qr
-    image_tag: dev
+    image_tag: prod
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t006-build-protected
+    - t006-deploy
 
 
 backend_build_push:
   stage: build_push
   variables:
     image_name : backend
-    image_tag: dev
+    image_tag: prod
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
@@ -31,9 +32,9 @@ website_build_push:
   stage: build_push
   variables:
     image_name : website
-    image_tag: dev
+    image_tag: prod
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t006-build-protected
+    - t006-deploy
