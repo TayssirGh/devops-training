@@ -2,25 +2,21 @@ version: '3'
 services:
 
   qr:
-    image: qr
-    build:
-      context: ./qr
+    image: xqliza/t005-qr
     env_file:
       - qr/.env
     volumes:
       - qrVolume:/app/scripts/generated_qr
 
   backend:
-    image: backend
+    image: xqliza/t005-backend
     build:
       context: ./backend
     env_file:
       - backend/.env
 
   website:
-    image: website
-    build:
-      context: ./website
+    image: xqliza/t005-website
     volumes:
       - qrVolume:/app/scripts/generated_qr
 

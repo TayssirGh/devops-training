@@ -1,5 +1,6 @@
 stages:
   - build_push
+  - deploy
 
 before_script:
   - echo "$T005_DOCKER_HUB_TOKEN" | docker login -u $T005_REGISTRY_USER_NAME --password-stdin
@@ -13,7 +14,7 @@ qr_build_push:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t005-build
+    - t005-deploy
 
 
 backend_build_push:
@@ -25,7 +26,7 @@ backend_build_push:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t005-build
+    - t005-deploy
 
 website_build_push:
   stage: build_push
@@ -36,4 +37,13 @@ website_build_push:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t005-build
+    - t005-deploy
+
+deploy_applications:
+  stage: deploy
+  script:
+    - chmod 0755 ./applications/launch-C.sh
+    - sh ./applications/launch-C.sh
+  tags:
+    - t005-deploy
+  
