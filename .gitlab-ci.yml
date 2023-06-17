@@ -1,21 +1,21 @@
+
 stages:
   - build
   - deploy
 
 variables:
-  DOCKERHUB_USERNAME: "$T007_REGISTRY_USER_NAME"
-  DOCKERHUB_PASSWORD: "$T007_DOCKER_HUB_TOKEN"
+  DOCKERHUB_USERNAME: "T007_REGISTRY_USER_NAME"
+  DOCKERHUB_PASSWORD: "T007_DOCKER_HUB_TOKEN"
 
 build:
   stage: build
   variables:
-   image_tag: dev
+    image_tag: dev
   script:
     - docker-compose -f ./application/docker-compose.yml build
     - docker-compose -f ./application/docker-compose.yml up -d
   tags:
     - t007-build/deploy
-
 
 deploy:
   stage: deploy
