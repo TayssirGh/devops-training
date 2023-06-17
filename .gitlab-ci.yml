@@ -6,13 +6,39 @@ variables:
   DOCKERHUB_USERNAME: "$T007_REGISTRY_USER_NAME"
   DOCKERHUB_PASSWORD: "$T007_DOCKER_HUB_TOKEN"
 
-build:
+qr_build:
   stage: build
+  variables:
+    image_name : qr
+    image_tag: dev
   script:
-    - docker-compose -f ./application/docker-compose.yml build
-    - docker-compose -f ./application/docker-compose.yml up -d
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
   tags:
     - t007-build/deploy
+
+backend_build:
+  stage: build
+  variables:
+    image_name : backend
+    image_tag: dev
+  script:
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t007-build/deploy
+
+wabsite_build:
+  stage: build
+  variables:
+    image_name : website
+    image_tag: dev
+  script:
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t007-build/deploy
+
 
 
 deploy:
