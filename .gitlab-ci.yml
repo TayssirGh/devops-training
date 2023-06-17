@@ -3,13 +3,11 @@ stages:
   - deploy
 
 variables:
-  DOCKER_IMAGE: "tmaier/docker-compose:latest"
   DOCKERHUB_USERNAME: "$T007_REGISTRY_USER_NAME"
   DOCKERHUB_PASSWORD: "$T007_DOCKER_HUB_TOKEN"
 
 build:
   stage: build
-  image: "$DOCKER_IMAGE"
   variables:
    image_tag: dev
   script:
