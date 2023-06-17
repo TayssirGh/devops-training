@@ -1,5 +1,5 @@
 import os
-
+from dotenv import load_dotenv
 
 class EnvValidator:
 
@@ -22,8 +22,10 @@ class EnvValidator:
 
     @staticmethod
     def qr_tmp_folder():
-        return os.getenv('QR_TMP_FOLDER', "./generated_qr")
-
+        load_dotenv()
+        qa= os.getenv('QR_TMP_FOLDER', "generated_qr")
+        print(qa)
+        return qa
     @staticmethod
     def qr_fill_color():
         return os.getenv('QR_FILL_COLOR', "#121128")

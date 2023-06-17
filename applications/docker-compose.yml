@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+
+  qr:
+    image: housseinhmila/qr:latest
+    container_name: qr
+    build:
+      context: ./qr
+    restart: always
+    ports: 
+     - 8420:8420
+    env_file:
+      - qr/.env
+    volumes:
+      - generated_qr:/app/generated_qr/
+  
+
+
+  backend:
+    image: housseinhmila/backend:latest
+    container_name: backend
+    build:
+      context: ./backend
+    restart: always
+    ports: 
+     - 3000:3000
+    depends_on:
+      - qr
+    env_file:
+      - backend/.env 
+  
+
+
+  website:
+    image: housseinhmila/website:latest
+    container_name: website
+    build:
+      context: ./website
+    restart: always
+    ports: 
+     - 4200:4200
+    depends_on:
+      - backend
+    volumes:
+    - generated_qr:/usr/share/nginx/html/assets/data:ro
+   
+   
+volumes:
+  generated_qr:
