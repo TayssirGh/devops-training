@@ -1,0 +1,29 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_IMAGE: "tmaier/docker-compose:latest"
+  DOCKERHUB_USERNAME: "$T007_REGISTRY_USER_NAME"
+  DOCKERHUB_PASSWORD: "$T007_DOCKER_HUB_TOKEN"
+
+build:
+  stage: build
+  image: "$DOCKER_IMAGE"
+  image_tag: dev
+  script:
+    - docker-compose -f ./application/docker-compose.yml build
+    - docker-compose -f ./application/docker-compose.yml up -d
+  tags:
+    - t007-build/deploy
+
+
+deploy:
+  stage: deploy
+  script:
+    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+    - docker push "$DOCKERHUB_USERNAME"/t-007-qr:latest
+    - docker push "$DOCKERHUB_USERNAME"/t-007-backend:latest
+    - docker push "$DOCKERHUB_USERNAME"/t-007-website:latest
+  tags:
+    - t007-build/deploy
