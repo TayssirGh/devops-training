@@ -2,10 +2,6 @@ stages:
   - build
   - deploy
 
-variables:
-  DOCKERHUB_USERNAME: "$T007_REGISTRY_USER_NAME"
-  DOCKERHUB_PASSWORD: "$T007_DOCKER_HUB_TOKEN"
-
 qr_build:
   stage: build
   variables:
@@ -44,9 +40,9 @@ wabsite_build:
 deploy:
   stage: deploy
   script:
-    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
-    - docker push "$DOCKERHUB_USERNAME"/t-007-qr:latest
-    - docker push "$DOCKERHUB_USERNAME"/t-007-backend:latest
-    - docker push "$DOCKERHUB_USERNAME"/t-007-website:latest
+    - docker login -u "$T007_REGISTRY_USER_NAME" -p "$T007_DOCKER_HUB_TOKEN"
+    - docker push "$T007_REGISTRY_USER_NAME"/t-007-qr:latest
+    - docker push "$T007_REGISTRY_USER_NAME"/t-007-backend:latest
+    - docker push "$T007_REGISTRY_USER_NAME"/t-007-website:latest
   tags:
     - t007-build/deploy
