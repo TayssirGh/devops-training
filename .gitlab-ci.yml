@@ -8,8 +8,8 @@ qr_build:
     image_name : qr
     image_tag: dev
   script:
-    - chmod 0755 ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
+    - chmod 0755 ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
   tags:
     - t007-build/deploy
 
@@ -19,8 +19,8 @@ backend_build:
     image_name : backend
     image_tag: dev
   script:
-    - chmod 0755 ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
+    - chmod 0755 ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
   tags:
     - t007-build/deploy
 
@@ -30,8 +30,8 @@ wabsite_build:
     image_name : website
     image_tag: dev
   script:
-    - chmod 0755 ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
+    - chmod 0755 ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
   tags:
     - t007-build/deploy
 
