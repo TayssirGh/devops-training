@@ -8,8 +8,9 @@ qr_build:
     image_name : qr
     image_tag: dev
   script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
+    - echo "Building QR image"
+    - docker build applications/${image_name} --tag "${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}"
+    - echo "finish building QR image"
   tags:
     - t007-build/deploy
 
