@@ -19,8 +19,7 @@ qr_build:
     - echo "Building QR image"
     - docker build -t"${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}" applications/${image_name} 
     - echo "finish building QR image"
-  tags:
-    - t007-build/deploy
+ 
 
 backend_build:
   stage: build
@@ -30,8 +29,7 @@ backend_build:
   script:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
-  tags:
-    - t007-build/deploy
+
 
 wabsite_build:
   stage: build
@@ -41,8 +39,7 @@ wabsite_build:
   script:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
-  tags:
-    - t007-build/deploy
+
 
 ######################
 
@@ -53,5 +50,4 @@ deploy:
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:latest"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:latest"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:latest"
-  tags:
-    - t007-build/deploy
+
