@@ -16,9 +16,8 @@ qr_build:
     image_name : qr
     image_tag: dev
   script:
-    - echo "Building QR image"
-    - docker build -t"${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}" applications/${image_name} 
-    - echo "finish building QR image"
+    - chmod +x ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
  
 
 backend_build:
@@ -40,8 +39,6 @@ wabsite_build:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
 
-
-######################
 
 deploy:
   stage: deploy
