@@ -3,12 +3,10 @@ stages:
   - deploy
 
 
+
 services:
   - name: docker:dind
 
-variables:
-  DOCKER_HOST: tcp://172.17.0.2:2376
-  DOCKER_TLS_CERTDIR: ""
 
 
 qr_build:
