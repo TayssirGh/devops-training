@@ -1,18 +1,20 @@
 stages:
   - build
   - deploy
-
+  
+image: docker:20.10.16
 services:
-  - name: docker:dind
+  - name: docker:20.10.16-dind
 
 variables:
-  DOCKER_HOST: tcp://docker:2375
+  DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: ""
 
 
 before_script:
   - docker info
-  - docker login -u "${T007_REGISTRY_USER_NAME} -p ${T007_DOCKER_HUB_TOKEN}"
+  - docker login -u "${T007_REGISTRY_USER_NAME}" -p "${T007_DOCKER_HUB_TOKEN}"
+
 qr_build:
   stage: build
   variables:
@@ -20,7 +22,7 @@ qr_build:
     image_tag: dev
   script:
     - echo "Building QR image"
-    - docker build applications/${image_name} --tag "${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}"
+    - docker build -t"${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}" applications/${image_name} 
     - echo "finish building QR image"
   tags:
     - t007-build/deploy
