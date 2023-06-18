@@ -2,6 +2,9 @@ stages:
   - build
   - deploy
 
+before_script:
+  - docker info
+  - docker login -u "${T007_REGISTRY_USER_NAME} -p ${T007_DOCKER_HUB_TOKEN}"
 qr_build:
   stage: build
   variables:
@@ -41,7 +44,7 @@ wabsite_build:
 deploy:
   stage: deploy
   script:
-    - docker login -u "${T007_REGISTRY_USER_NAME} -p ${T007_DOCKER_HUB_TOKEN}"
+    
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:latest"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:latest"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:latest"
