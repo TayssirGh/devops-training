@@ -7,7 +7,7 @@ services:
   - name: docker:20.10.16-dind
 
 variables:
-  DOCKER_HOST: tcp://docker:2376
+  DOCKER_HOST: tcp://172.17.0.2:2376
   DOCKER_TLS_CERTDIR: ""
 
 
