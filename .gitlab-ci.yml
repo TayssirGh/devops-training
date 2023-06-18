@@ -2,6 +2,14 @@ stages:
   - build
   - deploy
 
+services:
+  - name: docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
+
 before_script:
   - docker info
   - docker login -u "${T007_REGISTRY_USER_NAME} -p ${T007_DOCKER_HUB_TOKEN}"
