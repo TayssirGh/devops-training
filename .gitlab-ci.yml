@@ -2,10 +2,6 @@ stages:
   - build
   - deploy
 
-services:
-  - docker:dind
-
-
 qr_build:
   stage: build
   variables:
