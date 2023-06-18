@@ -1,7 +1,7 @@
 stages:
   - build
   - deploy
-  
+
 image: docker:20.10.16
 services:
   - name: docker:20.10.16-dind
@@ -12,7 +12,6 @@ variables:
 
 
 before_script:
-  - docker info
   - docker login -u "${T007_REGISTRY_USER_NAME}" -p "${T007_DOCKER_HUB_TOKEN}"
 
 qr_build:
