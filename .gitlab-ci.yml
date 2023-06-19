@@ -12,30 +12,30 @@ services:
 
   
 qr_build:
-    stage: build_deploy
-    image: docker:latest
-    variables:
-      image_name: qr
-      image_tag: dev
-    script:
-      - chmod +x ./ci-scripts/comp.sh
-      - sh ./ci-scripts/comp.sh
+  stage: build_deploy
+  image: docker:latest
+  variables:
+    image_name: qr
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
 
 backend_build:
-    stage: build_deploy
-    variables:
-      image_name: backend
-      image_tag: dev
-    script:
-      - chmod +x ./ci-scripts/comp.sh
-      - sh ./ci-scripts/comp.sh
+  stage: build_deploy
+  variables:
+    image_name: backend
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
 
 website_build:
-    stage: build_deploy
-    variables:
-      image_name: website
-      image_tag: dev
-    script:
-      - chmod +x ./ci-scripts/comp.sh
-      - sh ./ci-scripts/comp.sh
+  stage: build_deploy
+  variables:
+    image_name: website
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/comp.sh
+    - sh ./ci-scripts/comp.sh
 
