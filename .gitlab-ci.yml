@@ -44,7 +44,8 @@ deploy:
   stage: deploy
   script:
     - echo "${T007_DOCKER_HUB_TOKEN}"| docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:latest"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:latest"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:latest"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
 
+#"${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}"
