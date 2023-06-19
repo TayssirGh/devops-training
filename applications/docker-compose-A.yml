@@ -2,7 +2,7 @@ version: '3'
 services:
 
   qr:
-    image: xqliza/t005-qr
+    image: xqliza/t005-qr:dev
     environment:
       - QR_TMP_FOLDER="./generated_qr"
       - QR_FILL_COLOR="#121128"
@@ -17,7 +17,7 @@ services:
       - qrVolume:/app/scripts/generated_qr
 
   backend:
-    image: xqliza/t005-backend
+    image: xqliza/t005-backend:dev
     build:
       context: ./backend
     environment:
@@ -27,7 +27,7 @@ services:
       - MONGO_DB=qrs
 
   website:
-    image: xqliza/t005-website
+    image: xqliza/t005-website:dev
     volumes:
       - qrVolume:/app/scripts/generated_qr
 
