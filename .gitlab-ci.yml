@@ -2,43 +2,38 @@ stages:
   - build
   - deploy
 
-
-
 services:
   - name: docker:dind
 
-
 build:
- stage: build
- qr_build:
-  image: docker:latest
-  variables:
-    image_name : qr
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
- backend_build:
-  variables:
-    image_name : backend
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
- website_build:
-  variables:
-    image_name : website
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
-
+  stage: build
+  qr_build:
+    image: docker:latest
+    variables:
+      image_name: qr
+      image_tag: dev
+    script:
+      - chmod +x ./ci-scripts/comp.sh
+      - sh ./ci-scripts/comp.sh
+  backend_build:
+    variables:
+      image_name: backend
+      image_tag: dev
+    script:
+      - chmod +x ./ci-scripts/comp.sh
+      - sh ./ci-scripts/comp.sh
+  website_build:
+    variables:
+      image_name: website
+      image_tag: dev
+    script:
+      - chmod +x ./ci-scripts/comp.sh
+      - sh ./ci-scripts/comp.sh
 
 deploy:
   stage: deploy
   script:
-    - echo "${T007_DOCKER_HUB_TOKEN}"| docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
+    - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
-
