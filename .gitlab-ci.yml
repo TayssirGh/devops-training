@@ -43,6 +43,6 @@ deploy_stage:
   stage: deploy
   script:
     - chmod 0755 ./ci-scripts/launch-C.sh
-    - sh ./ci-scripts/deploy.sh
+    - sh ./ci-scripts/launch-C.sh
   tags:
     - t006-deploy

@@ -5,8 +5,15 @@ services:
     build: 
       context: ./qr
       dockerfile: Dockerfile
-    env_file:
-      - ./qr/.env
+    environment:
+      - QR_TMP_FOLDER="./generated_qr"
+      - QR_FILL_COLOR="#121128"
+      - QR_BACKGROUND_COLOR="#dcdbdb"
+      - USE_BUCKET=true
+      - BUCKET_ENDPOINT=${T006_BUCKET_ENDPOINT}
+      - BUCKET_ACCESS_KEY=${T006_BUCKET_ACCESS_KEY}
+      - BUCKET_SECRET_KEY=${T006_BUCKET_SECRET_KEY}
+      - BUCKET_NAME="qrcode1"
     volumes:
       - qr_data:/app/scripts/generated_qr
     networks:
@@ -21,8 +28,11 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    env_file:
-      - ./backend/.env
+    environment:
+      - APP_PORT=3000
+      - QR_URL=http://qr:8420/
+      - MONGO_URI=${T006_MONGO_URI}
+      - MONGO_DB=devops-training
     networks:
       - qr_net
     depends_on:
@@ -48,8 +58,8 @@ services:
   minio:
     image: minio/minio
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
+      MINIO_ACCESS_KEY: ${T006_MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${T006_MINIO_SECRET_KEY}
     command: server /data --console-address ":9001"
     volumes:
       - ./minio-data:/data
