@@ -52,8 +52,8 @@ services:
   minio:
     image: minio/minio
     environment:
-      MINIO_ACCESS_KEY: ${T006_MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${T006_MINIO_SECRET_KEY}
+      MINIO_ACCESS_KEY: ${T006_BUCKET_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${T006_BUCKET_SECRET_KEY}
     command: server /data --console-address ":9001"
     volumes:
       - ./minio-data:/data
