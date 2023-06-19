@@ -1,13 +1,18 @@
 stages:
-  - build
-  - deploy
+  - build_deploy
+
+
+before-script:
+   - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
+
 
 services:
   - name: docker:dind
 
-build:
-  stage: build
-  qr_build:
+
+  
+qr_build:
+    stage: build_deploy
     image: docker:latest
     variables:
       image_name: qr
@@ -15,14 +20,18 @@ build:
     script:
       - chmod +x ./ci-scripts/comp.sh
       - sh ./ci-scripts/comp.sh
-  backend_build:
+
+backend_build:
+    stage: build_deploy
     variables:
       image_name: backend
       image_tag: dev
     script:
       - chmod +x ./ci-scripts/comp.sh
       - sh ./ci-scripts/comp.sh
-  website_build:
+
+website_build:
+    stage: build_deploy
     variables:
       image_name: website
       image_tag: dev
@@ -30,10 +39,3 @@ build:
       - chmod +x ./ci-scripts/comp.sh
       - sh ./ci-scripts/comp.sh
 
-deploy:
-  stage: deploy
-  script:
-    - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
