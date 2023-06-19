@@ -1,16 +1,12 @@
 stages:
   - build_deploy
 
-
-before-script:
-   - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
-
+before_script:
+  - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
 
 services:
   - name: docker:dind
 
-
-  
 qr_build:
   stage: build_deploy
   image: docker:latest
@@ -38,4 +34,3 @@ website_build:
   script:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
-
