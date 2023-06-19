@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd applications
-docker compose -f docker-compose-C.yml up -d --build
+docker-compose -f applications/docker-compose-C.yml up -d --build
