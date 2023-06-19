@@ -9,7 +9,7 @@ qr_build_push:
   stage: build_push
   variables:
     image_name : qr
-    image_tag: prod
+    image_tag: dev
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
@@ -21,7 +21,7 @@ backend_build_push:
   stage: build_push
   variables:
     image_name : backend
-    image_tag: prod
+    image_tag: dev
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
@@ -32,7 +32,7 @@ website_build_push:
   stage: build_push
   variables:
     image_name : website
-    image_tag: prod
+    image_tag: dev
   script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh

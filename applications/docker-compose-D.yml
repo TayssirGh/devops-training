@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   qr:
-    image: karimzomita/t006-qr:prod
+    image: karimzomita/t006-qr:dev
     env_file:
       - ./qr/.env
     volumes:
@@ -16,7 +16,7 @@ services:
       replicas: 2
     
   backend:
-    image: karimzomita/t006-backend:prod
+    image: karimzomita/t006-backend:dev
     env_file:
       - ./backend/.env
     networks:
@@ -28,7 +28,7 @@ services:
       replicas: 2
 
   website:
-    image: karimzomita/t006-website:prod
+    image: karimzomita/t006-website:dev
     volumes:
       - qr_data:/app/scripts/generated_qr
       - app_data:/usr/share/nginx/html/assets/data:z

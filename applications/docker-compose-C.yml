@@ -2,9 +2,7 @@ version: '3.9'
 
 services:
   qr:
-    build: 
-      context: ./qr
-      dockerfile: Dockerfile
+    image: karimzomita/t006-qr:dev
     environment:
       - QR_TMP_FOLDER="./generated_qr"
       - QR_FILL_COLOR="#121128"
@@ -25,9 +23,7 @@ services:
       replicas: 2
     
   backend:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
+    image: karimzomita/t006-backend:dev
     environment:
       - APP_PORT=3000
       - QR_URL=http://qr:8420/
@@ -42,9 +38,7 @@ services:
       replicas: 2
 
   website:
-    build:
-      context: ./website
-      dockerfile: Dockerfile
+    image: karimzomita/t006-backend:dev
     volumes:
       - qr_data:/app/scripts/generated_qr
       - app_data:/usr/share/nginx/html/assets/data:z
