@@ -23,7 +23,7 @@ services:
       context: ./backend
     restart: always
     ports: 
-     - 3000:3000
+     - 8082:3000
     depends_on:
       - qr
     env_file:
@@ -38,7 +38,7 @@ services:
       context: ./website
     restart: always
     ports: 
-     - 4200:4200
+     - 81:4200
     depends_on:
       - backend
     volumes:

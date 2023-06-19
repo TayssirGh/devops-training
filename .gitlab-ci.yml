@@ -8,9 +8,9 @@ services:
   - name: docker:dind
 
 
-
-qr_build:
-  stage: build
+build:
+ stage: build
+ qr_build:
   image: docker:latest
   variables:
     image_name : qr
@@ -18,20 +18,14 @@ qr_build:
   script:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
- 
-
-backend_build:
-  stage: build
+ backend_build:
   variables:
     image_name : backend
     image_tag: dev
   script:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
-
-
-wabsite_build:
-  stage: build
+ website_build:
   variables:
     image_name : website
     image_tag: dev
@@ -48,4 +42,3 @@ deploy:
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
 
-#"${T007_REGISTRY_USER_NAME}/t-007-${image_name}:${image_tag}"
