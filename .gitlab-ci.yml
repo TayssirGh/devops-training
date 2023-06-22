@@ -1,6 +1,6 @@
 stages:
-  - build_
-  - deploy
+  - build
+
   
 
 before_script:
@@ -9,35 +9,9 @@ before_script:
 services:
   - name: docker:dind
 
-build:
-  stage: build_
+build_push:
+  stage: build
   image: docker:latest
   script:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
-qr:
-  stage: deploy
-  variables:
-    image_name: qr
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
-
-backend:
-  stage: deploy
-  variables:
-    image_name: backend
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
-
-website:
-  stage: deploy
-  variables:
-    image_name: website
-    image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/comp.sh
-    - sh ./ci-scripts/comp.sh
