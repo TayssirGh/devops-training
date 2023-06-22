@@ -63,7 +63,7 @@ services:
     environment:
       - APP_PORT=3000
       - QR_URL=http://qr:8420
-      - MONGO_URI=mongodb+srv://houssein:kairouan@cluster0.0tc12ie.mongodb.net
+      - MONGO_URI="${T007_MONGO_URI}"
       - MONGO_DB=test
 
     networks:
