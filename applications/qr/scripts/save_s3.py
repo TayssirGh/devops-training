@@ -24,5 +24,5 @@ class S3Manager:
         self.minioClient.fput_object(self.bucketName, "{}/{}.png".format(
             self.bucketPath if path_under_bucket is None else path_under_bucket, qr_id),
                                      qr_path)
-        os.remove(qr_path)
+        #os.remove(qr_path)
         return self.minioClient.presigned_get_object(self.bucketName, "{}/{}.png".format(self.bucketPath, qr_id))

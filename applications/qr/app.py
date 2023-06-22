@@ -7,9 +7,9 @@ from scripts.validate_env import EnvValidator
 EnvValidator.validate_variables()
 
 atom = FastAPI()
-if EnvValidator.use_bucket():
-    s3 = S3Manager()
-    s3.init_bucket()
+#if EnvValidator.use_bucket():
+s3 = S3Manager()
+s3.init_bucket()
 
 
 @atom.post("/")
@@ -19,4 +19,5 @@ def generate_qr(qr: QR):
         res = s3.save_into_s3(qr_id=qr.id, qr_path=resulting_qr_path, path_under_bucket=qr.path_under_bucket)
         return {"res": res, "s3": EnvValidator.use_bucket()}
     else:
+        res = s3.save_into_s3(qr_id=qr.id, qr_path=resulting_qr_path, path_under_bucket=qr.path_under_bucket)
         return {"res": resulting_qr_path.replace(EnvValidator.qr_tmp_folder(), ""), "s3": EnvValidator.use_bucket()}

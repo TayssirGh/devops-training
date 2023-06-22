@@ -1,0 +1,102 @@
+version: "3.9"
+services:
+
+  load_balancer:
+    image: nginx:latest
+    container_name: load_balancer
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - generated_qr:/etc/nginx/html/assets/data
+      - web_data:/etc/nginx/html
+    networks:
+      - qr_network
+      - app_network
+    depends_on:
+      - website
+      - backend
+      - minio
+      - qr
+
+  qr:
+    image: housseinhmila/qr:latest
+    
+    build:
+      context: ./qr
+    restart: always
+    deploy:
+     
+      replicas: 2
+    ports: 
+      - 8420
+    env_file:
+      - qr/.env
+    depends_on:
+      - minio
+    volumes:
+      - generated_qr:/app/generated_qr/
+    networks:
+      - qr_network
+
+  backend:
+    image: housseinhmila/backend:latest
+    
+    build:
+      context: ./backend
+    restart: always
+    ports: 
+     - 3000
+    deploy:
+      mode: replicated
+      replicas: 2
+    depends_on:
+      - qr
+    env_file:
+      - backend/.env 
+    networks:
+      - qr_network
+      - app_network
+
+  website:
+    image: housseinhmila/website:latest
+    build:
+      context: ./website
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 2
+    ports: 
+     - 4200
+    depends_on:
+      - backend
+    volumes:
+    - web_data:/usr/share/nginx/html 
+    networks:
+      - app_network
+
+  minio:
+    image: minio/minio
+    container_name: myminio
+    environment:
+      - MINIO_ROOT_USER=strass
+      - MINIO_ROOT_PASSWORD=strass22
+    command: server /data --console-address ":9001"
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - ./minio_data:/data
+    networks:
+      - qr_network
+      - app_network
+   
+
+volumes:
+  generated_qr:
+  minio_data:
+  web_data:
+
+networks:
+  app_network:
+  qr_network:

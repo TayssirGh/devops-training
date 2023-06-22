@@ -22,6 +22,7 @@ services:
       service: website
     depends_on:
       - backend
+    
 
   
   minio:
