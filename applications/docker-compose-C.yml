@@ -20,7 +20,7 @@ services:
       - qr
 
   qr:
-    image: housseinhmila/t-007-qr
+    image: housseinhmila/t-007-qr:dev
     
     build:
       context: ./qr
@@ -48,7 +48,7 @@ services:
       - qr_network
 
   backend:
-    image: housseinhmila/t-007-backend
+    image: housseinhmila/t-007-backend:dev
     
     build:
       context: ./backend
@@ -71,7 +71,7 @@ services:
       - app_network
 
   website:
-    image: housseinhmila/t-007-website
+    image: housseinhmila/t-007-website:dev
     build:
       context: ./website
     restart: always
