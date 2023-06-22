@@ -17,7 +17,6 @@ def generate_qr(qr: QR):
     resulting_qr_path = QrGenerator.generate_qr(qr.content, qr.id)
     if EnvValidator.use_bucket():
         res = s3.save_into_s3(qr_id=qr.id, qr_path=resulting_qr_path, path_under_bucket=qr.path_under_bucket)
-        return {"res": res, "s3": EnvValidator.use_bucket()}
+        return {"res": resulting_qr_path.replace(EnvValidator.qr_tmp_folder(), ""), "s3": "false"}
     else:
-        res = s3.save_into_s3(qr_id=qr.id, qr_path=resulting_qr_path, path_under_bucket=qr.path_under_bucket)
         return {"res": resulting_qr_path.replace(EnvValidator.qr_tmp_folder(), ""), "s3": EnvValidator.use_bucket()}
