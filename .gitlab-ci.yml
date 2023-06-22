@@ -13,8 +13,8 @@ build:
   stage: build_
   image: docker:latest
   script:
-    - chmod +x ./application/launch.sh
-    - sh ./application/launch.sh
+    - chmod +x ./applications/launch.sh
+    - sh ./applications/launch.sh
 qr:
   stage: deploy
   variables:
