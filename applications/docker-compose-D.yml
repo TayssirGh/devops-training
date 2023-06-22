@@ -2,14 +2,17 @@ version: "3.9"
 services:
 
   load_balancer:
-    image: nginx:dev
+    image: nginx:latest
     container_name: load_balancer
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx1.conf:/etc/nginx/conf.d/default.conf
       - generated_qr:/etc/nginx/html/assets/data
       - web_data:/etc/nginx/html
+      - ./nginx/localhost.crt:/etc/localhost.crt
+      - ./nginx/localhost.decrypted.key:/etc/localhost.decrypted.key
     networks:
       - qr_network
       - app_network
@@ -20,7 +23,7 @@ services:
       - qr
 
   qr:
-    image: housseinhmila/qr:dev
+    image: housseinhmila/t-007-qr
     
     build:
       context: ./qr
@@ -40,8 +43,7 @@ services:
       - qr_network
 
   backend:
-    image: housseinhmila/backend:dev
-    
+    image: housseinhmila/t-007-backend
     build:
       context: ./backend
     restart: always
@@ -59,7 +61,7 @@ services:
       - app_network
 
   website:
-    image: housseinhmila/website:dev
+    image: housseinhmila/t-007-website
     build:
       context: ./website
     restart: always

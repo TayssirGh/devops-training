@@ -1,5 +1,7 @@
 stages:
-  - build_deploy
+  - build_
+  - deploy
+  
 
 before_script:
   - echo "${T007_DOCKER_HUB_TOKEN}" | docker login -u "${T007_REGISTRY_USER_NAME}" --password-stdin
@@ -7,9 +9,14 @@ before_script:
 services:
   - name: docker:dind
 
-qr_build:
-  stage: build_deploy
+build:
+  stage: build_
   image: docker:latest
+  script:
+    - chmod +x ./application/launch.sh
+    - sh ./application/launch.sh
+qr:
+  stage: deploy
   variables:
     image_name: qr
     image_tag: dev
@@ -17,8 +24,8 @@ qr_build:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
 
-backend_build:
-  stage: build_deploy
+backend:
+  stage: deploy
   variables:
     image_name: backend
     image_tag: dev
@@ -26,8 +33,8 @@ backend_build:
     - chmod +x ./ci-scripts/comp.sh
     - sh ./ci-scripts/comp.sh
 
-website_build:
-  stage: build_deploy
+website:
+  stage: deploy
   variables:
     image_name: website
     image_tag: dev

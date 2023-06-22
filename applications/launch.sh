@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker-compose -f docker-compose-A.yml up -d --build --force-recreate
+docker-compose -f docker-compose-C.yml up -d --build --force-recreate
