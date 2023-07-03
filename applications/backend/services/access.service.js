@@ -4,8 +4,10 @@ const QrClient = require('../clients/qr-client')
 class AccessService {
     addAccess(accessData) {
         this.validateAccessData(accessData)
+        console.log(accessData)
         accessData.qr_id = this.makeid();
         return QrClient.generateQr(accessData.qr_id, accessData.qr_content).then(result => {
+            console.log(result)
             accessData.qr_url = result.data.res
             accessData.is_s3 = result.data.s3
             const access = new AccessModel(accessData)
@@ -14,6 +16,7 @@ class AccessService {
             })
         })
             .catch(err => {
+
                 throw {message: err.message, code: (err.code && !isNaN(err.code)) || 500}
             })
     }

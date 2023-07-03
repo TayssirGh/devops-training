@@ -8,7 +8,9 @@ class QrGenerator:
 
     @staticmethod
     def generate_qr(data: str, qr_id: str):
+        print("hahahahahha")
         qr_dir = EnvValidator.qr_tmp_folder()
+        print(qr_dir)
         os.makedirs(qr_dir, exist_ok=True)
         qr_path = "{}/{}.png".format(qr_dir, qr_id)
         qr = qrcode.QRCode(
