@@ -17,6 +17,7 @@ build:
     - sh ./applications/launch.sh
 qr:
   stage: deploy
+  image: docker:latest
   variables:
     image_name: qr
     image_tag: dev
