@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+
+  nodejs:
+    extends:
+      file: docker-compose-A.yaml
+      service: nodejs
+
+  python:
+    extends:
+      file: docker-compose-A.yaml
+      service: python
+
+  angular:
+    extends:
+      file: docker-compose-A.yaml
+      service: angular
+
+  minio:
+    image: minio/minio
+    container_name: container-minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    networks:
+      - comwork      
+    volumes:
+      - data_minio:/data
+    environment:
+      - MINIO_ROOT_USER=youssef2023
+      - MINIO_ROOT_PASSWORD=youssef2023
+    command: server /data --console-address ":9001"
+
+networks:
+  comwork:
+    driver: bridge
+    
+volumes:
+  data_minio:
+  data_volumes:
+
+
+

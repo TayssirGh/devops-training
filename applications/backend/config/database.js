@@ -7,7 +7,6 @@ const {
 } = process.env
 
 const MONGODB_URI=`${MONGO_URI}/${MONGO_DB}?retryWrites=true&w=majority`
-console.log(MONGO_URI)
 module.exports = databaseConnection = () => {
     return mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 }

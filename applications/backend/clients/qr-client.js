@@ -8,8 +8,6 @@ const {
 class QrClient {
 
     generateQr(qr_id, qr_content) {
-        console.log(qr_id)
-        console.log(qr_content)
         axios.post(QR_URL,{
             id: qr_id,
             content: qr_content

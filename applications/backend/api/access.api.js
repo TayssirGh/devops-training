@@ -9,7 +9,6 @@ router.post(`/`, (req, res, next) => {
             res.send(value)
         })
         .catch(reason => {
-            console.log("1")
             console.error(reason)
             next(reason);
         })
@@ -21,7 +20,6 @@ router.get(`/`, (req, res, next) => {
             res.send(value)
         })
         .catch(reason => {
-            console.log("2")
             console.error(reason)
             next(reason);
         })

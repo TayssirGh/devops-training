@@ -24,8 +24,8 @@ class EnvValidator:
 
     @staticmethod
     def qr_tmp_folder():
-   
-        return os.getenv('QR_TMP_FOLDER', "./generated_qr")
+        print(os.getenv('QR_TMP_FOLDER', "http://localhost:9000/test/"))
+        return os.getenv('QR_TMP_FOLDER', "http://localhost:9000/test/")
 
     @staticmethod
     def qr_fill_color():
@@ -42,6 +42,10 @@ class EnvValidator:
     @staticmethod
     def bucket_endpoint():
         return os.getenv('BUCKET_ENDPOINT')
+    
+    @staticmethod
+    def bucket_endpointweb():
+        return os.getenv('BUCKET_ENDPOINT_WEB')
 
     @staticmethod
     def bucket_access_key():
