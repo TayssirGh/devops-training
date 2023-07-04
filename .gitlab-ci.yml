@@ -10,7 +10,7 @@ services:
   - name: docker:dind
 
 build:
-  stage: build
+  stage: build/deploy
   image: docker:latest
   script:
     - chmod +x ./applications/launch.sh
