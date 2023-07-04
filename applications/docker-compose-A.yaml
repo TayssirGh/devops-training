@@ -1,0 +1,58 @@
+version: '3.8'
+services:
+
+  nodejs:
+    image: youssef2023/comwork-backend:latest
+    container_name: container-backend
+
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - comwork
+    ports:
+      - 3000:3000
+    env_file:
+      - backend/.env 
+
+
+  python:
+    image: youssef2023/comwork-qr:latest
+    container_name: container-qr
+
+    build:
+      context: ./qr
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - comwork
+    ports:
+      - 8420:8420
+    env_file:
+      - qr/.env
+    volumes:
+      - ./data_volumes:/app/generated_qr/
+
+
+  angular:
+    image: youssef2023comwork-website:latest
+    container_name: container-website
+
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - comwork
+    ports:
+      - 4200:4200
+    volumes:
+      - ./data_volumes:/etc/nginx/html/assets/data:ro  
+
+networks:
+  comwork:
+    driver: bridge
+
+volumes:
+  data_volumes:
