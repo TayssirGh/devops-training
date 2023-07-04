@@ -1,8 +1,10 @@
+require("dotenv").config()
 const mongoose = require('mongoose')
 const {
     MONGO_URI,
     MONGO_DB
 } = process.env
+console.log(MONGO_URI)
 
 const MONGODB_URI=`${MONGO_URI}/${MONGO_DB}?retryWrites=true&w=majority`
 

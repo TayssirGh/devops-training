@@ -1,3 +1,4 @@
+require("dotenv").config()
 const api = require('./config/api')
 const {
     APP_PORT

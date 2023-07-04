@@ -6,10 +6,12 @@ import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {EnvLoaderService} from "./env-loader.service";
+import { ComponentComponent } from './component/component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ComponentComponent
   ],
   imports: [
     BrowserModule,
