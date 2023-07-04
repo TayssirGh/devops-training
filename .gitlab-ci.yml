@@ -1,6 +1,6 @@
 stages:
-  - build
-  - deploy
+  - build/deploy
+
   
 
 before_script:
@@ -15,32 +15,7 @@ build:
   script:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
-    - docker ps
     - docker images
-qr:
-  stage: deploy
-  image: docker:latest
-  variables:
-    image_name: qr
-    image_tag: dev
-  script:
-    - chmod +x ./comp.sh
-    - sh ./comp.sh
-
-backend:
-  stage: deploy
-  variables:
-    image_name: backend
-    image_tag: dev
-  script:
-    - chmod +x ./comp.sh
-    - sh ./comp.sh
-
-website:
-  stage: deploy
-  variables:
-    image_name: website
-    image_tag: dev
-  script:
-    - chmod +x ./comp.sh
-    - sh ./comp.sh
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website"
