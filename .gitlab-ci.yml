@@ -1,5 +1,6 @@
 stages:
-  - build/deploy
+  - build
+  - deploy
 
   
 
@@ -9,14 +10,29 @@ before_script:
 services:
   - name: docker:dind
 
-build_and_deploy:
-  stage: build/deploy
+build:
+  stage: build
   image: docker:latest
   script:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
     - docker images
+  artifacts:
+    paths:
+      - app/
+  tags:
+    - t-007
+
+deploy:
+  stage: deploy
+  script:
+    - docker images
+    - docker load -i app/housseinhmila/t-007-qr:dev
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
+    - docker load -i app/housseinhmila/t-007-backend:dev
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
+    - docker load -i app/housseinhmila/t-007-website:dev
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
+  tags:
+    - t-007
 
