@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-dep
+  namespace: training-app-backend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      
+        - name: backend-training
+          image: xqliza/t005-backend:dev
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: APP_PORT
+            - name: QR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: QR_URL
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_URI
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_DB
+
+        - name: qr-training
+          image: xqliza/t005-qr:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8420
+          env:
+            - name: USE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: USE_BUCKET
+            - name: BUCKET_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ENDPOINT
+            - name: BUCKET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ACCESS_KEY
+            - name: BUCKET_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_SECRET_KEY
+            - name: BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_NAME
+            - name: BUCKET_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_PATH                  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-dep
+  namespace: training-app-frontend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: website-training
+          image: xqliza/t005-website:dev
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/usr/share/nginx/html/assets/configs"
+              name: frontconfig-volume
+      volumes:
+        - configMap:
+            name: frontconfig
+          name: frontconfig-volume

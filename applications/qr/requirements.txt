@@ -5,4 +5,4 @@ qrcode==6.1
 wheel==0.40.0
 setuptools==67.8.0
 Pillow==7.1.2
-minio==5.0.10
+minio==7.1.15

@@ -5,6 +5,10 @@
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
 **/.env
+**/minio_data
+**/ssl
+!**/ssl/nginx.conf
+!**/ssl/localhost.ext
 
 # compiled output
 **/dist
