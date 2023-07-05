@@ -17,6 +17,7 @@ build:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
     - docker images
+    - ls app
   artifacts:
     paths:
       - app/
@@ -26,12 +27,13 @@ build:
 deploy:
   stage: deploy
   script:
+    - ls app
     - docker images
-    - docker load -i app/housseinhmila/t-007-qr:dev
+    - docker load -i app/housseinhmila/t-007-qr.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
-    - docker load -i app/housseinhmila/t-007-backend:dev
+    - docker load -i app/housseinhmila/t-007-backend.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
-    - docker load -i app/housseinhmila/t-007-website:dev
+    - docker load -i app/housseinhmila/t-007-website.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
   tags:
     - t-007
