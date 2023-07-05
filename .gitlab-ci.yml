@@ -7,7 +7,7 @@ build-job:
   services:
     - docker:dind  
   script:
-    - docker compose -f /applications/docker-compose-B.yaml up
+    - docker compose -f ./applications/docker-compose-B.yaml up
     - echo "builded successfully"
   tags:
     - "t-008-deploy"  
