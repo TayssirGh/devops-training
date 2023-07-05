@@ -3,6 +3,9 @@ stages:
 
 build-job:
   stage: build-job
+  image: docker:latest
+  services:
+    - docker:dind  
   script:
     - docker compose -f /applications/docker-compose-A.yaml up
     - echo "builded successfully"
