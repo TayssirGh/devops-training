@@ -17,23 +17,25 @@ build:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
     - docker images
-    - pwd  # Print current working directory
-    - ls -l 
+    - mkdir images
+    - docker save housseinhmila/t-007-qr > images/housseinhmila/t-007-qr.tar
+    - docker save housseinhmila/t-007-backend > images/housseinhmila/t-007-backend.tar
+    - docker save housseinhmila/t-007-website > images/housseinhmila/t-007-website.tar
   artifacts:
     paths:
-      - app/
+      - images/
   tags:
     - t-007
 
 deploy:
   stage: deploy
   script:
-    - docker images
-    - docker load -i app/housseinhmila/t-007-qr.tar
+    - ls -l images/
+    - docker load -i images/housseinhmila/t-007-qr.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
-    - docker load -i app/housseinhmila/t-007-backend.tar
+    - docker load -i images/housseinhmila/t-007-backend.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
-    - docker load -i app/housseinhmila/t-007-website.tar
+    - docker load -i images/housseinhmila/t-007-website.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
   tags:
     - t-007
