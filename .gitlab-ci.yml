@@ -17,7 +17,8 @@ build:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
     - docker images
-
+    - pwd  # Print current working directory
+    - ls -l 
   artifacts:
     paths:
       - app/
@@ -27,7 +28,6 @@ build:
 deploy:
   stage: deploy
   script:
-    - ls app
     - docker images
     - docker load -i app/housseinhmila/t-007-qr.tar
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
