@@ -7,6 +7,6 @@ build-job:
     - docker compose -f /applications/docker-compose-A.yaml up
     - echo "builded successfully"
   tags:
-    - "t-008-prod"  
+    - "t-008-deploy"  
 
 
