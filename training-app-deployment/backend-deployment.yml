@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+  namespace: training-app-backend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+        - name: qr-data
+      containers:
+        - image: karimzomita/t006-backend:dev
+          name: backend-container
+          env:
+            - name: APP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: APP_PORT
+            - name: QR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: QR_URL
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_URI
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_DB
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 3000
+              name: backend
+        - image: karimzomita/applications-qr:test
+          name: application-qr
+          env:
+            - name: QR_TMP_FOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: QR_TMP_FOLDER
+            - name: QR_FILL_COLOR
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: QR_FILL_COLOR
+            - name: QR_BACKGROUND_COLOR
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: QR_BACKGROUND_COLOR
+            - name: USE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: USE_BUCKET
+            - name: BUCKET_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ENDPOINT
+            - name: BUCKET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ACCESS_KEY
+            - name: BUCKET_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_SECRET_KEY
+            - name: BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_NAME
+            - name: BUCKET_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_PATH
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8420
+              name: qr
+          volumeMounts:
+            - mountPath: /app/scripts/generated_qr
+              name: qr-data

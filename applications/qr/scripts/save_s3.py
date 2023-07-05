@@ -7,17 +7,14 @@ from .validate_env import EnvValidator
 class S3Manager:
 
     def __init__(self):
-        hostname = EnvValidator.bucket_endpoint().split(":")[0]
-        port = EnvValidator.bucket_endpoint().split(":")[1]
-        ip = socket.gethostbyname(hostname)
-        self.endpoint = ip + ":" + port
+        self.endpoint =  EnvValidator.bucket_endpoint()
         self.accessKey = EnvValidator.bucket_access_key()
         self.secretKey = EnvValidator.bucket_secret_key()
         self.bucketName = EnvValidator.bucket_name()
         self.bucketPath = EnvValidator.bucket_path()
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
-                                 secret_key=self.secretKey, secure = False)
+                                 secret_key=self.secretKey, secure = True)
 
     def init_bucket(self):
         if not self.minioClient.bucket_exists(self.bucketName):

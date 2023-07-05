@@ -1,0 +1,21 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: devopsTraining
+servers: 1
+agents: 1
+image: rancher/k3s:v1.25.2-k3s1
+ports:
+- port: 80-443:80-443
+  nodeFilters:
+    - loadbalancer
+registries:
+  create:
+    name: devopsTraining
+    host: 0.0.0.0
+    hostPort: "5000"
+volumes:
+  - volume: /tmp/dataCluster:/data
+    nodeFilters:
+      - server:0
+      - agent:0
