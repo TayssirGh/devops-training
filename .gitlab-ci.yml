@@ -18,9 +18,9 @@ build:
     - sh ./applications/launch.sh
     - docker images
     - mkdir images
-    - docker save housseinhmila/t-007-qr > images/housseinhmila/t-007-qr.tar
-    - docker save housseinhmila/t-007-backend > images/housseinhmila/t-007-backend.tar
-    - docker save housseinhmila/t-007-website > images/housseinhmila/t-007-website.tar
+    - docker save ${T007_REGISTRY_USER_NAME}/t-007-qr > images/t-007-qr.tar
+    - docker save ${T007_REGISTRY_USER_NAME}/t-007-backend > images/t-007-backend.tar
+    - docker save ${T007_REGISTRY_USER_NAME}/t-007-website > images/t-007-website.tar
   artifacts:
     paths:
       - images/
@@ -31,12 +31,12 @@ deploy:
   stage: deploy
   script:
     - ls -l images/
-    - docker load -i images/housseinhmila/t-007-qr.tar
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:dev"
-    - docker load -i images/housseinhmila/t-007-backend.tar
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:dev"
-    - docker load -i images/housseinhmila/t-007-website.tar
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:dev"
+    - docker load -i images/t-007-qr.tar
+    - docker push "t-007-qr:dev"
+    - docker load -i images/t-007-backend.tar
+    - docker push "t-007-backend:dev"
+    - docker load -i images/t-007-website.tar
+    - docker push "t-007-website:dev"
   tags:
     - t-007
 
