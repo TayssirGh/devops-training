@@ -17,7 +17,7 @@ build:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
     - docker images
-    - ls app
+
   artifacts:
     paths:
       - app/
