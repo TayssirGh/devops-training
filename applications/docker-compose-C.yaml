@@ -1,0 +1,107 @@
+# version: '3.8'
+# services:
+
+#   nodejs:
+#     image: youssef2023/comwork-backend:latest
+
+#     build:
+#       context: ./backend
+#       dockerfile: Dockerfile
+#     restart: always
+#     networks:
+#       - comwork
+#     ports:
+#       - 3000
+#     environment:
+#       - APP_PORT=3000
+#       - QR_URL=http://container-qr:8420/
+#       - MONGO_URI=mongodb+srv://youssef:2jjOl73NVY5PVqaz@cluster0.nqpem.mongodb.net
+#       - MONGO_DB=comwork
+
+#     deploy:
+#       replicas: 2
+
+#   python:
+#     image: youssef2023/comwork-qr:latest
+
+#     build:
+#       context: ./qr
+#       dockerfile: Dockerfile
+#     restart: always
+#     networks:
+#       - comwork
+#     ports:
+#       - 8420
+#     environment:  
+#       - QR_TMP_FOLDER="./generated_qr"
+#       - QR_FILL_COLOR="#121128"
+#       - QR_BACKGROUND_COLOR="#dcdbdb"
+#       - USE_BUCKET=true
+#       - BUCKET_ENDPOINT="container-minio:9000"
+#       - BUCKET_ENDPOINT_WEB="http://localhost:9000"
+#       - BUCKET_ACCESS_KEY="Lim4jbB2BrrbKOPXRlLe"
+#       - BUCKET_SECRET_KEY="0HZ9DLy7E9Quz0BpGZr3eBeHCm9r79LU5hCsdlIu"
+#       - BUCKET_NAME="test"
+#       - BUCKET_PATH=""
+#     volumes:
+#       - ./data_volumes:/app/generated_qr/
+#     deploy:
+#       replicas: 2
+
+#   angular:
+#     image: youssef2023comwork-website:latest
+
+#     build:
+#       context: ./website
+#       dockerfile: Dockerfile
+#     restart: always
+#     networks:
+#       - comwork
+#     ports:
+#       - 4200
+#     volumes:
+#       - ./data_volumes:/etc/nginx/html/assets/data:ro  
+#     deploy:
+#       replicas: 2
+
+
+
+#   minio:
+#     image: minio/minio
+#     ports:
+#       - 9000:9000
+#       - 9001:9001
+#     networks:
+#       - comwork      
+#     volumes:
+#       - data_minio:/data
+#     environment:
+#       - MINIO_ROOT_USER=youssef2023
+#       - MINIO_ROOT_PASSWORD=youssef2023
+#     command: server /data --console-address ":9001"
+
+
+#   nginx:
+#     image: nginx:latest
+#     ports:
+#       - 80:80
+#     volumes:
+#       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+#       - data_volumes:/etc/nginx/html/assets/data
+#       - data_web:/etc/nginx/html
+
+#     depends_on:
+#       - nodejs
+#       - angular
+#       - minio
+
+
+# networks:
+#   comwork:
+#     driver: bridge
+    
+# volumes:
+#   data_minio:
+#   data_volumes:
+#   data_web:
+

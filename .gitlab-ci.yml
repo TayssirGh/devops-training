@@ -1,0 +1,12 @@
+stages:
+  - build-job
+
+build-job:
+  stage: build-job
+  script:
+    - docker compose -f /applications/docker-compose-A.yaml up
+    - echo "builded successfully"
+  tags:
+    - "t-008-prod"  
+
+

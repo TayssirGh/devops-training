@@ -36,7 +36,7 @@ services:
 
 
   angular:
-    image: youssef2023comwork-website:latest
+    image: youssef2023/comwork-website:latest
     container_name: container-website
 
     build:
