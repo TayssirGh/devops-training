@@ -15,6 +15,38 @@ qr_build_push:
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t005-deploy
+  only:
+    changes:
+      - "applications/qr/**/*"
+
+backend_build_push:
+  stage: build_push
+  variables:
+    image_name : backend
+    image_tag: dev
+  script:
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t005-deploy
+  only:
+    changes:
+      - "applications/backend/**/*"
+
+website_build_push:
+  stage: build_push
+  variables:
+    image_name : website
+    image_tag: dev
+  script:
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t005-deploy
+  only:
+    changes:
+      - "applications/website/**/*"
+
 
 deploy_applications:
   stage: deploy
