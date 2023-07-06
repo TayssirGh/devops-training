@@ -1,5 +1,7 @@
 #!bin/bash
 
+cd training-app-deployment
+
 k3d cluster delete dev
 
 k3d cluster create --config config.yml
@@ -18,19 +20,11 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=-1s
 
-kubectl create ns training-app-backend-prod
+bash seal-secret.sh k8s-secret-backend k8s-secret-qr
 
-kubectl create ns training-app-frontend-prod
+kustomize build | kubectl apply -f -
 
-kubectl create configmap frontconfig --from-file=../applications/website/src/assets/configs/app-config.json -n training-app-frontend-prod
-
-bash seal-secret.sh k8d-secret-backend k8d-secret-qr
-
-
-
-for confile in sealed-*.yml *-deployment.yml *-service.yml; 
+for confile in sealed-*.yml; 
 do 
     kubectl apply -f $confile
 done
-
-kubectl apply -f ingress.yml
