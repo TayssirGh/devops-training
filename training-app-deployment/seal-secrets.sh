@@ -1,8 +1,8 @@
-echo "-----------sealing secrets"
+echo "-----------sealing secrets-----------"
 
 
 if  ! command -v kubeseal &> /dev/null; then
-    echo "-----------kubeseal is not installed attempting to install-----------k"
+    echo "-----------kubeseal is not installed attempting to install-----------"
     
     mkdir kubeseal-0.22.0-linux-amd64 && cd kubeseal-0.22.0-linux-amd64
 
@@ -14,7 +14,7 @@ if  ! command -v kubeseal &> /dev/null; then
     cd ..
     sudo rm -rf ./kubeseal-0.22.0-linux-amd64
 
-    echo "-----------kubeseal installed-----------k"
+    echo "-----------kubeseal installed-----------"
 fi
 
 for file in secrets-*.yml; do
