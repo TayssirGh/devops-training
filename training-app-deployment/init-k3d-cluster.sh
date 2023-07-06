@@ -19,18 +19,13 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=-1s
 
-kubectl create ns training-app-backend-prod 
-kubectl create ns training-app-frontend-prod 
-
 source seal-secrets.sh
 
-kubectl apply -f pv.yml
-kubectl apply -f pvc.yml
+kubectl apply -k base 
 
-kubectl create configmap configs-front --from-file=../applications/website/src/assets/configs/app-config.json -n training-app-frontend-prod
-
-for file in  sealed-secrets-*.yml *-deployment.yml *-service.yml ingress.yml ; do
+for file in  sealed-secrets-*.yml ; do
     kubectl apply -f $file
+    # rm $file
 done
 
 

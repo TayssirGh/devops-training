@@ -1,0 +1,14 @@
+resources:
+  - namespaces.yml
+  - backend-deployment.yml
+  - backend-service.yml
+  - frontend-deployment.yml
+  - frontend-service.yml
+  - ingress.yml
+
+configMapGenerator:
+  - name: configs-front
+    namespace: training-app-frontend-prod
+    behavior: create
+    files: 
+    - "configs/app-config.json"
