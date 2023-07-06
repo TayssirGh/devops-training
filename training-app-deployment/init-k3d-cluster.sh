@@ -19,7 +19,7 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=-1s
 
-source seal-secrets.sh
+bash seal-secrets.sh
 
 kubectl apply -k base 
 
