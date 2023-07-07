@@ -1,6 +1,10 @@
 stages:
   - build-job
 
+before_script:
+  - echo "${T008_DOCKER_HUB_TOKEN}" | docker login -u "${T008_REGISTRY_USER_NAME}" --password-stdin
+
+
 build-job:
   stage: build-job
   image: docker:latest
