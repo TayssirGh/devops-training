@@ -37,7 +37,7 @@ networks:
     
 volumes:
   data_minio:
-  data_volumes:
+  #data_volumes:
 
 
 
