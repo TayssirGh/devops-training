@@ -27,4 +27,5 @@ class S3Manager:
                                      qr_path)       
         # os.remove(qr_path)
         # self.minioClient.presigned_get_object(self.bucketName, "{}/{}.png".format(self.bucketPath, qr_id))
+        print("{}/{}/{}/{}.png".format(self.endpointweb,self.bucketName,self.bucketPath, qr_id))
         return "{}/{}/{}/{}.png".format(self.endpointweb,self.bucketName,self.bucketPath, qr_id)
