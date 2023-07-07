@@ -6,7 +6,7 @@ WORKDIR /usr/src
 
 #environment variable : 
 
-ENV QR_URL=http://172.17.0.4:8420/
+ENV QR_URL=http://0.0.0.0:8420/
 
 #bundling app code 
 
