@@ -27,6 +27,12 @@ nodejs_build_image:
   script: 
   - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/backend
   - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
+  tags:
+    - t-009-prod
+
+
+ 
+
 qr-code_build_image:
 
   extends: .build
