@@ -4,16 +4,14 @@ stages:
 before_script:
   - echo "${T008_DOCKER_HUB_TOKEN}" | docker login -u "${T008_REGISTRY_USER_NAME}" --password-stdin
 
-
 build-job:
   stage: build-job
   image: docker:latest
   services:
     - docker:dind  
   script:
-    - docker compose -f ./applications/docker-compose-B.yaml up
-    - echo "builded successfully"
+    - docker-compose -f ./applications/docker-compose-B.yaml up
+    - exit_code=$?
+    - if [ $exit_code -eq 0 ]; then echo "Build succeeded"; else echo "Build failed"; fi
   tags:
-    - "t-008-deploy"  
-
-
+    - "t-008-deploy"
