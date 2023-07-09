@@ -2,16 +2,22 @@ version: '3.8'
 services:
 
   nodejs:
+    depends_on:
+      - minio
     extends:
       file: docker-compose-A.yaml
       service: nodejs
 
   python:
+    depends_on:
+      - minio
     extends:
       file: docker-compose-A.yaml
       service: python
 
   angular:
+    depends:
+      - minio
     extends:
       file: docker-compose-A.yaml
       service: angular
