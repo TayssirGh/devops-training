@@ -14,7 +14,7 @@ export class EnvLoaderService {
 
   getBackendUrl(): string {
     console.log(this.backendUrl);
-    return this.backendUrl;
+    return "http://localhost:3000/access";
   }
 
   public getJSON(): Observable<any> {
