@@ -3,7 +3,7 @@
 **/node_modules
 **/venv
 **/generated_qr
-applications/website/src/assets/configs/app-config.json
+#applications/website/src/assets/configs/app-config.json
 #**/.env
 
 # compiled output
