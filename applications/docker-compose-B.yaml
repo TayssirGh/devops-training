@@ -16,8 +16,6 @@ services:
       service: python
 
   angular:
-    depends:
-      - minio
     extends:
       file: docker-compose-A.yaml
       service: angular
