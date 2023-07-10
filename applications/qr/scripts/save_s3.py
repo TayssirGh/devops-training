@@ -13,9 +13,14 @@ class S3Manager:
         self.bucketName = EnvValidator.bucket_name()
         self.bucketPath = EnvValidator.bucket_path()
         self.endpointweb = EnvValidator.bucket_endpointweb()
+        print("hiii")
+        print(self.endpoint+self.accessKey+self.secretKey)
+
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
                                  secret_key=self.secretKey,secure=False)
+        print(self.minioClient)     
+        print('---------------------------------------------')                    
 
     def init_bucket(self):
         if not self.minioClient.bucket_exists(self.bucketName):

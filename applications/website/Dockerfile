@@ -15,6 +15,6 @@ FROM nginx:alpine
 COPY --from=node /app/dist/website /etc/nginx/html
 
 
-COPY /nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-
+EXPOSE 4200

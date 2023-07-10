@@ -3,6 +3,7 @@ const QrClient = require('../clients/qr-client')
 
 class AccessService {
     addAccess(accessData) {
+        console.log(accessData)
         this.validateAccessData(accessData)
         accessData.qr_id = this.makeid();
         return QrClient.generateQr(accessData.qr_id, accessData.qr_content).then(result => {

@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+
+  nodejs:
+    extends:
+      file: docker-compose-C.yaml
+      service: nodejs
+
+
+  python:
+    extends:
+      file: docker-compose-C.yaml
+      service: python
+
+  angular:
+    extends:
+      file: docker-compose-C.yaml
+      service: angular
+
+
+
+
+  minio:
+    extends:
+      file: docker-compose-C.yaml
+      service: minio
+
+
+  nginx:
+    image: youssef2023/nginx-image:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/default2.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/localhost.crt:/etc/localhost.crt
+      - ./nginx/localhost.decrypted.key:/etc/localhost.decrypted.key
+
+
+    networks:
+      - comwork
+
+
+    depends_on:
+      - nodejs
+      - angular
+      - minio
+  
+
+networks:
+  comwork:
+    driver: bridge
+    
+volumes:
+  data_minio:
