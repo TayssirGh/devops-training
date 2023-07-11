@@ -39,8 +39,8 @@ services:
       - USE_BUCKET=true
       - BUCKET_ENDPOINT=applications-minio-1:9000
       - BUCKET_ENDPOINT_WEB=http://localhost:9000
-      - BUCKET_ACCESS_KEY=wKimWbtY54xFpXqlnIw2
-      - BUCKET_SECRET_KEY=iFHx3bPIJU8htMaaTCDhckanuhmTMTCYqcO4lF1a
+      - BUCKET_ACCESS_KEY=FwdllhOzT8c1FN7yjhqa
+      - BUCKET_SECRET_KEY=PXuyvCDXyVrJe1ojIQye3LPI4NSxtOmK0oKM9jNH
       - BUCKET_NAME=test
       - BUCKET_PATH=
     # volumes:
