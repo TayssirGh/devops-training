@@ -9,6 +9,9 @@ build-job:
   image: docker:latest
   services:
     - docker:dind  
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+
   script:
     - docker --version
     - docker pull alpine
