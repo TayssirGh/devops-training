@@ -1,2 +1,2 @@
 
-sudo docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD 
+echo "${009_DOCKER_HUB_PWD}" | docker login -u "${009_DOCKER_HUB_NAME}" --password-stdin
