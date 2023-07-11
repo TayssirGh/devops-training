@@ -66,7 +66,7 @@ deploy:
   script:
     - chmod 0755 ./training-app-deployment/seal-secrets.sh
     - chmod 0755 ./training-app-deployment/install-k8s-objects.sh
-    - sh ./training-app-deployment/init-k3d-cluster.sh
+    - sh ./training-app-deployment/install-k8s-objects.sh
   tags:
     - t006-deploy
 
