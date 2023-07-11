@@ -13,9 +13,9 @@ build:
   script:
     - chmod +x ./applications/launch.sh
     - sh ./applications/launch.sh
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website"
-    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-backend:v1.0.0"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-website:v1.0.0"
+    - docker push "${T007_REGISTRY_USER_NAME}/t-007-qr:v1.0.0"
 
   tags:
     - t-007-dev
