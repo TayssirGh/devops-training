@@ -39,7 +39,7 @@ qr-code_build_image:
     IMAGE_NAME:  oussachour/qr_python_code
     IMAGE_TAG:   latest
   before_script:
-     - docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD
+     - sudo docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD
   script: 
   - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/qr
   - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
