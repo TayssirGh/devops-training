@@ -1,0 +1,11 @@
+{{- $files := .Files }}
+{{- range $index, $item := .Values.configmaps}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $item.name }}
+  namespace: {{ $item.namespace }}
+data:
+   {{$item.filename}}: |- {{- $files.Get $item.filepath | nindent 4 }}
+{{- end }}

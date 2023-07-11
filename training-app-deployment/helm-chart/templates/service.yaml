@@ -1,0 +1,15 @@
+{{- range $index, $item := .Values.services}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $item.name }}
+  namespace: {{ $item.namespace }}
+spec:
+  type: {{ $item.type }}
+  ports:
+    - port: {{ $item.port }}
+      targetPort: {{ $item.targetPort }}
+  selector:
+    app: {{ $item.app }}
+{{- end }}

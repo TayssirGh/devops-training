@@ -1,0 +1,45 @@
+{{- range $index, $item := .Values.deployments}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $item.name }}
+  namespace: {{ $item.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $item.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ $item.app }}
+    spec:
+      containers:
+    {{- range $index, $app := $item.apps}}
+        - name: {{ $app.container.name }}
+          image: {{ $app.container.image }}
+          imagePullPolicy: {{ $app.container.imagePullPolicy }}
+          ports:
+            - containerPort: {{ $app.container.ports.containerPort }}
+          {{- if $app.container.volumeMounts }}
+          volumeMounts:
+            - mountPath: {{ $app.container.volumeMounts.mountPath }}
+              name: {{ $app.container.volumeMounts.name }}
+          {{- end }}
+          {{- if $app.container.env }}
+          env:
+            {{- range $index, $env := $app.container.env}}
+            - name: {{ $env.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $env.valueFrom.secretKeyRef.name }}
+                  key: {{ $env.valueFrom.secretKeyRef.key }}
+            {{- end }}
+          {{- end }}
+    {{- end }}
+      volumes:
+        - configMap:
+            name: frontconfig
+          name: frontconfig-volume
+{{- end }}

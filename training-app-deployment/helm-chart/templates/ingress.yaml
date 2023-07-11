@@ -1,0 +1,26 @@
+{{- range $index, $item := .Values.ingresses}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $item.name }}
+  namespace: {{ $item.namespace }}
+  {{- if $item.annotations }}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: {{ index $item.annotations "use-regex" | quote }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ index $item.annotations "rewrite-target" }}
+  {{- end }}
+spec:
+  rules:
+  - host: {{ $item.host }}
+    http:
+      paths:
+      - path: {{ $item.path }}
+        pathType: {{ $item.pathType }}
+        backend:
+          service:
+            name: {{ $item.service.name }}
+            port:
+              number: {{ $item.service.port }}
+  ingressClassName: nginx
+{{- end }}

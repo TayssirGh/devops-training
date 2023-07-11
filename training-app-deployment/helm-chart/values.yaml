@@ -1,0 +1,159 @@
+app: myapp
+services:
+  - backend:
+    name: backend-service
+    namespace: training-app-backend-prod
+    type: LoadBalancer
+    app: myapp
+    port: 9099
+    targetPort: 3000
+  - frontend:
+    name: frontend-service
+    namespace: training-app-frontend-prod
+    type: LoadBalancer
+    app: myapp
+    port: 80
+    targetPort: 80
+deployments:
+  - backend:
+    name: back-dep
+    namespace: training-app-backend-prod
+    app: myapp
+    apps:
+      - node:
+        container:
+          name: backend-training
+          image: xqliza/t005-backend:dev
+          imagePullPolicy: Always
+          ports:
+            containerPort: 3000
+          env:
+            - name: APP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: APP_PORT
+            - name: QR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: QR_URL
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_URI
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: MONGO_DB
+      - qr:
+        container:
+          name: qr-training
+          image: xqliza/t005-qr:dev
+          imagePullPolicy: Always
+          ports:
+            containerPort: 8420
+          env:
+            - name: USE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: USE_BUCKET
+            - name: BUCKET_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ENDPOINT
+            - name: BUCKET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_ACCESS_KEY
+            - name: BUCKET_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_SECRET_KEY
+            - name: BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_NAME
+            - name: BUCKET_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: qr-secret
+                  key: BUCKET_PATH
+  - frontend:
+    name: front-dep
+    namespace: training-app-frontend-prod
+    app: myapp
+    apps:
+      - front:
+        container:
+          name: website-training
+          image: xqliza/t005-website:dev
+          imagePullPolicy: Always
+          ports:
+            containerPort: 80
+          volumeMounts:
+            mountPath: "/usr/share/nginx/html/assets/configs"
+            name: frontconfig-volume
+        volumes:
+          - configMap:
+              name: frontconfig
+            name: frontconfig-volume
+ingresses:
+  - frontend:
+    name: ingress-frontservice
+    namespace: training-app-frontend-prod
+    host: localhost
+    path: /
+    pathType: Prefix
+    service:
+      name: frontend-service
+      port: 80
+    ingressClassName: nginx
+  - backend:
+    name: ingress-backend
+    namespace: training-app-backend-prod
+    annotations:
+      use-regex: "true"
+      rewrite-target: /$2
+    host: localhost
+    path: /api(/|$)(.*)
+    pathType: Prefix
+    service:
+      name: backend-service
+      port: 9099
+    ingressClassName: nginx
+configmaps:
+  - frontconfig:
+    name: frontconfig
+    namespace: training-app-frontend-prod
+    filepath: configfiles/app-config.json
+    filename: app-config.json
+namespaces:
+  backend: training-app-backend-prod
+  frontend: training-app-frontend-prod
+secrets:
+  - backend:
+    name: backend-secret
+    namespace: training-app-backend-prod
+    values:
+      APP_PORT: AgBtbsYxJpfu6L33Ff+J7kwdf6IFeYq6KrxEeuy1vqQ8MMFk1TZERI9thz+zyA8/EQ+77etMQTvCJ3WNcNfB+pEy9i5zIdjIcns+ElBO1IvRYnmcTzNtrZ+6oWfMYFNmzZtiqZkRwTmkq+zzuqn8M4cLKOdpKtCi68dAXFKz5F5P2/9rtT47Y7R3BbXbQkstE9+vcH6U2p6hpgeGauQDef8iP1Khmhi/FnnLIafwrPAxnDg7NBaCYL450SenhBHSbKPLAoORAkHPFsU+wle6Da9vvKGaSXrVxMHoY1ft77l/rY1tutYR0SjbsN9q98YOd4VrOqs7+0hnhuy0EIVsfn6tXqqUBHPZYDDKj0bIAevX0iCnZ/B4OfFdbnyqILR96Ap/MTHuxmR95Hb9xVC1Jb8c17voa+hxzzLITNNe8k80mJv11gJyKjDfFFeVGCNZNYwboQhMWJgYc6VSiGDZONoQa2IzhW65rrTHMapAukrVm0vuzHJH8xeuhVFnDWfZt468+oU/S9b6eyUXhsWuIkXJ5WszfV+RByvBJTFD2yJR8fWM6rTYyPNEIaw0NtshQVM2OzBlGXnWef/UXL3R/SOQgRbBIJoncS/MkJyD+o45Gz62BuRmeDBuwUE1ORv7Na6Xh0K1MQurMO01hLPmdSAiOXj1qaMKCzdqCxReak30sjAcLMaKXN1TXpsfYQTOIB0vqKZT
+      QR_URL: AgA5SrE7G/Jvoc3e260h5qS8QgxSwBl4GtxfzVuetQXQxte/aTQteBFpJoyDdNq/U0IZrTspqBUHXDVTpWDHbsYOQxBUZDNGNxnJZBBDfHAsu0xdEIYIkfTyxrLn/Ij90utilqeyY3bzOg1sYUEotFD14G3Fw8RwXbQcR2vPrpl3ZWof+W6ZyVEfoHnA5Xj/+vjBKL3N/jeQqfkFZueHZSKulJ9tiOuEd1xi5QXpy1gqiT0VGmsJPFOF8Roi3Xxtvu5VzOtbJJH4+pysqA/I46urzG1RFTsa9wIPfUv9XgfvJU5eUKbGi6XWyDXqyQDT5NWFNf4QUmJS6yvotbf0vz6SMpzcvDbhIdijLX/R9HNAsbX3XgjXE8LdzaaX7SEUNKdptdDngULNwtO0IhkBEXEYiiwYZHatSBaancIbSCZsuKqXBNfvfRASVN3xM+OdewtXaX/bnAktXP0L65/bNeGpXDkYvhJFSdNCiJyP7RmiADHvHoj3yzW1YfVk4WfV+s9i5jgejqe9zxxC3msuL8dzrQaRjOw6o1NmtF63upiAiCbYVVfYhjqOkdItKAeuJXKLjMRZitr69TKCw6swt0HqJS8bj1gxWJvqEdTDgscl9vgA419w6FXr8WeTN+FCWjRIuVnP6+niC9mc/ezYLkNGvxHkLfM2SQ9ZFM4oW5suCRg9nE8U//dCp4k5X0NgTZzrSPxoDClMRtTxJUV3wE3Y2ZhtCmjQ
+      MONGO_URI: AgCH42TK5vZWhwwply8aKTPrV1pEW68E4odpeSCLSk6REAfx4rDgklZXxQGO4b77khb97UWLDsGP0NsLLSE9x/JNCfPBCZrTr2DQ6uO+E8nFF+U9/6/n9qO1XrbHD8cszW8F2uyDYTOKdeQA9cPpEI0qT7rOyikD2hv1LMfXM3fpJguvXcRk9cdhrSO/2gFaBJehBCpdpGoJqfhTA03ObXZjCNOlbyIBhpdDMdPwG5MINCngk0hMfDzHxEavXROkdYeOgtW2mpoH3gmG+nHWQiOl3yKVYzn72nrHaqzFhE3P0jLwXlgpChmIdmnNMktrZ3G5wXNY2TUrkpS77Q+ijGZN0H3rbchNkwz8KO2Ukmr4mpaEDJEzYe4MpqnspEqcpUSomist4l9UfxZQzfQmTMj4UaJv2AsmnGnXTgTxzlKU1TF6UM+VznbyLN0xUdbW1MgeMD+zXH429p2myfpx+yz690rEYGSxLffVlvYbIKimnkZLjpiq6MeA4zOC2zimx7HpOU50YwXhLe4laHWUn2C9pt/kFDc9qc2YQB5kOrgMpTXEXrav+quViEfx+rhQtmJWZ5dOg64K78BcxBDWMiv6Z4gCfFmMOAPw9q3z5Q2LffzllM8/reQKrt9VXsZuk00WZOYmWF7IGGqeNKFHWT3Kr30jIPJczA1mJs8n/4l5F/JIgtzanTzTaMGbw8vQh+rmgc8OD/tgsD54oiAm33iDUUGPXHlFpE5CArzX/RC/qbVj8lvbGPN+tPM6gxx/cLuZevwvygcYwJi0
+      MONGO_DB: AgC3HpweFbeuF8uVWOybJBLBBzZkpbwWBJNTIyLnOeGzgEqctefrzpjo4SfZp5nkb8eYLsiMYe1hsHSrK2Y4DK+qPEs/oBjlreyo+iKFZBfwFcUeoFJhNxCdVMPkn136kr+t5CCuLIf4ZFZZPNrcpHDiUC3KoWJn7ZW8q0lwwue4Lepp/yf6Wgz1lTiK2UvLXLYZkUxpX/3tEvzgWiIKiwDfB88zRjtKRn2BMZb1IKUHsBD17BYrngWm5bfQoX9+yEdVZSBu/vQ3Jnti2t2/DP0OrSxzF6lp3hXqCWRBhpAzly/rBDZ3aE9Cnwd8JwXw71xHtrYYeet0+C0nhw878/LtOjb/Pk1dXGzQYh2/LWGZCyEyNjTzVQsW29pcrJOVmQDnKE5lNJIuebcdlRh3A+j3xYzstIT13nLCv1NQ2EzkwDzhBC60DCN/9o/kGg2DUJG0ha6VzyOjxhZNR5blcXoPZCMyN29ZpE/SeT7lIaV+ckwvglPON/fWGn0SbkqBukCJJWCUZ0/pqcoRjMMLv0BwgbaGEAs1izqR0XPVI/JjEgdtQPlGUWd52SBIriI3FccccMdWONfZgQ8FSJE7QxNMLfB04fQX2mcuZw36cml+ncs7L3FXaMMAZHYaqAPech6fqAj+3rE/acAoR6i/0H7GORTXvbK9zaFySi/q4kwmp1WjuvL8ZxgVGZHKLLX5dYVKWRc=
+  - qr:
+    name: qr-secret
+    namespace: training-app-backend-prod
+    values:
+      USE_BUCKET: "AgCSVjLq7L9FEsFPIfbgWAjnKIZwptOSEMajPCJbzDK5yX1igNoF2DdjXVVHeHgKE0J60A+J5LfFgYjs6btn1VcPJr6FCY6wbqzd5ymDamkDg+dKTXqP/0uZ2YpZ80t6pobb2pL2XkU1RoxHUjBWPObxTH0L6HuFR1SKwKCiKffxZ8/N8hCnJRzxmo+K1o+1lgvvaeoUPZUmOvU7Zl4kOFx+DAeYTPQ2v66C4h9rBC5THZajWfcRgauQ0ea3laFyCN4unSvzStS6lA/TS4EKlLcQ9vSPK+VUg9Z/4ePSOi48nmhR2izZ7mcts8mJ0obNeC2SS9dRGWJwCahTMHYgtJuAu2uPYzP+08XmMLKGGVIQWrIfXD26V2K81b17sNGOpGAIyrNdHLvOHJSmOGTTPUPOHPONLZ9s4XOOHVsAQWFiWyc+1BiTJqwmCszfjcEirjHkbxi+VDvdFaYYokBH5Na9g8Jw0xcOwx7lJTixLCEIOWKbY5qEWK/Oqq9TLSfDE1529RxzSBz5l5L9aGBWVwwAgdrF01RlrbOKX04z+nPsDV1zed0+AkFD1KPaMCli3qblEUcDFyS35gd/hksbCcCXpbnkYmzceTZASzChUvfyBw7ZH8p0qN7CapYBcbUEqW0G2JkobtV8xF3Ajl7TQueQQSgp0fFNkQlayVecien/D3WlAng0H8HSmJzb3K3Yel1rrFkf"
+      BUCKET_ENDPOINT: AgC8TWJPfUp5qa/pfJEkIg0R+ZIinQhgLTq/JeQIVCwWkjWQXbUieGPFjDOWJ/L/P5a4ikgSicWyTuz1IWONQiUCCbIezHsIO0ZkwnxLWOYEprCRSt7DVLG621uAYkOqUJyX+JsrZg7lHPBcgFyTh17t+YQA24KWQfTFLeoK5drOXwxXkebQN8CxEWqo1f3Q02IYWpR56dlAjHniL9td0h6s8OD0vjD1Tn4xoKVkhdZWwvSF8GVBixNqUcK6jIGS7nazaBK1ZLL8k4latT4LMEzAgxNZatqlEhk/YOIL9LVuLAzQ6ApB3fbBBgLI+Q28TlveiOqqXZtKDZsK1gVR0kGnI78Sm/S50+Es3ID6oE+3o/FplnxU5xqdvMLIJMYvh6KAB533EIFJHCroDAS3yTOOLEQ/4iJHvXc6G4LViUUVwAukD6YNg6Iu/8yE5yOaYq9kNIKLIwXDpL6SkcxVG5q/klH2F+WsmYfm1kJbhDcG5BU6/41INWBISmg0y4KuzopSdKFbqM6lLvGbkdfdhK36+2s13HXV9Km/+g6H54CwSqVetntMv7jpvostYpaIFN7FpQKS7VQq5J4v5TGPwugX9VtHnUS+ctjA+AZ7UAHTmYrve4Hjrr1izD4xggsBfEfrl008c5cRQQWhgIaw8tqaM1miwn5S5Xs6arDR/ZeK93/F9HG2V/Cu4liGQjTCm9H+JZlRKxaxiHQapdg3SHNt
+      BUCKET_ACCESS_KEY: AgBQe7pRuSxRNbOBz5276lrZ3fqYlnMEPROqMu1eEvNN4nKmyPQ0IEjbnRNpV/6LaXNy7kiDbJcsm08rlZPE+Z2H4XstNSJXEUu3qTuv1/JLNSiLY+Z3BrI9rXQuc4aGWtixw+3hwAOZsyYemehAuhWOzNzWU9Ht9Q3+PwO/RHo2el1dxT+GDq3kfWMBCxpqsp+pYrKODAtuATtkWCnI/4m7dFQsjdHNrJ0kkAKP+mTSRb+HuxvD/KCWq/1BZnV+xOQ6xNcOW0Pulv2oUTpGPRXeXskKhZ8Fjlt40Ir/zMIMSzaod/C1mG4gzMyFksZ+fbhKt0jJQcmK/odnCjMpHpyV8kMzBt8vG4z7t/6rmOjrSX/RPjGyaVK1AsK9acrRjR9M7ndU1xFOSGW6tfu4XabfkJ//xKVvK9AoEJqYvTVTy6aOccFlzGKe4paBisGfG2k4C0bJ9RFH1QGzJPkoCMNRDOFgENi5LRHK2NwWRPXDZRQYUe9EKtCqM2Ghvuuv+9Xryp8GSHzzxmLtPC/0NpGJpMhy9aA189FVDdEFEz4s/6cDMqP8hXLiHJW6Bg8EGHxGwEX60tcVX98epAnU7QiQM5i4HCCXQrJGI2NNIe5evjh4BBU+8AGtYJRdlm8G7X+pxnSVSztz8F8bPGXQm2X9XvkIKeEazbSeBn1sCMMTxrhSo+iJ+Ijl4C405zRCTcAURs1diTjsEj7J7k27di+w9Pd4zA==
+      BUCKET_SECRET_KEY: AgATo9dOAVPy9wF7fN2q9auaa5lhWcRLw9PCrWrtXKu6D0IJicBS6Ube5G+QCDrmzkuQTFyxlUlF71gtAfWn7zvSxTu6LEECqE6PnTWyIJwM+fN/B8cI3ULEzBj0I1GZDXY0de/su8l1jmZCOpnU44T7A5kZBMyVuILJVzULuIORqKjXYB+NnWetQ1IzrzquKvua66RAS4WiarKklwnGF5PPO+xGUVQMaIo37X+a8gCqDojeapzeGSmsxfMqb2q6HL6T1yzNtrnoQqtWuKRsY1hSC3N85i8JW9HEEXOpLa4TYnjp+PpUmG6zNuWGOq0gG9AlmgKt3BvxaJjlJWbqB4iIA16pMSX66iO/1Z+x3gPMwiFE/5raZHJvRBL0KGLnhgDlj0vFXo3ZttcU486SSqKyr39M7RF9nksIDhxbmBHJU7yYXBhdeiMH/GmOy5gmzcIqHemRRdrDLK+JHHdIQaLw4Vl57iF15bXWgDoGDP6OpOCjqO/oeDR7x7l1s+B/lY6Idy12tZszD2LCGLjhgiOaPJ6E/sANjAWv7GYeqGXFPaaB9BkgOdYMzPzjXZN2Fjs3e5iZQslketAPK14J/2DoS8rJtVumiP7iwiyKF9iUIfSDcyrzQy/ouuPrrbPAhJ3epmGV49vJnDYKR5csSU1fsiqaIqTSXjqJmWjN/8mKhQD6667bCI7q1RXBznAqeS0rXKgzej7xY6oB7CV1gX5SY6kD2te34jyPu6EuyL1ertcFcs2m1f5p
+      BUCKET_NAME: AgA+VhnyuzQz/sknPEeNSXOfzBDajxyUrYb5RW0nnu1O9LKezNL2CapoZ8jrqI9yaJBIY9n7Iv5wdOuVUrTYVlTx34vdFtAlm0JLoTgTB+tZqnYIGzKWJkcLTTSuzzEI8qJPLN4UzYjwdqTWSTT89XjWh4xRxm/rRaW81tF0Pp60xM0ur1RepnCotOG7eP/dBWXl1HYqsE+gnct52sMWfQFMbXJT/Qqrg5Ev/WRmRwc1hldCpsV6WYfbTGgh4NFlc8vcZPEmfpzQvmdT8VdL0KT7bvKzHT08rXzZI09lq7pt/GTdtKImK5R8O63WxphGoPh3AOuISXsKOadyRUrx5TYFyR0Wlb8v6jreLsJBjDs6SXoTWABlguEgBqczHIPN217uAQSiEubQu95/64wVGkEsMOL5oA1YjPeNgpgwWwF12TA2Hjix9pwme6Qo0R3YH/jA08iVNn96fP/131ByI01L02GuSpAmSc7YSusV9jsEfQaFbp1an58NSG99PaH8+ofn5RcQSdXc7Lmmfod0qB9O3phQsYMbDJF5zaIMEDItiB4tW+oLwqN0IXhtLANHOShzFaOx+XnKpFd4cV7MIAs4MI/adL7pXc/I5YEDiJHGSyeVNb8w6e++i1mENanwz1uSD/09YJ+49zEY/EBWahsQC0irWcA29KMdGbHYVGRw37novaeWIOk1MLQHOQIPXaCgoqSNULYkfDYo1hU=
+      BUCKET_PATH: AgBkE7q7628Bz0aiGJ3ps1yrFPJcEraX+pJ209I5CV6FCYXB4tL612p66Cnqul4pkXipm4ZTAcKaMlxBtN5/fUcEcwwWIz/yMli5jNWWLcDhHbeaYG8oBaSKStld4lVVL5QFYv8uRUZOfAmFZWaXC5AQxrzoLyW46tpVibLTLD9U89m7LoYCjHgzdumvOPfA/tiOCJkRJyvogqqRBIAKaiWy1ko3plHpWIuzSt6GWb0zr1+xdbdmwX2+Uc0S4J+YSj5bs88OLJFWOXzMQvsG/q+aVzoXWxpHspe7F6zWUlVjgqAiYgaxb9ryrWs6HMHq+f5Sqrabcj+IJI6YDNPRy4DB/OLktYp6AGxELKui6qdCvbidYS+vE/JoA5Vh+OCDivoC76tk5mhOtys5FYxWk2E+Y9b0rIdU/OIOV51FqJhAxc/yJFZSf2ppSSzpc7AIN3thx5icC90vfv4Vbifgwx6OZXDu1fZs2kZgP4IeRo+BR4bODWHJ1wB9wDlOht9B5Ab50UmZXIU17JZXU1rvrJfmHDZj79lGV+x2MaVYB7J2mdeUqUFRCpDkpNinYQM4xAyxESBMK/PgclC0fR790N8hQIlSMLL+Ux+WH9OcFml1Ijn0qdpbGBmvCbALUWbYysTQMc9lVNcLpLe+wXq07X4RX7ITbW2ez2S/DLR6XSnxp3AnRQv06PiknikhHKg5i/gYqwbLXg==

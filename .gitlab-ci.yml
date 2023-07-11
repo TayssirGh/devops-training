@@ -51,9 +51,8 @@ website_build_push:
 deploy_applications:
   stage: deploy
   script:
-    - chmod 0755 training-app-deployment/subst-variables.sh training-app-deployment/install.sh
-    - sh training-app-deployment/subst-variables.sh
-    - sh training-app-deployment/install.sh
+    - chmod 0755 training-app-deployment/helm-chart/install.sh
+    - sh training-app-deployment/helm-chart/install.sh
   tags:
     - t005-deploy
   
