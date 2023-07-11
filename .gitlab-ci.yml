@@ -17,7 +17,7 @@ qr_build_push:
     - t006-deploy
   only:
     changes:
-      - application/qr/**/*
+      - applications/qr/**/*
 
 
 backend_build_push:
@@ -32,7 +32,7 @@ backend_build_push:
     - t006-deploy
   only:
     changes:
-      - application/backend/**/*
+      - applications/backend/**/*
 
 website_build_push:
   stage: build_push
@@ -46,13 +46,31 @@ website_build_push:
     - t006-deploy
   only:
     changes:
-      - application/website/**/*
+      - applications/website/**/*
 
-deploy_stage:
+
+init_k3d_cluster:
   stage: deploy
   script:
-    - chmod 0755 ./training-app-deployment/seal-secrets.sh
     - chmod 0755 ./training-app-deployment/init-k3d-cluster.sh
     - sh ./training-app-deployment/init-k3d-cluster.sh
   tags:
     - t006-deploy
+  only:
+    changes:
+      - training-app-deployment/init-k3d-cluster.sh
+      - training-app-deployment/k3d-config.yml
+
+deploy:
+  stage: deploy
+  script:
+    - chmod 0755 ./training-app-deployment/seal-secrets.sh
+    - chmod 0755 ./training-app-deployment/install-k8s-objects.sh
+    - sh ./training-app-deployment/init-k3d-cluster.sh
+  tags:
+    - t006-deploy
+
+
+
+
+    

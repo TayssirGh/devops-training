@@ -1,0 +1,137 @@
+namespaces:
+  - name: training-app-frontend-prod
+  - name: training-app-backend-prod
+
+apps:
+  - app: backend 
+    namespace: training-app-backend-prod
+    replicas: 1
+    containers:
+      - image: karimzomita/t006-backend:dev
+        name: backend-container
+        port: 3000
+        env:
+          - name: APP_PORT
+            secretName: backend-secret
+            secretKey: APP_PORT
+          - name: QR_URL
+            secretName: backend-secret
+            secretKey: QR_URL
+          - name: MONGO_URI
+            secretName: backend-secret
+            secretKey: MONGO_URI
+          - name: MONGO_DB
+            secretName: backend-secret
+            secretKey: MONGO_DB
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+      - image: karimzomita/applications-qr:test
+        name: application-qr
+        port: 3000
+        env:
+          - name: QR_TMP_FOLDER
+            secretName: qr-secret
+            secretKey: QR_TMP_FOLDER
+          - name: QR_FILL_COLOR
+            secretName: qr-secret
+            secretKey: QR_FILL_COLOR
+          - name: QR_BACKGROUND_COLOR
+            secretName: qr-secret
+            secretKey: QR_BACKGROUND_COLOR
+          - name: USE_BUCKET
+            secretName: qr-secret
+            secretKey: USE_BUCKET
+          - name: BUCKET_ENDPOINT
+            secretName: qr-secret
+            secretKey: BUCKET_ENDPOINT
+          - name: BUCKET_NAME
+            secretName: qr-secret
+            secretKey: BUCKET_NAME
+          - name: BUCKET_ACCESS_KEY
+            secretName: qr-secret
+            secretKey: BUCKET_ACCESS_KEY
+          - name: BUCKET_SECRET_KEY
+            secretName: qr-secret
+            secretKey: BUCKET_SECRET_KEY
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+
+    service:
+      type: LoadBalancer
+      port: 8080
+      targetPort: 3000
+      name: backend-service
+
+    ingress:
+      name: ingress-backend
+      annotations:
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+      host: localhost
+      path: /api(/|$)(.*)
+      pathType: Prefix
+      ingressClassName: nginx
+
+  - app: frontend 
+    namespace: training-app-frontend-prod
+    replicas: 1
+    containers:
+      - image: karimzomita/t006-website:dev
+        name: application-website
+        port: 80
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        volumeMounts:
+            - name: configs
+              mountPath: /app/assets/configs
+    volumes:
+      - name: configs
+        configmap:
+          name: configs-front
+
+    service:
+      type: LoadBalancer
+      port: 80
+      targetPort: 80
+      name: frontend-service
+
+    ingress:
+      name: ingress-frontend
+      host: localhost
+      path: /
+      pathType: Prefix
+      ingressClassName: nginx
+
+    configmap:
+      - name: configs-front
+        namespace: training-app-frontend-prod
+        files: 
+        - filename: "app-config.json"
+          path: "configs"
+
+secrets:
+  - name: qr-secret
+    namespace: training-app-backend-prod
+    data:
+      QR_TMP_FOLDER: "./generated_qr"
+      QR_FILL_COLOR: "#121128"
+      QR_BACKGROUND_COLOR: "#dcdbdb"
+      USE_BUCKET: "true"
+      BUCKET_ENDPOINT: ENV_PUBLIC_BUCKET_ENDPOINT
+      BUCKET_ACCESS_KEY: ENV_PUBLIC_BUCKET_ACCESS_KEY
+      BUCKET_SECRET_KEY: ENV_PUBLIC_BUCKET_SECRET_KEY
+      BUCKET_NAME: "qrcode1"
+      BUCKET_PATH: "data"
+  - name: backend-secret
+    namespace: training-app-backend-prod
+    data:
+      APP_PORT: "3000"
+      QR_URL: http://localhost:8420/
+      MONGO_URI: ENV_T006_MONGO_URI
+      MONGO_DB: devops-training
