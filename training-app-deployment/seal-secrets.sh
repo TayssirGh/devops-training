@@ -52,7 +52,6 @@ seal_secrets(){
         env_value=$(yq -r ".secrets[$INDEX].data.$env_name" $VALUE_FILE)
         if [[ $env_value == ENV_* ]]; then
             env_value=$(printenv ${env_value:4})
-            echo $env_value
         fi
         SEALED_VALUES=$(echo -n ${env_value} | kubeseal --raw --name $NAME --namespace $NAMESPACE --from-file=/dev/stdin)
         yq -i ".secrets[$INDEX].data.$env_name = \"$SEALED_VALUES\"" $VALUE_FILE
