@@ -10,6 +10,8 @@ build-job:
   services:
     - docker:dind  
   script:
+    - docker --version
+    - docker pull alpine
     - chmod 0755 ./ci-scripts/launch-B.sh
     - sh ./ci-scripts/launch-B.sh
     - exit_code=$?
