@@ -25,7 +25,7 @@ subst_with_sealed(){
   declare -A content
 
   while IFS="=" read -r key value; do content["$key"]=$value; done < <(
-    yq '.secrets['$1'].values | to_entries | map([.key, .value] | join("=")) | .[]' values.yaml
+    yq '.secrets['$1'].values | to_entries | map([.key, .value] | join("=")) | .[]' training-app-deployment/helm-chart/values.yaml
   )
 
   for key in "${!content[@]}";
@@ -38,7 +38,7 @@ subst_with_sealed(){
   else
     sealedValue=$(echo -n $value | kubeseal --raw --name $2 --namespace training-app-backend-prod --from-file=/dev/stdin)
   fi
-  yq -i '.secrets['$1'].values.'$key' = "'$sealedValue'"' values.yaml
+  yq -i '.secrets['$1'].values.'$key' = "'$sealedValue'"' training-app-deployment/helm-chart/values.yaml
   done
 
 }
