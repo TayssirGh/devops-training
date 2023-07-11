@@ -7,9 +7,9 @@ from scripts.validate_env import EnvValidator
 EnvValidator.validate_variables()
 
 atom = FastAPI()
-#if EnvValidator.use_bucket():
-s3 = S3Manager()
-s3.init_bucket()
+if EnvValidator.use_bucket():
+  s3 = S3Manager()
+  s3.init_bucket()
 
 
 @atom.post("/")

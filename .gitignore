@@ -6,6 +6,7 @@
 applications/website/src/assets/configs/app-config.json
 **/.env
 
+
 # compiled output
 **/dist
 **/tmp

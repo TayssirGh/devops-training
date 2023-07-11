@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./backend-ingress.yml
+- ./backend-secret.yml
+- ./backend-service.yml
+- ./qr-secret.yml
+- ./training-app-backend-prod.yml
+- ./training-app-frontend-prod.yml
+- ./website-configmap.yml
+- ./website-deployment.yml
+- ./backend-deployment.yml
+- ./website-ingress.yml
+- ./website-service.yml

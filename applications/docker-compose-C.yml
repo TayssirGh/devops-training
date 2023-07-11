@@ -1,26 +1,9 @@
 version: "3.9"
 services:
 
-  load_balancer:
-    image: nginx:latest
-    container_name: load_balancer
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - generated_qr:/etc/nginx/html/assets/data
-      - web_data:/etc/nginx/html
-    networks:
-      - qr_network
-      - app_network
-    depends_on:
-      - website
-      - backend
-      - minio
-      - qr
-
+ 
   qr:
-    image: housseinhmila/t-007-qr:dev
+    image: housseinhmila/t-007-qr:v1.0.0
     
     build:
       context: ./qr
@@ -30,16 +13,18 @@ services:
       replicas: 2
     ports: 
       - 8420
-    environment:
-      - QR_TMP_FOLDER="./generated_qr"
-      - QR_FILL_COLOR="#121128"
-      - QR_BACKGROUND_COLOR="#dcdbdb"
-      - USE_BUCKET=true
-      - BUCKET_ENDPOINT="myminio:9000"
-      - BUCKET_ACCESS_KEY="7A0bbzvFVmsJkx2Irqcw"
-      - BUCKET_SECRET_KEY="FDLGkVgOpek5g91OQVTPRgjjiyAK4gYKButkZ7kf"
-      - BUCKET_NAME="test"
-      - BUCKET_PATH=""
+    env_file:
+      - qr/.env
+    #environment:
+    #  - QR_TMP_FOLDER="./generated_qr"
+    #  - QR_FILL_COLOR="#121128"
+    #  - QR_BACKGROUND_COLOR="#dcdbdb"
+    #  - USE_BUCKET=true
+    #  - BUCKET_ENDPOINT="myminio:9000"
+    #  - BUCKET_ACCESS_KEY="7A0bbzvFVmsJkx2Irqcw"
+    #  - BUCKET_SECRET_KEY="FDLGkVgOpek5g91OQVTPRgjjiyAK4gYKButkZ7kf"
+    #  - BUCKET_NAME="test"
+    #  - BUCKET_PATH=""
     depends_on:
       - minio
     volumes:
@@ -48,7 +33,7 @@ services:
       - qr_network
 
   backend:
-    image: housseinhmila/t-007-backend:dev
+    image: housseinhmila/t-007-backend:v1.0.0
     
     build:
       context: ./backend
@@ -60,18 +45,21 @@ services:
       replicas: 2
     depends_on:
       - qr
-    environment:
-      - APP_PORT=3000
-      - QR_URL=http://qr:8420
-      - MONGO_URI="${T007_MONGO_URI}"
-      - MONGO_DB=test
-
+    env_file:
+      - backend/.env
     networks:
       - qr_network
       - app_network
+    #environment:
+    #  - APP_PORT=3000
+    #  - QR_URL=http://qr:8420
+    #  - MONGO_URI="${T007_MONGO_URI}"
+    #  - MONGO_DB=test
+
+    
 
   website:
-    image: housseinhmila/t-007-website:dev
+    image: housseinhmila/t-007-website:v1.0.0
     build:
       context: ./website
     restart: always
@@ -83,7 +71,10 @@ services:
     depends_on:
       - backend
     volumes:
-    - web_data:/usr/share/nginx/html 
+    - generated_qr:/etc/nginx/html/assets/data
+   
+  
+
     networks:
       - app_network
 
@@ -102,12 +93,31 @@ services:
     networks:
       - qr_network
       - app_network
-   
+
+  load_balancer:
+    image: nginx:latest
+    container_name: load_balancer
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - generated_qr:/etc/nginx/html/assets/data
+
+    networks:
+      - qr_network
+      - app_network
+    depends_on:
+      - website
+      - backend
+      - minio
+      - qr
+
 
 volumes:
   generated_qr:
   minio_data:
-  web_data:
+  
+ 
 
 networks:
   app_network:
