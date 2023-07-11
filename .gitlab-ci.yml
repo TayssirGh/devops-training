@@ -52,7 +52,7 @@ deploy_applications:
   stage: deploy
   script:
     - chmod 0755 training-app-deployment/helm-chart/install.sh
-    - sh training-app-deployment/helm-chart/install.sh
+    - bash training-app-deployment/helm-chart/install.sh
   tags:
     - t005-deploy
   
