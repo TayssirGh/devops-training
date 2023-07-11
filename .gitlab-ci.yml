@@ -5,8 +5,7 @@ before_script:
   - echo "${T008_DOCKER_HUB_TOKEN}" | docker login -u "${T008_REGISTRY_USER_NAME}" --password-stdin
 
 
-# variables:
-#   DOCKER_HOST: tcp://localhost:2375 
+
 
 build-job:
   stage: build-job
@@ -19,9 +18,10 @@ build-job:
   script:
     - docker --version
     - docker pull alpine
-    - chmod 0755 ./ci-scripts/launch-B.sh
-    - sh ./ci-scripts/launch-B.sh
+    - chmod 0755 ./ci-scripts/launch-D.sh
+    - sh ./ci-scripts/launch-D.sh
     - exit_code=$?
     - if [ $exit_code -eq 0 ]; then echo "Build succeeded"; else echo "Build failed"; fi
   tags:
     - "t-008-deploy"
+cd 
