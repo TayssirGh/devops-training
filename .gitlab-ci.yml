@@ -4,13 +4,16 @@ stages:
 before_script:
   - echo "${T008_DOCKER_HUB_TOKEN}" | docker login -u "${T008_REGISTRY_USER_NAME}" --password-stdin
 
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375 
+  
 build-job:
   stage: build-job
   image: docker:latest
   services:
     - docker:dind  
-  # variables:
-  #   DOCKER_HOST: tcp://localhost:2375
+
 
 
   script:
