@@ -18,7 +18,7 @@ build:
     - docker push "${T007_REGISTRY_USER_NAME}/t-007-website"
 
   tags:
-    - t-007
+    - t-007-dev
 
 
 
