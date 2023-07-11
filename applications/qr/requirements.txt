@@ -3,5 +3,5 @@ uvicorn==0.13.0
 pydantic==1.7.3
 qrcode==6.1
 Pillow==7.1.2
-minio
+minio==7.1.15
 python-dotenv==0.15.0

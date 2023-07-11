@@ -1,6 +1,4 @@
 from minio import Minio
-import os
-
 from .validate_env import EnvValidator
 
 
@@ -14,9 +12,10 @@ class S3Manager:
         self.bucketPath = EnvValidator.bucket_path()
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
-                                 secret_key=self.secretKey, secure=False)
+                                 secret_key=self.secretKey, secure=True)
 
     def init_bucket(self):
+        
         if not self.minioClient.bucket_exists(self.bucketName):
             self.minioClient.make_bucket(self.bucketName)
 
