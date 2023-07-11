@@ -19,4 +19,4 @@ build-job:
     - exit_code=$?
     - if [ $exit_code -eq 0 ]; then echo "Build succeeded"; else echo "Build failed"; fi
   tags:
-    - "ci cd"
+    - "t-008-deploy"
