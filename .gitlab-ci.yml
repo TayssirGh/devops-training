@@ -6,10 +6,12 @@ stages :
   - test
   - build
   - run
+
 before_script:
   - chmod u+x ./ci-scripts/dockerhub-login.sh 
 
   - ./ci-scripts/dockerhub-login.sh  
+
 .build:
   stage: build
   image: docker:24.0.3-cli
@@ -18,41 +20,9 @@ before_script:
   tags:
     - t-009-prod
 
-
-nodejs_build_image:
-
+build:
   extends: .build
-  variables:
-    IMAGE_NAME:  qr_backend
-    IMAGE_TAG:   latest
-
-  script: 
-    - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/backend
-    - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
-  
-
-
- 
-
-qr-code_build_image:
-
-  extends: .build
-  variables:
-    IMAGE_NAME:  oussachour/qr_python_code
-    IMAGE_TAG:   latest
   
   script: 
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG applications/qr
-    - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
+    - ./ci-scripts/build.sh
 
-
-angular_build_image:
-
-  extends: .build
-  variables:
-    IMAGE_NAME:  oussachour/qr_frontend
-    IMAGE_TAG:   latest
-  
-  script: 
-  - docker build -t $IMAGE_NAME:$IMAGE_TAG applications/website
-  - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
