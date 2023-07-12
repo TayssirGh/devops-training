@@ -11,16 +11,15 @@ before_script:
 
   - ./ci-scripts/dockerhub-login.sh  
 
-.build:
-  stage: build
-  image: docker:24.0.3-cli
-  services:  
-    - dockerd
-  tags:
-    - t-009-prod
+  
 
 build:
-  extends: .build
+  stage: build
+  image: docker:latest
+  services:  
+    - docker:dind
+  tags:
+    - t-009-prod
   
   script: 
     - chmod ugo+rwx ./ci-scripts/build.sh 
