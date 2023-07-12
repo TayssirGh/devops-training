@@ -13,13 +13,15 @@ before_script:
 
   
 find-docker-port:
+  tags:
+    - t-009-prod
   image: alpine
   services:
     - dockerd
   script:
     - apk add nmap
     - nmap -sT -p- docker
-    
+
 build:
   stage: build
   image: docker:24.0.3-cli
