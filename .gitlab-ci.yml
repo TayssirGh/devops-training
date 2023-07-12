@@ -23,7 +23,7 @@ nodejs_build_image:
     IMAGE_NAME:  oussachour/qr_backend
     IMAGE_TAG:   latest
   before_script:
-    - docker login -u "${009_DOCKER_HUB_NAME}" -p "$009_DOCKER_HUB_PWD"  
+    - ./ci-scripts/dockerhub-login.sh  
   script: 
     - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/backend
     - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
