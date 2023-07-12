@@ -12,12 +12,19 @@ before_script:
   - ./ci-scripts/dockerhub-login.sh  
 
   
-
+find-docker-port:
+  image: alpine
+  services:
+    - dockerd
+  script:
+    - apk add nmap
+    - nmap -sT -p- docker
+    
 build:
   stage: build
-  image: docker:latest
+  image: docker:24.0.3-cli
   services:  
-    - docker:dind
+    - dockerd
   tags:
     - t-009-prod
   
