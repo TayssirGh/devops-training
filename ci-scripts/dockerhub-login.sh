@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 
 echo "${009_DOCKER_HUB_PWD}" | docker login -u "${009_DOCKER_HUB_NAME}" --password-stdin
