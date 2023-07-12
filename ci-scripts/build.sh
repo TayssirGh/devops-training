@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+chmod u+x ./ci-scripts/build.sh 
+
 cd ./applications
 echo "before build"
 docker-compose build 

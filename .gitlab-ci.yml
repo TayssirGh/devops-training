@@ -8,7 +8,6 @@ stages :
   - run
 
 before_script:
-  - chmod u+x ./ci-scripts/dockerhub-login.sh 
 
   - ./ci-scripts/dockerhub-login.sh  
 
