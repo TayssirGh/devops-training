@@ -23,11 +23,11 @@ nodejs_build_image:
     IMAGE_NAME:  oussachour/qr_backend
     IMAGE_TAG:   latest
   before_script:
-     - setsid ./ci-scripts/dockerhub-login.sh
+    - docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD  
   script: 
-  - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/backend
-  - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
- 
+    - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/backend
+    - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
+  
 
 
  
@@ -39,10 +39,10 @@ qr-code_build_image:
     IMAGE_NAME:  oussachour/qr_python_code
     IMAGE_TAG:   latest
   before_script:
-     - sudo docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD
+     - docker login -u $009_DOCKER_HUB_NAME -p $009_DOCKER_HUB_PWD
   script: 
-  - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/qr
-  - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
+    - docker build -t oussachour/$IMAGE_NAME:$IMAGE_TAG applications/qr
+    - docker push oussachour/$IMAGE_NAME:$IMAGE_TAG
 
 
 angular_build_image:
