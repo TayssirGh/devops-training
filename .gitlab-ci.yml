@@ -9,18 +9,18 @@ stages :
 
  
 
-  
-find-docker-port:
-  tags:
-    - t-009-prod
-  image: alpine
-  services:
-    - dockerd
-  script:
-    - apt-get update
-    - apt-get install nmap
-    - nmap -sT -p- docker
-
+#  
+#find-docker-port:
+#  tags:
+#    - t-009-prod
+#  image: alpine
+#  services:
+#    - dockerd
+#  script:
+#    - apt-get update
+#    - apt-get install nmap
+#    - nmap -sT -p- docker
+#
 build:
   stage: build
   image: docker:24.0.3-cli
