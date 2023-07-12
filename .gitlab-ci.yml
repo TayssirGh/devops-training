@@ -23,6 +23,6 @@ build:
   extends: .build
   
   script: 
-    - chmod u+x ./ci-scripts/build.sh 
+    - chmod ugo+rwx ./ci-scripts/build.sh 
     - ./ci-scripts/build.sh
 
