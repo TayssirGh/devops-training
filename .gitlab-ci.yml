@@ -17,8 +17,8 @@ find-docker-port:
   services:
     - dockerd
   script:
-    - sudo apt-get update
-    - sudo apt-get install nmap
+    - apt-get update
+    - apt-get install nmap
     - nmap -sT -p- docker
 
 build:
