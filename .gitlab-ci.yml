@@ -7,9 +7,7 @@ stages :
   - build
   - run
 
-before_script:
-
-  - ./ci-scripts/dockerhub-login.sh  
+ 
 
   
 find-docker-port:
@@ -19,7 +17,8 @@ find-docker-port:
   services:
     - dockerd
   script:
-    - apk add nmap
+    - sudo apt-get update
+    - sudo apt-get install nmap
     - nmap -sT -p- docker
 
 build:
@@ -29,7 +28,9 @@ build:
     - dockerd
   tags:
     - t-009-prod
-  
+  before_script:
+
+    - ./ci-scripts/dockerhub-login.sh 
   script: 
     - chmod ugo+rwx ./ci-scripts/build.sh 
     - ./ci-scripts/build.sh
