@@ -1,7 +1,7 @@
-services:
-    - name: docker:24.0.3-dind
-      alias: dockerd
-
+#services:
+#    - name: docker:24.0.3-dind
+#      alias: dockerd
+#
 stages :
   - test
   - build
@@ -9,9 +9,7 @@ stages :
 
 
 
- 
 
-#  
 #find-docker-port:
 #  tags:
 #    - t-009-prod
@@ -25,9 +23,9 @@ stages :
 #
 build:
   stage: build
-  image: docker:24.0.3-cli
-  services:  
-    - dockerd
+#  image: docker:24.0.3-cli
+#  services:  
+#    - dockerd
   tags:
     - t-009-prod
   before_script:
