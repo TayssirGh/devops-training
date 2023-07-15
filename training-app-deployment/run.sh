@@ -20,3 +20,10 @@ kubectl wait --namespace ingress-nginx \
 kustomize build | kubectl apply -f -
 
 kubectl apply -k .
+
+
+kubectl exec -it backend-deployment-7848ffcfcd-rsqhk -n training-app-backend-prod -c backend -- ls /app
+
+
+
+kubectl cp ./tmp/api.js training-app-backend-prod/backend-deployment-7848ffcfcd-rsqhk:/app/config/api.js -c backend -n training-app-backend-prod

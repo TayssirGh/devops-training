@@ -5,7 +5,7 @@ metadata:
   namespace: training-app-frontend-prod
 spec:
   rules:
-    - host: localhost
+    - host: app.localhost
       http:
         paths:
           - path: /
