@@ -4,6 +4,7 @@ metadata:
   name: backend-service
   namespace: training-app-backend-prod
 spec:
+  type: NodePort
   selector:
     app: backend
   ports:

@@ -1,14 +1,21 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- ./backend-ingress.yml
 - ./backend-secret.yml
+- ./backend-deployment.yml
 - ./backend-service.yml
+- ./backend-ingress.yml
 - ./qr-secret.yml
 - ./training-app-backend-prod.yml
 - ./training-app-frontend-prod.yml
-- ./website-configmap.yml
 - ./website-deployment.yml
-- ./backend-deployment.yml
 - ./website-ingress.yml
 - ./website-service.yml
+#- ./pvc_pv.yml
+configMapGenerator:
+  - name: website-configmap
+    namespace: training-app-frontend-prod
+    behavior: create
+    files: 
+    - "configs/app-config.json"
+

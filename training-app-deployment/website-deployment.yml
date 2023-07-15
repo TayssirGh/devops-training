@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: website
-          image: housseinhmila/t-007-website:dev
+          image: housseinhmila/t-007-website:v1.0.0
           ports:
-            - containerPort: 80
+            - containerPort: 4200
           volumeMounts:
             - name: config-volume
               mountPath: /etc/nginx/html/assets/configs
@@ -25,6 +25,7 @@ spec:
         - name: config-volume
           configMap:
             name: website-configmap
+          
         
          
 ---

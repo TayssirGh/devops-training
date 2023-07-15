@@ -41,6 +41,10 @@ class EnvValidator:
     @staticmethod
     def bucket_endpoint():
         return os.getenv('BUCKET_ENDPOINT')
+    
+    def bucket_endpointweb():
+        return os.getenv('BUCKET_ENDPOINT_WEB')
+
 
     @staticmethod
     def bucket_access_key():

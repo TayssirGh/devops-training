@@ -10,6 +10,7 @@ class S3Manager:
         self.secretKey = EnvValidator.bucket_secret_key()
         self.bucketName = EnvValidator.bucket_name()
         self.bucketPath = EnvValidator.bucket_path()
+        self.endpointweb = EnvValidator.bucket_endpointweb()
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
                                  secret_key=self.secretKey, secure=True)
@@ -24,4 +25,5 @@ class S3Manager:
             self.bucketPath if path_under_bucket is None else path_under_bucket, qr_id),
                                      qr_path)
         #os.remove(qr_path)
-        return self.minioClient.presigned_get_object(self.bucketName, "{}/{}.png".format(self.bucketPath, qr_id))
+        #return self.minioClient.presigned_get_object(self.bucketName, "{}/{}.png".format(self.bucketPath, qr_id))
+        return "{}/{}/{}/{}.png".format(self.endpointweb,self.bucketName,self.bucketPath, qr_id)
