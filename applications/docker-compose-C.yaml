@@ -2,7 +2,7 @@ version: '3.8'
 services:
 
   nodejs:
-    image: youssef2023/comwork-backend:latest
+    image: youssef2023/comwork-backend:v2-latest
 
     build:
       context: ./backend
@@ -22,7 +22,7 @@ services:
       replicas: 2
 
   python:
-    image: youssef2023/comwork-qr:latest
+    image: youssef2023/comwork-qr:v2
 
     build:
       context: ./qr
@@ -39,17 +39,16 @@ services:
       - USE_BUCKET=true
       - BUCKET_ENDPOINT=applications-minio-1:9000
       - BUCKET_ENDPOINT_WEB=http://localhost:9000
-      - BUCKET_ACCESS_KEY=FwdllhOzT8c1FN7yjhqa
-      - BUCKET_SECRET_KEY=PXuyvCDXyVrJe1ojIQye3LPI4NSxtOmK0oKM9jNH
+      - BUCKET_ACCESS_KEY=azKMtB0dtcfbwrWGaoqS
+      - BUCKET_SECRET_KEY=OC5bN77cpvP7sNT5JHNMUUtf6Z6B1imFOHaYZzN0
       - BUCKET_NAME=test
       - BUCKET_PATH=
-    # volumes:
-    #   - ./data_volumes:/app/generated_qr/
+
     deploy:
       replicas: 2
 
   angular:
-    image: youssef2023/comwork-website:latest
+    image: youssef2023/comwork-website:v2
 
     build:
       context: ./website
@@ -59,8 +58,8 @@ services:
       - comwork
     ports:
       - 4200
-    # volumes:
-    #   - ./data_volumes:/etc/nginx/html/assets/data:ro  
+    volumes:
+      - data_volumes:/etc/nginx/html:ro  
     deploy:
       replicas: 2
 
@@ -82,13 +81,12 @@ services:
 
 
   nginx:
-    image: youssef2023/nginx-image:latest
+    image: nginx:latest
     ports:
       - 80:80
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      # - data_volumes:/etc/nginx/html/assets/data
-      - data_web:/etc/nginx/html
+      - data_volumes:/etc/nginx/html
     networks:
       - comwork
 
@@ -105,6 +103,5 @@ networks:
     
 volumes:
   data_minio:
-  # data_volumes:
-  data_web:
+  data_volumes:
 

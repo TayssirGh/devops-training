@@ -15,7 +15,7 @@ export class EnvLoaderService {
   getBackendUrl(): string {
     console.log(this.backendUrl);
     console.log('---------------------');
-    return "https://localhost/backend";
+    return this.backendUrl;
   }
 
   public getJSON(): Observable<any> {

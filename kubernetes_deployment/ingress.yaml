@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-frontservice
+  name: ingress-front
   namespace: training-app-frontend-prod
 spec:
   rules:
@@ -16,9 +16,7 @@ spec:
             port:
               number: 80
   ingressClassName: nginx
-
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -32,11 +30,11 @@ spec:
   - host: localhost
     http:
       paths:
-      - path: /api(/|$)(.*)
+      - path: /api
         pathType: Prefix
         backend:
           service:
             name: backend-service
             port:
-              number: 9099
+              number: 8080
   ingressClassName: nginx

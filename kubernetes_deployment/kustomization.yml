@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespaces.yaml
+  - backend_deployment.yaml
+  - backend_service.yaml
+  - frontend_deployment.yaml
+  - frontend_service.yaml
+  - ingress.yaml
+
+configMapGenerator:
+  - name: configs-front
+    namespace: training-app-frontend-prod
+    behavior: create
+    files: 
+    - "./configs/app-config.json"
