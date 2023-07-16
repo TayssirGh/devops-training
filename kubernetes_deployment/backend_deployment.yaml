@@ -106,10 +106,10 @@ spec:
                 secretKeyRef:
                   name: qr-secret
                   key: BUCKET_PATH
-          # resources:
-          #   limits:
-          #     memory: "200Mi"
-          #     cpu: "100m"
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "100m"
           ports:
             - containerPort: 8420
               name: qr
