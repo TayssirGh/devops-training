@@ -6,6 +6,7 @@ k3d cluster delete k3d-devopscluster
 
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.22.0/controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.22.0/controller.yaml
 
 kubectl wait --namespace kube-system \
  --for=condition=ready pod \
@@ -21,9 +22,8 @@ kustomize build | kubectl apply -f -
 
 kubectl apply -k .
 
+POD_NAME=$(kubectl get pods -n training-app-backend-prod --selector=app=backend -o jsonpath='{.items[0].metadata.name}')
+kubectl cp ./tmp/api.js training-app-backend-prod/$POD_NAME:/app/config/api.js -c backend -n training-app-backend-prod
 
-kubectl exec -it backend-deployment-7848ffcfcd-rsqhk -n training-app-backend-prod -c backend -- ls /app
-
-
-
-kubectl cp ./tmp/api.js training-app-backend-prod/backend-deployment-7848ffcfcd-rsqhk:/app/config/api.js -c backend -n training-app-backend-prod
+chmod +x seals.sh
+./seals.sh
