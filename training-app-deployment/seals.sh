@@ -3,7 +3,7 @@ for secret_file in $(ls *secret.yml); do
 done
 
 rm *secret.yml
-
+cd ..
 git add .
 git commit -m "Seal secrets"
 git push 
