@@ -23,7 +23,8 @@ COPY .docker/nginx/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=front_build /usr/app/dist/website /qr-frontend
 
 RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
+ENTRYPOINT [ "/docker-entrypoint.sh" ] 
 
 EXPOSE 80
 

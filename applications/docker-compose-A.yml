@@ -8,9 +8,10 @@ services:
     networks:
       - qr_network
     ports: 
-      - 8082:8082
-    depends_on:
-      - qr_python_code
+      - 3000:3000
+    
+    # depends_on:
+    #   - qr_python_code
     env_file:
       - .env
 
