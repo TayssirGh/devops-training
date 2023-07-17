@@ -1,9 +1,9 @@
 #!/bin/bash
 # export KUBECONFIG=~/.kube/config
 
- k3d cluster delete clusster
+sudo k3d cluster delete clusster
 
- k3d cluster create --config create_cluster.yaml
+sudo k3d cluster create --config create_cluster.yaml
 clustername=clusster
 cd ~/.kube
- k3d kubeconfig get ${clustername} > config
+sudo k3d kubeconfig get ${clustername} > config
