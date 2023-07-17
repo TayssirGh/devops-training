@@ -39,6 +39,6 @@
 **/.DS_Store
 **/Thumbs.db
 
-**/secret-backend.yaml
-**/secret-qr.yaml
+# **/secret-backend.yaml
+# **/secret-qr.yaml
 
