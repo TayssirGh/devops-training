@@ -38,3 +38,7 @@
 # System Files
 **/.DS_Store
 **/Thumbs.db
+
+**/secret-backend.yaml
+**/secret-qr.yaml
+
