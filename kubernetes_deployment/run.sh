@@ -1,6 +1,5 @@
 #!/bin/sh
 
-k3d cluster delete clusster 
 
 
 sudo kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.22.0/controller.yaml
