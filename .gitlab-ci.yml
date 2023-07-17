@@ -14,7 +14,7 @@ build:
     #- kubectl wait --namespace kube-system --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=-1s
     - kubectl apply -k .
     - POD_NAME=$(kubectl get pods -n training-app-backend-prod --selector=app=backend -o jsonpath='{.items[0].metadata.name}')
-    - kubectl cp ./tmp/api.js training-app-backend-prod/$POD_NAME:/app/config/api.js -c backend -n training-app-backend-prod
+    - kubectl cp /home/houssein/Desktop/devops-training/training-app-deployment/tmp/api.js training-app-backend-prod/$POD_NAME:/app/config/api.js -c backend -n training-app-backend-prod
 
   tags:
     - t-007-dev
