@@ -18,6 +18,10 @@ spec:
           image: housseinhmila/t-007-backend:v1.0.0
           ports:
             - containerPort: 3000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           env:
             - name: APP_PORT
               valueFrom:
@@ -43,6 +47,10 @@ spec:
           image: housseinhmila/t-007-qr:v2.0.0
           ports:
             - containerPort: 8420
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           env:
             - name: QR_TMP_FOLDER
               valueFrom:

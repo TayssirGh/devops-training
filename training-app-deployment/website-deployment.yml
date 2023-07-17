@@ -18,6 +18,10 @@ spec:
           image: housseinhmila/t-007-website:v1.0.0
           ports:
             - containerPort: 4200
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           volumeMounts:
             - name: config-volume
               mountPath: /etc/nginx/html/assets/configs
