@@ -11,8 +11,10 @@ build-job:
     - cd kubernetes_deployment
     - chmod 0755 ./create_cluster.sh
     - sh ./create_cluster.sh
-    - chmod 0755 ./sealedSecret.sh
-    - sh ./sealedSecret.sh        
+    - |
+      for secret_file in $(ls secret*.yaml); do
+        kubeseal < "${secret_file}" > "${secret_file/.yaml/.sealed.yaml}"
+      done      
     - chmod 0755 ./run.sh
     - sh ./run.sh    
     - exit_code=$?
