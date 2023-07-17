@@ -13,8 +13,8 @@ build-job:
     - ./create_cluster.sh     
     - chmod 0755 ./run.sh
     - ./run.sh 
-    - chmod 0755 ./sealedSecret.sh
-    - ./sealedSecret.sh      
+    # - chmod 0755 ./sealedSecret.sh
+    # - ./sealedSecret.sh      
     - exit_code=$?
     - if [ $exit_code -eq 0 ]; then echo "Build succeeded !"; else echo "Build failed"; fi
   tags:
