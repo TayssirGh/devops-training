@@ -18,7 +18,7 @@ class S3Manager:
 
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
-                                 secret_key=self.secretKey,secure=False)
+                                 secret_key=self.secretKey,secure=True)
         print(self.minioClient)     
         print('---------------------------------------------')                    
 
