@@ -8,7 +8,6 @@ build-job:
   services:
     - docker:dind  
   script:
-    - echo "Said96232048" | sudo -S -v  
     - cd kubernetes_deployment
     - chmod 0755 ./create_cluster.sh
     - sh ./create_cluster.sh
