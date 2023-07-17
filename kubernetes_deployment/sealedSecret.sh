@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 for secret_file in $(ls secret*.yaml); do
   kubeseal < "${secret_file}" > "${secret_file/.yaml/.sealed.yaml}"
