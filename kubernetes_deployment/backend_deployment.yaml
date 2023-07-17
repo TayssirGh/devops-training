@@ -22,7 +22,6 @@ spec:
         - image: youssef2023/comwork-backend:v2-latest
           name: backend-container
           imagePullPolicy: Always
-          # restartPolicy: Never        
           env:
             - name: APP_PORT
               valueFrom:
@@ -54,7 +53,6 @@ spec:
         - image: youssef2023/comwork-qr:v2-latest
           name: qr-container
           imagePullPolicy: Always
-          # restartPolicy: Never 
           env:
             - name: QR_TMP_FOLDER
               valueFrom:
@@ -113,6 +111,3 @@ spec:
           ports:
             - containerPort: 8420
               name: qr
-          # volumeMounts:
-          #   - mountPath: /app/scripts/generated_qr
-          #     name: qr-data

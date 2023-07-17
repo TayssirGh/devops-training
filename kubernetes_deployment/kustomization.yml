@@ -9,6 +9,7 @@ resources:
   - frontend_deployment.yaml
   - frontend_service.yaml
   - ingress.yaml
+  - ingress_backend.yaml
 
 configMapGenerator:
   - name: configs-front

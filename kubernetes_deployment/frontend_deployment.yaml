@@ -23,10 +23,10 @@ spec:
               memory: "128Mi"
               cpu: "50m"
           ports:
-            - containerPort: 80
+            - containerPort: 4200
           volumeMounts:
             - name: configs
-              mountPath: /app/assets/configs
+              mountPath: /etc/nginx/html/assets/configs
       volumes:
         - name: configs
           configMap:
