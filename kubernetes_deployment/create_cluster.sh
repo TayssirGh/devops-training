@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # export KUBECONFIG=~/.kube/config
 
 sudo k3d cluster delete clusster

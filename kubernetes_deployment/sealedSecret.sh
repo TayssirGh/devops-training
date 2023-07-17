@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 for secret_file in $(ls secret*.yaml); do
   kubeseal < "${secret_file}" > "${secret_file/.yaml/.sealed.yaml}"
@@ -8,4 +8,4 @@ done
 # cd ..
 # git add .
 # git commit -m "sealed secret"
-# git push 
+# git push

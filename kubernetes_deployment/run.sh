@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 k3d cluster delete clusster 
 
