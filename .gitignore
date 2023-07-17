@@ -42,4 +42,4 @@ applications/website/src/assets/configs/app-config.json
 
 **/applications/minio_data
 
-**/*secret.yml
+#**/*secret.yml
