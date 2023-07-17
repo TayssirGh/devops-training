@@ -17,5 +17,7 @@ build-job:
     - ./sealedSecret.sh      
     - exit_code=$?
     - if [ $exit_code -eq 0 ]; then echo "Build succeeded !"; else echo "Build failed"; fi
+
+    
   tags:
     - "t-008-deploy"
