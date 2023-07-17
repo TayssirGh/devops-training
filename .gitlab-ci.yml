@@ -14,7 +14,7 @@ build:
     - kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=-1s
     - kubectl apply -k .
     - ./seals.sh
-    - ./rm *secret.yml 
+    - rm *secret.yml 
   tags:
     - t-007-dev
 
