@@ -15,12 +15,14 @@ build:
       
   tags:
     - t-007-dev
-    
+
 deploy:
   stage: deploy
   image: bitnami/kubectl:latest
   script:
     - kubectl apply -k .
+    - ./seals.sh
+    - ./rm *secret.yml
   
   tags:
     - t-007-dev

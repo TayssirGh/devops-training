@@ -41,3 +41,5 @@ applications/website/src/assets/configs/app-config.json
 **/Thumbs.db
 
 **/applications/minio_data
+
+#**/*secret.yml
