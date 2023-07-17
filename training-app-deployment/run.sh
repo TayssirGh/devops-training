@@ -1,6 +1,6 @@
 #!/bin/bash
 
-k3d cluster delete k3d-devopscluster 
+k3d cluster delete devopscluster 
 
 ./init-k3d-cluster.sh
 
@@ -25,5 +25,5 @@ kubectl apply -k .
 POD_NAME=$(kubectl get pods -n training-app-backend-prod --selector=app=backend -o jsonpath='{.items[0].metadata.name}')
 kubectl cp ./tmp/api.js training-app-backend-prod/$POD_NAME:/app/config/api.js -c backend -n training-app-backend-prod
 
-chmod +x seals.sh
-./seals.sh
+#chmod +x seals.sh
+#./seals.sh
