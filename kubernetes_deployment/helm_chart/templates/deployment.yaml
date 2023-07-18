@@ -1,0 +1,61 @@
+{{- range $var := .Values.apps }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ $var.app }}
+  name: {{ $var.name }}
+  namespace: {{ $var.namespace }}
+spec:
+  replicas: {{ $var.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $var.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ $var.app }}
+    spec:
+    {{- if $var.volumes }}
+      volumes:
+        - name: {{ $var.volumes.name }}
+        {{- if $var.volumes.configMap }}
+          configMap:
+            name: {{ $var.volumes.configMap.name }}
+        {{- end }}       
+    {{- end }}        
+      containers:
+      {{- range $container := $var.containers }}
+        - image: {{ $container.image }}
+          name: {{ $container.name }}
+          {{- if $container.imagePullPolicy }}
+          imagePullPolicy: {{ $container.imagePullPolicy }}
+          {{- end }}  
+          {{- if $container.env }}
+          env:
+            {{- range $env :=  $container.env }}
+            - name: {{ $env.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $env.secretName }}
+                  key: {{ $env.secretKey }}
+            {{- end }}
+          {{- end }}
+        {{- if $container.volumeMounts }}
+          {{- range $vol := $container.volumeMounts }}
+          volumeMounts:
+            - name: {{ $vol.name }}
+              mountPath: {{ $vol.mountPath }}
+            {{- end }}
+        {{- end }}
+
+          resources:
+            limits:
+              memory: {{ $container.resources.limits.memory }}
+              cpu: {{ $container.resources.limits.cpu }}
+          ports:
+            - containerPort: {{ $container.ports.containerPort }}
+              name: {{ $container.ports.name }}
+      {{- end }}
+{{- end }}   
