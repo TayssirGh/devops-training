@@ -1,0 +1,18 @@
+{{$files := .Files}}
+{{- range $app := .Values.deployment }}
+{{- if $app.configmap  }}
+{{- range $conf := $app.configmap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $conf.name }}
+  namespace: {{ $conf.namespace }}
+data:
+{{- range $value := $conf.files }}
+  {{ $value.filename }}: |-
+    {{ $files.Get (printf "%s/%s" $value.path $value.filename) | nindent 4 }}
+{{- end}}
+{{- end}}
+{{- end}}
+{{- end}}
+
