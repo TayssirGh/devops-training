@@ -3,7 +3,7 @@ FROM python:3.9
 #creating app directory
 WORKDIR /usr/src
 
-#bundling app code 
+#bundling app code  
 COPY . .
 
 #installing requirements

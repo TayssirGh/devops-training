@@ -11,7 +11,7 @@ services:
       - MINIO_ACCESS_KEY=oussachour_minio
       - MINIO_SECRET_KEY=oussachour_minio_pwd
     volumes:
-      - minio_data:/data 
+      - minio_data:/data:z
     command: server --console-address ":9090" /data
     networks:
       - qr_network
@@ -24,7 +24,7 @@ services:
       file: docker-compose-A.yml
       service: qr_python_code
     volumes:
-      - minio_data:/usr/src/generated_qr 
+      - minio_data:/usr/src/generated_qr:z 
    
 
   qr_backend: 
@@ -44,6 +44,7 @@ services:
 
 networks:
   qr_network:
+  
 volumes:
   minio_data:
   generated_qr:

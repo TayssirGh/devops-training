@@ -27,7 +27,7 @@ services:
     ports: 
       - 8420:8420
     volumes:
-      - generated_qr:/usr/src/generated_qr
+      - generated_qr:/usr/src/generated_qr:z
     env_file:
       - .env
     
