@@ -45,6 +45,10 @@ services:
 #front app
   qr_front:
     image: oussachour/qr_frontend:latest
+    #image: front:latest
+    build: 
+      context: website
+      dockerfile: Dockerfile
     
     restart: always
     deploy:
@@ -62,8 +66,8 @@ services:
     image: minio/minio:latest
     container_name: minio
     ports:
-      - 9000
-      - 9090
+      - 9000:9000
+      - 9090:9090
     environment:
       - MINIO_ACCESS_KEY=oussachour_minio
       - MINIO_SECRET_KEY=oussachour_minio_pwd
@@ -83,7 +87,7 @@ services:
       context: nginx
       dockerfile: Dockerfile
     ports:
-    - 80:80
+    - 80:80 
     networks:
       - qr_network
 
