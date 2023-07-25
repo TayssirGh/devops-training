@@ -1,0 +1,101 @@
+version: '3.8'
+
+#The idea : replication each app through different ports
+
+#Note : regarding storage volumes , we still using one host volume (one-single-point of failure)
+
+#Note : regarding minio , minio itself is a distributed storage system , thus , there is no need
+#to create duplicated containers
+
+services:
+
+#backend app 
+  qr_backend:
+    image: oussachour/qr_backend:latest
+    restart: always
+    deploy:
+      replicas: 2 
+
+    ports: 
+      - 3000
+    
+    networks:
+      - qr_network
+    env_file:
+      - .env
+
+#python app
+
+  qr_python_code:
+
+    image: oussachour/qr_python_code:latest
+    restart: always
+    deploy:
+      replicas: 2 
+    ports: 
+      - 8420
+    volumes:
+      - minio_data:/usr/src/generated_qr:z 
+
+    networks:
+      - qr_network
+    env_file:
+      - .env
+    
+#front app
+  qr_front:
+    image: oussachour/qr_frontend:latest
+    #image: front:latest
+    build: 
+      context: website
+      dockerfile: Dockerfile
+    
+    restart: always
+    deploy:
+      replicas: 2
+    ports: 
+    - 8080
+    networks:
+      - qr_network
+    volumes:
+      - minio_data:/qr-frontend/assets/data:ro
+    env_file:
+    - .env
+#minio : 
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9090:9090
+    environment:
+      - MINIO_ACCESS_KEY=oussachour_minio
+      - MINIO_SECRET_KEY=oussachour_minio_pwd
+    volumes:
+      - minio_data:/data:z
+    command: server --console-address ":9090" /data
+    networks:
+      - qr_network
+    env_file:
+      - .env
+  #nginx
+  nginx:
+      image: oussachour/qr_nginx:latest
+      container_name: qr_nginx
+      build: 
+        context: nginx
+        dockerfile: Dockerfile
+      ports:
+      - 80:80 
+      networks:
+        - qr_network
+      volumes: 
+        - type: bind
+          source: /home/oussamaachour/ssl 
+          target : /etc/nginx/ssl
+networks:
+  qr_network:
+  
+volumes:
+  minio_data:
+  generated_qr:
