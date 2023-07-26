@@ -2,90 +2,87 @@ namespaces:
   - name: training-app-frontend-prod
   - name: training-app-backend-prod
 
-
 deployment:
-    - app: backend
-      namespace: training-app-backend-prod
-      replicas: 1
-      containers:
-        - repository: housseinhmila/t-007-backend:v1.0.0
-          name: backend
-          resources:
-            limits:
-              cpu: 100m
-              memory: 128Mi
-          port: 3000
-          env:
-            - name: APP_PORT
-              secretName: backend-secret
-              secretKey: APP_PORT
-            - name: QR_URL
-              secretName: backend-secret
-              secretKey: QR_URL
-            - name: MONGO_URI
-              secretName: backend-secret
-              secretKey: MONGO_URI
-            - name: MONGO_DB
-              secretName: backend-secret
-              secretKey: MONGO_DB
-        - repository: housseinhmila/t-007-qr:v2.0.0
-          name: qr
-          resources:
-            limits:
-              cpu: 100m
-              memory: 128Mi
-          port: 8420
-          env:
-            - name: QR_TMP_FOLDER
-              secretName: qr-secret
-              secretKey: QR_TMP_FOLDER
-            - name: QR_FILL_COLOR
-              secretName: qr-secret
-              secretKey: QR_FILL_COLOR
-            - name: QR_BACKGROUND_COLOR
-              secretName: qr-secret
-              secretKey: QR_BACKGROUND_COLOR
-            - name: USE_BUCKET
-              secretName: qr-secret
-              secretKey: USE_BUCKET
-            - name: BUCKET_ENDPOINT
-              secretName: qr-secret
-              secretKey: BUCKET_ENDPOINT
-            - name: BUCKET_NAME
-              secretName: qr-secret
-              secretKey: BUCKET_NAME
-            - name: BUCKET_ACCESS_KEY
-              secretName: qr-secret
-              secretKey: BUCKET_ACCESS_KEY
-            - name: BUCKET_SECRET_KEY
-              secretName: qr-secret
-              secretKey: BUCKET_SECRET_KEY
-    - app: website
-      namespace: training-app-frontend-prod
-      replicas: 1
-      containers:
-        - repository: housseinhmila/t-007-website:v1.0.0
-          name: website
-          resources:
-            limits:
-              cpu: 100m
-              memory: 128Mi
-          port: 4200
-      volumeMounts:    
-        - name: config-volume
-          mountPath: /etc/nginx/html/assets/configs
-          
-      volumes:
-        - name: config-volume
-          configmap:
-            name: website-configmap
-      configmap:
-          - name: website-configmap
-            namespace: training-app-frontend-prod
-            files: 
-              - filename: "app-config.json"
-                path: "configs"
-      
+  - app: backend
+    namespace: training-app-backend-prod
+    replicas: 1
+    containers:
+      - repository: housseinhmila/t-007-backend:v1.0.0
+        name: backend
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        port: 3000
+        env:
+          - name: APP_PORT
+            secretName: backend-secret
+            secretKey: APP_PORT
+          - name: QR_URL
+            secretName: backend-secret
+            secretKey: QR_URL
+          - name: MONGO_URI
+            secretName: backend-secret
+            secretKey: MONGO_URI
+          - name: MONGO_DB
+            secretName: backend-secret
+            secretKey: MONGO_DB
+      - repository: housseinhmila/t-007-qr:v2.0.0
+        name: qr
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        port: 8420
+        env:
+          - name: QR_TMP_FOLDER
+            secretName: qr-secret
+            secretKey: QR_TMP_FOLDER
+          - name: QR_FILL_COLOR
+            secretName: qr-secret
+            secretKey: QR_FILL_COLOR
+          - name: QR_BACKGROUND_COLOR
+            secretName: qr-secret
+            secretKey: QR_BACKGROUND_COLOR
+          - name: USE_BUCKET
+            secretName: qr-secret
+            secretKey: USE_BUCKET
+          - name: BUCKET_ENDPOINT
+            secretName: qr-secret
+            secretKey: BUCKET_ENDPOINT
+          - name: BUCKET_NAME
+            secretName: qr-secret
+            secretKey: BUCKET_NAME
+          - name: BUCKET_ACCESS_KEY
+            secretName: qr-secret
+            secretKey: BUCKET_ACCESS_KEY
+          - name: BUCKET_SECRET_KEY
+            secretName: qr-secret
+            secretKey: BUCKET_SECRET_KEY
+  - app: website
+    namespace: training-app-frontend-prod
+    replicas: 1
+    containers:
+      - repository: housseinhmila/t-007-website:v1.0.0
+        name: website
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        port: 4200
+    volumeMounts:    
+      - name: config-volume
+        mountPath: /etc/nginx/html/assets/configs
+    volumes:
+      - name: config-volume
+        configMap:
+          name: website-configmap
+    configmap:
+      - name: website-configmap
+        namespace: training-app-frontend-prod
+        files: 
+          - filename: "app-config.json"
+            path: "configs"
 
 secret:
   - name: backend-secret
@@ -124,7 +121,6 @@ service:
     targetPort: 3000
     type: NodePort
     app: backend
-
 
 ingress:
   - name: backend-ingress
