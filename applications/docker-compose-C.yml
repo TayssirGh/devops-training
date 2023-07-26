@@ -32,6 +32,9 @@ services:
       - generated_qr:/app/generated_qr/
     networks:
       - qr_network
+      - elastic
+    depends_on:
+      - es01
 
   backend:
     image: housseinhmila/t-007-backend:v1.0.0
@@ -112,14 +115,49 @@ services:
       - backend
      # - minio
       - qr
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
 
+  kib01:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    container_name: kib01
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: http://es01:9200
+    networks:
+      - elastic
 
 volumes:
   generated_qr:
   minio_data:
-  
- 
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
 
 networks:
   app_network:
   qr_network:
+  elastic:
+    driver: bridge

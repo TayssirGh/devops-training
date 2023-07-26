@@ -61,3 +61,6 @@ class EnvValidator:
     @staticmethod
     def bucket_path():
         return os.getenv('BUCKET_PATH')
+    @staticmethod
+    def kibana_endpoint():
+        return os.getenv('KiBANA_ENDPOINT')
