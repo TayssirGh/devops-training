@@ -58,7 +58,7 @@ services:
     networks:
       - qr_network
     volumes:
-      - minio_data:/qr-frontend/assets/data:ro
+      - minio_data:/qr-frontend/assets/data:z
     env_file:
     - .env
 #minio : 
@@ -96,7 +96,8 @@ services:
           target : /etc/nginx/ssl
 networks:
   qr_network:
+    driver: bridge
   
 volumes:
   minio_data:
-  generated_qr:
+  
