@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+  namespace: training-app-frontend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: oussachour/qr_frontend
+        ports:
+        - containerPort: 8080
+        env: 
+        - name : backendUrl
+          valueFrom:
+            configMapKeyRef: 
+              name: website-configmap
+              key:  backendUrl
+        - name : APP_PORT
+          valueFrom:
+            configMapKeyRef: 
+              name: website-configmap
+              key:  APP_PORT   
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

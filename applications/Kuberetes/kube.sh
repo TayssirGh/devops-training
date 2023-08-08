@@ -1,10 +1,8 @@
 #! bin/bash
-
-#deleting the cluster if it already exist 
   
-CLUSTER_NAME="qr-app"
 
-# Check if the cluster exists
+# Checking if the cluster already exists and deleteting it before recreation 
+CLUSTER_NAME="qr-app"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     # Delete the cluster
     echo "Cluster already exists"
@@ -17,9 +15,17 @@ fi
 # chmod 770  /usr/kube-volumes/
 
 #creating the local directory 
-sudo mkdir -p ~/usr/kube-volumes/devops-training
+mkdir -p ~/usr/kube-volumes/devops-training
 k3d cluster create $CLUSTER_NAME \
     --agents 1 \
     -p "80:80@loadbalancer" \
     -p "443:443@loadbalancer" \
     --volume ~/usr/kube-volumes/devops-training:/data    
+    #--api-port 6444 \
+
+#WARNING : this file is executed with sudo => 
+k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
+
+
+#k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context
+ 
