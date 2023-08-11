@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+  namespace: training-app-backend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: oussachour/qr_backend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: APP_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mongo-db-secret
+              key: APP_PORT
+        - name: QR_URL
+          valueFrom:
+            secretKeyRef:
+              name: mongo-db-secret
+              key: QR_URL
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: mongo-db-secret
+              key: MONGO_URI
+        - name: MONGO_DB
+          valueFrom:
+            secretKeyRef:
+              name: mongo-db-secret
+              key: MONGO_DB
+
+
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
