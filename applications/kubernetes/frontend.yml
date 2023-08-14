@@ -20,7 +20,7 @@ spec:
       - name: frontend
         image: oussachour/qr_frontend:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env: 
         - name : backendUrl
           valueFrom:
@@ -42,7 +42,8 @@ metadata:
 spec:
   selector:
     app.kubernetes.io/name: frontend
+  type : LoadBalancer
   ports:
     - protocol: TCP
       port: 8080
-      targetPort: 8080
+      targetPort: 80
