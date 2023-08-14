@@ -21,17 +21,25 @@ spec:
         image: oussachour/qr_frontend:latest
         ports:
         - containerPort: 80
-        env: 
-        - name : backendUrl
-          valueFrom:
-            configMapKeyRef: 
-              name: website-configmap
-              key:  backendUrl
-        - name : APP_PORT
-          valueFrom:
-            configMapKeyRef: 
-              name: website-configmap
-              key:  APP_PORT   
+        # env: 
+        # - name : backendUrl
+        #   valueFrom:
+        #     configMapKeyRef: 
+        #       name: website-configmap
+        #       key:  backendUrl
+        # - name : APP_PORT
+        #   valueFrom:
+        #     configMapKeyRef: 
+        #       name: website-configmap
+        #       key:  APP_PORT  
+        volumeMounts:
+            - name: configs
+              mountPath: /qr-frontend/assets/configs
+      volumes:
+        - name: configs
+          configMap:
+            name: configs-front
+
 ---
 
 apiVersion: v1
