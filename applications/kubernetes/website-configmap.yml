@@ -5,5 +5,5 @@ metadata:
   namespace: training-app-frontend-prod
 data:
   #backendUrl: "http://localhost:3000/access"
-  backendUrl: "app.backend.com"
+  backendUrl: "app.backend.com/access"
   APP_PORT: "3000"
