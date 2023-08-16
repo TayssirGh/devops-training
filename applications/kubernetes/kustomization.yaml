@@ -1,0 +1,10 @@
+resources:
+  - namespaces.yml 
+  - website-configmap.yml
+  - minio-s3-secret.yml
+  - mongo-db-secret.yml
+  - frontend.yml
+  - frontend-ingress.yml
+  - backend.yml
+  - backend-ingress.yml
+  - python.yml

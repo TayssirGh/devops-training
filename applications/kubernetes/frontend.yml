@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: configs
           configMap:
-            name: configs-front
+            name: website-configmap
 
 ---
 
