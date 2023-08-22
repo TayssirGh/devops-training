@@ -35,5 +35,6 @@ k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
 #k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context
  
 #deploying the sealedsecrets controller 
-kubectl 
-kubectl apply -f .applications/kubernetes/controller-v0.19.1.yaml
+ 
+kubectl apply -f ./applications/kubernetes/controller-v0.19.1.yaml
+                   
