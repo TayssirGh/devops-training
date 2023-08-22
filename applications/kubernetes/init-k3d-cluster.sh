@@ -27,12 +27,13 @@ k3d cluster create $CLUSTER_NAME \
     #--api-port 6444 \
 
 #WARNING : this file is executed with sudo => 
-echo $PWD
+
+kubectl version
 k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
 
 
 #k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context
  
 #deploying the sealedsecrets controller 
-
+kubectl 
 kubectl apply -f .applications/kubernetes/controller-v0.19.1.yaml
