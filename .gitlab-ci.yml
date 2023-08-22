@@ -39,5 +39,13 @@ build:
       - ./applications/backend/
       - ./applications/website/
       - ./applications/qr/
+run : 
+  stage: run 
+  tags: 
+    - t-009-prod
+  script: 
+    - ./applications/kubernetes/init-k3d-cluster.sh
+    - ./applications/kubernetes/secrets/sealingSecrets.sh
+    - ./applications/kubernetes/deploy.sh
       
 

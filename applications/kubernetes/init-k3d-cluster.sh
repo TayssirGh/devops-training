@@ -1,5 +1,6 @@
 #! bin/bash
   
+### NOTE : Kubectl is supposed to be installed ###
 
 # Checking if the cluster already exists and deleteting it before recreation 
 CLUSTER_NAME="qr-app"
@@ -29,3 +30,6 @@ k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
 
 #k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context
  
+#deploying the sealedsecrets controller 
+
+kubectl apply -f ./controller-v0.19.1.yaml 
