@@ -47,6 +47,7 @@ run :
     - ./applications/kubernetes/init-k3d-cluster.sh
     - chmod ugo+rwx ./applications/kubernetes/secrets/sealingSecrets.sh
     - ./applications/kubernetes/secrets/sealingSecrets.sh
+    - chmod ugo+rwx ./applications/kubernetes/deploy.sh
     - ./applications/kubernetes/deploy.sh
       
 
