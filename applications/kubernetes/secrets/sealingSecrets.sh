@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 chmod u+x ./applications/kubernetes/secrets/sealingSecrets.sh
 input_folder="."
 output_folder="./secrets/sealed-secrets"
