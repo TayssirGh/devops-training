@@ -27,6 +27,7 @@ k3d cluster create $CLUSTER_NAME \
     #--api-port 6444 \
 
 #WARNING : this file is executed with sudo => 
+echo $PWD
 k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
 
 
