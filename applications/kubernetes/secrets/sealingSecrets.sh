@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 chmod u+x ./applications/kubernetes/secrets/sealingSecrets.sh
-input_folder="."
-output_folder="./secrets/sealed-secrets"
+input_folder="./applications/kubernetes/secrets"
+output_folder="./applications/kubernetes/secrets/sealed-secrets"
 seal_command="kubeseal -f"
 
 for file_path in "$input_folder"/*.yml; do
