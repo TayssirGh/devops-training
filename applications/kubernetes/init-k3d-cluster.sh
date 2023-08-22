@@ -32,4 +32,4 @@ k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
  
 #deploying the sealedsecrets controller 
 
-kubectl apply -f ./controller-v0.19.1.yaml 
+kubectl apply -f .applications/kubernetes/controller-v0.19.1.yaml
