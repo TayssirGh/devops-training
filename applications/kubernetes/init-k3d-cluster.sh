@@ -1,4 +1,4 @@
-#! bin/bash
+#!/usr/bin/env bash
   
 ### NOTE : Kubectl is supposed to be installed ###
 
