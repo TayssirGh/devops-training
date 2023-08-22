@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
   
+chmod u+x ./applications/kubernetes/init-k3d-cluster.sh
+
 ### NOTE : Kubectl is supposed to be installed ###
 
 # Checking if the cluster already exists and deleteting it before recreation 
