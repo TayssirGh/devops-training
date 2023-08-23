@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 chmod u+x ./applications/kubernetes/secrets/sealingSecrets.sh
+mkdir ./applications/kubernetes/secrets/sealed-secrets
 input_folder="./applications/kubernetes/secrets"
 output_folder="./applications/kubernetes/secrets/sealed-secrets"
 seal_command="kubeseal -f"
