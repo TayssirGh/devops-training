@@ -5,7 +5,7 @@
 stages :
   - test
   - build
-  - run
+  - deploy
 
 
 
@@ -39,14 +39,15 @@ build:
       - ./applications/backend/
       - ./applications/website/
       - ./applications/qr/
-run : 
-  stage: run 
+deploy :
+  stage: deploy 
   tags: 
     - t-009-prod
-  script: 
+  before_script:
     - ./applications/kubernetes/init-k3d-cluster.sh
     - chmod ugo+rwx ./applications/kubernetes/secrets/sealingSecrets.sh
-    - ./applications/kubernetes/secrets/sealingSecrets.sh
+    - ./applications/kubernetes/secrets/sealingSecrets.sh 
+  script: 
     - chmod ugo+rwx ./applications/kubernetes/deploy.sh
     - ./applications/kubernetes/deploy.sh
       
