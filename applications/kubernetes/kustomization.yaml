@@ -1,8 +1,8 @@
 resources:
   - namespaces.yml 
   - website-configmap.yml
-  - ./applications/kubernetes/secrets/sealed-secrets/minio-s3-ss.yml
-  - ./applications/kubernetes/secrets/sealed-secrets/mongo-db-ss.yml
+  - ./secrets/sealed-secrets/minio-s3-ss.yml
+  - ./secrets/sealed-secrets/mongo-db-ss.yml
   - frontend.yml
   - frontend-ingress.yml
   - backend.yml
