@@ -5,7 +5,8 @@ chmod u+x ./applications/kubernetes/init-k3d-cluster.sh
 ### NOTE : Kubectl is supposed to be installed ###
 
 # Checking if the cluster already exists and deleteting it before recreation 
-CLUSTER_NAME="qr-app"
+#CLUSTER_NAME="qr-app"
+CLUSTER_NAME= $1
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     # Delete the cluster
     echo "Cluster already exists"

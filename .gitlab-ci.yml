@@ -2,6 +2,8 @@
 #    - name: docker:24.0.3-dind
 #      alias: dockerd
 #
+variables:
+  CLUSTER_NAME: prod-qr-app
 stages :
   - test
   - build
@@ -44,7 +46,7 @@ deploy :
   tags: 
     - t-009-prod
   before_script:
-    - ./applications/kubernetes/init-k3d-cluster.sh
+    - ./applications/kubernetes/init-k3d-cluster.sh $CLUSTER_NAME
     - chmod ugo+rwx ./applications/kubernetes/secrets/sealingSecrets.sh
     - ./applications/kubernetes/secrets/sealingSecrets.sh 
   script: 
