@@ -4,6 +4,7 @@
 #
 variables:
   CLUSTER_NAME: prod-qr-app
+  TRIGGER_PIPELINE:  "false"
 stages :
   - test
   - build
@@ -43,6 +44,9 @@ build:
       - ./applications/qr/
 deploy :
   stage: deploy 
+  rules: 
+    - if: '$TRIGGER_PIPELINE == "true"'
+
   tags: 
     - t-009-prod
   before_script:

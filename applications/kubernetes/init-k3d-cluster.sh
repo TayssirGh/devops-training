@@ -29,7 +29,7 @@ k3d cluster create $CLUSTER_NAME \
 
 #WARNING : this file is executed with sudo => 
 
-kubectl version
+#kubectl version
 k3d kubeconfig get $CLUSTER_NAME > ~/.kube/config
 
 
