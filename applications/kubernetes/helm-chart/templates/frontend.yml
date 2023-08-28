@@ -1,0 +1,53 @@
+apiVersion: {{.values.deployment.frontend.apiVersion}}
+kind: {{.values.deployment.frontend.kind}}
+metadata:
+  name: {{.values.deployment.frontend.metadata.name}}
+  labels:
+    app: {{.values.deployment.frontend.metadata.labels}}
+  namespace: {{.values.deployment.frontend.metadata.namespace}}
+spec:
+  replicas: {{.values.deployment.frontend.spec.replicas}}
+  selector:
+    matchLabels:
+      app: {{.values.deployment.frontend.spec.selector.matchLabels.app}}
+  template:
+    metadata:
+      labels:
+        app: {{.values.deployment.frontend.spec.template.metadata.labels.app}}
+        app.kubernetes.io/name: {{.values.deployment.frontend.spec.template.metadata.labels.app.kubernetes.io/name}}
+    spec:
+      containers:
+      - name: {{.values.deployment.frontend.spec.template.spec.containers.name}}
+        image: {{.values.deployment.frontend.spec.template.spec.containers.image}}
+        ports:
+        - containerPort: {{.values.deployment.frontend.spec.template.spec.containers.containerPort}}
+        resources:
+          requests:
+            memory: {{.values.deployment.frontend.spec.template.spec.containers.resources.requests.memory}}
+            cpu: {{.values.deployment.frontend.spec.template.spec.containers.resources.requests.cpu}}
+          limits:
+            memory: {{.values.deployment.frontend.spec.template.spec.containers.resources.limits.memory}}
+            cpu: {{.values.deployment.frontend.spec.template.spec.containers.resources.limits.cpu}}
+        volumeMounts:
+            - name: {{.values.deployment.frontend.spec.template.spec.volumeMounts.name}}
+              mountPath: {{.values.deployment.frontend.spec.template.spec.volumeMounts.mountPath}}
+      volumes:
+        - name: {{.values.deployment.frontend.spec.template.spec.volumes.name}}
+          configMap:
+            name: {{.values.deployment.frontend.spec.template.spec.volumes.configMap.name}}
+
+---
+
+apiVersion: {{.values.service.frontend.apiVersion}}
+kind: {{.values.service.frontend.kind}}
+metadata:
+  name: {{.values.service.frontend.metadata.name}}
+  namespace: {{.values.service.frontend.metadata.name}}
+spec:
+  selector:
+    app.kubernetes.io/name: {{.values.service.frontend.spec.selector.app.kubernetes.io/name}}
+  type : {{.values.service.frontend.spec.type}}
+  ports:
+    - protocol: {{.values.service.frontend.spec.ports.protocol}}
+      port: {{.values.service.frontend.spec.ports.port}}
+      targetPort: {{.values.service.frontend.spec.ports.targetPort}}

@@ -50,18 +50,3 @@ spec:
               name: mongo-db-secret
               key: MONGO_DB
 
-
---- 
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-service
-  namespace: training-app-backend-prod
-spec:
-  selector:
-    app.kubernetes.io/name: backend
-  type : LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
