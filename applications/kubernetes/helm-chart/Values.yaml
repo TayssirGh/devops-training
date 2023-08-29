@@ -1,0 +1,12 @@
+configMaps:
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: website-configmap
+    namespace: training-app-frontend-prod
+  data:
+    app_config.json: |-
+      {
+        "backendUrl": "http://app.backend.com:3000/access",
+        "APP_PORT": "3000"
+      }

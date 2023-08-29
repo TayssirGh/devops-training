@@ -1,67 +1,54 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: {{.Values.deployment.backend.apiVersion}}
+kind: {{.Values.deployment.backend.kind}}
 metadata:
-  name: backend-deployment
+  name: {{.Values.deployment.backend.metadata.name}}
   labels:
-    app: backend
-  namespace: training-app-backend-prod
+    app: {{.Values.deployment.backend.metadata.labels}}
+  namespace: {{.Values.deployment.backend.metadata.namespace}}
 spec:
-  replicas: 1
+  replicas: {{.Values.deployment.backend.spec.replicas}}
   selector:
     matchLabels:
-      app: backend
+      app: {{.Values.deployment.backend.spec.selector.matchLabels.app}}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: backend
-        app: backend
+        app: {{.Values.deployment.backend.spec.template.metadata.labels.app}}
+        app.kubernetes.io/name: {{ index .Values "deployment" "backend" "spec" "template" "metadata" "labels" "app.kubernetes.io/name"}}
+
     spec:
       containers:
-      - name: backend
-        image: oussachour/qr_backend
+      - name: {{.Values.deployment.backend.spec.template.spec.containers.name}}
+        image: {{.Values.deployment.backend.spec.template.spec.containers.image}}
         ports:
-        - containerPort: 3000
+        - containerPort: {{.Values.deployment.backend.spec.template.spec.containers.containerPort}}
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: {{.Values.deployment.backend.spec.template.spec.containers.resources.requests.memory}}
+            cpu: {{.Values.deployment.backend.spec.template.spec.containers.resources.requests.cpu}}
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: {{.Values.deployment.backend.spec.template.spec.containers.resources.limits.memory}}
+            cpu: {{.Values.deployment.backend.spec.template.spec.containers.resources.limits.cpu}}
         env:
-        - name: APP_PORT
-          valueFrom:
-            secretKeyRef:
-              name: mongo-db-secret
-              key: APP_PORT
-        - name: QR_URL
-          valueFrom:
-            secretKeyRef:
-              name: mongo-db-secret
-              key: QR_URL
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: mongo-db-secret
-              key: MONGO_URI
-        - name: MONGO_DB
-          valueFrom:
-            secretKeyRef:
-              name: mongo-db-secret
-              key: MONGO_DB
+          {{- range $env := .Values.deployment.backend.spec.template.spec.env}}
+          - name: {{$env.name}}
+            valueFrom:
+              secretKeyRef:
+                name: {{$env.valueFrom.secretKeyRef.name}}
+                key: {{$env.valueFrom.secretKeyRef.key}}
+          {{- end }}
+---
 
-
---- 
-apiVersion: v1
-kind: Service
+apiVersion: {{.Values.service.backend.apiVersion}}
+kind: {{.Values.service.backend.kind}}
 metadata:
-  name: backend-service
-  namespace: training-app-backend-prod
+  name: {{.Values.service.backend.metadata.name}}
+  namespace: {{.Values.service.backend.metadata.name}}
 spec:
   selector:
-    app.kubernetes.io/name: backend
-  type : LoadBalancer
+    app.kubernetes.io/name: {{ index .Values "service" "backend" "spec" "selector" "app.kubernetes.io/name" }}
+  type : {{.Values.service.backend.spec.type}}
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+    - protocol: {{.Values.service.backend.spec.ports.protocol}}
+      port: {{.Values.service.backend.spec.ports.port}}
+      targetPort: {{.Values.service.backend.spec.ports.targetPort}}

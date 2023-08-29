@@ -1,20 +1,19 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: {{.Values.ingress.backend.apiVersion}}
+kind: {{.Values.ingress.backend.kind}}
 metadata:
-  name: ingress-backend
-  namespace: training-app-backend-prod
+  name: {{.Values.ingress.backend.metadata.name}}
+  namespace: {{.Values.ingress.backend.metadata.namespace}}
   
 spec:
   rules:
-  - host: "app.backend.com"
+  - host: {{.Values.ingress.backend.spec.rules.host}}
     http:
       paths:
-      - pathType: Prefix
-        #path: "/api"
-        path: "/"
+      - pathType: {{.Values.ingress.backend.spec.rules.host.http.paths.pathType}}
+        path: {{.Values.ingress.backend.spec.rules.host.http.paths.pathType.path}}
         backend:
           service:
-            name: backend-service
+            name: {{.Values.ingress.backend.spec.rules.host.http.paths.pathType.backend.service.name}}
             port:
-              number: 3000
-  ingressClassName: nginx
+              number: {{.Values.ingress.backend.spec.rules.host.http.paths.pathType.backend.service.port.number}}
+  ingressClassName: {{.Values.ingress.backend.spec.rules.host.ingressClassName}}

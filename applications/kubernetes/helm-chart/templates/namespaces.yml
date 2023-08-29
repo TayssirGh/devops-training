@@ -1,10 +1,7 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: training-app-backend-prod
-
+{{- range $ns := .Values.namespaces}}
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: {{$ns.apiVersion}}
+kind: {{$ns.kind}}
 metadata:
-  name: training-app-frontend-prod
+  name: {{$ns.metadata.name}}
+{{- end}}

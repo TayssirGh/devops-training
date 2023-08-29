@@ -1,0 +1,11 @@
+namespaces:
+  frontend:
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: training-app-backend-prod
+  backend:
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: training-app-frontend-prod

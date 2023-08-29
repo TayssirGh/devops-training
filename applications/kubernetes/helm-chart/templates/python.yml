@@ -1,99 +1,56 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: {{.Values.deployment.python.apiVersion}}
+kind: {{.Values.deployment.python.kind}}
 metadata:
-  name: python-deployment
+  name: {{.Values.deployment.python.metadata.name}}
   labels:
-    app: python
-  namespace: training-app-backend-prod
+    app: {{.Values.deployment.python.metadata.labels}}
+  namespace: {{.Values.deployment.python.metadata.namespace}}
 spec:
-  replicas: 1
+  replicas: {{.Values.deployment.python.spec.replicas}}
   selector:
     matchLabels:
-      app: python
+      app: {{.Values.deployment.python.spec.selector.matchLabels.app}}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: python
-        app: python
+        app: {{.Values.deployment.python.spec.template.metadata.labels.app}}
+        {{ $appLabel := index .Values "deployment" "python" "spec" "template" "metadata" "labels" "app.kubernetes.io/name" }}
+
+        app.kubernetes.io/name: {{ index .Values "deployment" "python" "spec" "template" "metadata" "labels" "app.kubernetes.io/name"}}
     spec:
       containers:
-      - name: python
-        image: oussachour/qr_python_code:latest
+      - name: {{.Values.deployment.python.spec.template.spec.containers.name}}
+        image: {{.Values.deployment.python.spec.template.spec.containers.image}}
         ports:
-        - containerPort: 8420
+        - containerPort: {{.Values.deployment.python.spec.template.spec.containers.containerPort}}
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: {{.Values.deployment.python.spec.template.spec.containers.resources.requests.memory}}
+            cpu: {{.Values.deployment.python.spec.template.spec.containers.resources.requests.cpu}}
           limits:
-            memory: "128Mi"
-            cpu: "500m"
-        #adding commands to troubleshoot
-        # command: ["/bin/sh"]
-        # args: ["-c", "while true; do sleep 10; done"]
-        
+            memory: {{.Values.deployment.python.spec.template.spec.containers.resources.limits.memory}}
+            cpu: {{.Values.deployment.python.spec.template.spec.containers.resources.limits.cpu}}
         env:
-        - name: QR_TMP_FOLDER
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: QR_TMP_FOLDER
-        - name: QR_FILL_COLOR
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: QR_FILL_COLOR
-        - name: QR_BACKGROUND_COLOR
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: QR_BACKGROUND_COLOR
-        - name: USE_BUCKET
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: USE_BUCKET
-        - name: BUCKET_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_ENDPOINT
-        - name: BUCKET_ENDPOINT_WEB
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_ENDPOINT_WEB
-        - name: BUCKET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_ACCESS_KEY
-        - name: BUCKET_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_SECRET_KEY
-        - name: BUCKET_NAME
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_NAME
-        - name: BUCKET_PATH
-          valueFrom:
-            secretKeyRef:
-              name: minio-s3-secret
-              key: BUCKET_PATH  
---- 
+          {{- range $env := .Values.deployment.python.spec.template.spec.env}}
+          - name: {{$env.name}}
+            valueFrom:
+              secretKeyRef:
+                name: {{$env.valueFrom.secretKeyRef.name}}
+                key: {{$env.valueFrom.secretKeyRef.key}}
+          {{- end }}
+         
+---
 
-apiVersion: v1
-kind: Service
+apiVersion: {{.Values.service.python.apiVersion}}
+kind: {{.Values.service.python.kind}}
 metadata:
-  name: python-service
-  namespace: training-app-backend-prod
+  name: {{.Values.service.python.metadata.name}}
+  namespace: {{.Values.service.python.metadata.name}}
 spec:
   selector:
-    app.kubernetes.io/name: python
+    app.kubernetes.io/name: {{ index .Values "service" "python" "spec" "selector" "app.kubernetes.io/name" }}
+  type : {{.Values.service.python.spec.type}}
   ports:
-    - protocol: TCP
-      port: 8420
-      targetPort: 8420
+    - protocol: {{.Values.service.python.spec.ports.protocol}}
+      port: {{.Values.service.python.spec.ports.port}}
+      targetPort: {{.Values.service.python.spec.ports.targetPort}}
