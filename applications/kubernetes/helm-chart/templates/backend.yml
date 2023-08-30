@@ -18,25 +18,28 @@ spec:
 
     spec:
       containers:
-      - name: {{.Values.deployment.backend.spec.template.spec.containers.name}}
-        image: {{.Values.deployment.backend.spec.template.spec.containers.image}}
-        ports:
-        - containerPort: {{.Values.deployment.backend.spec.template.spec.containers.containerPort}}
-        resources:
-          requests:
-            memory: {{.Values.deployment.backend.spec.template.spec.containers.resources.requests.memory}}
-            cpu: {{.Values.deployment.backend.spec.template.spec.containers.resources.requests.cpu}}
-          limits:
-            memory: {{.Values.deployment.backend.spec.template.spec.containers.resources.limits.memory}}
-            cpu: {{.Values.deployment.backend.spec.template.spec.containers.resources.limits.cpu}}
-        env:
-          {{- range $env := .Values.deployment.backend.spec.template.spec.env}}
-          - name: {{$env.name}}
-            valueFrom:
-              secretKeyRef:
-                name: {{$env.valueFrom.secretKeyRef.name}}
-                key: {{$env.valueFrom.secretKeyRef.key}}
-          {{- end }}
+      {{- range $container := .Values.deployment.backend.spec.template.spec.containers}}
+        - name: {{$container.name}}
+          image: {{$container.image}}
+          ports:
+            - containerPort: {{$container.containerPort}}
+          resources:
+            requests:
+              memory: {{$container.resources.requests.memory}}
+              cpu: {{$container.resources.requests.cpu}}
+            limits:
+              memory: {{$container.resources.limits.memory}}
+              cpu: {{$container.resources.limits.cpu}}
+          env:
+            {{- range $env := $container.env}}
+            - name: {{$env.name}}
+              valueFrom:
+                secretKeyRef:
+                  name: {{$env.valueFrom.secretKeyRef.name}}
+                  key: {{$env.valueFrom.secretKeyRef.key}}
+            {{- end }}
+         
+      {{- end }}
 ---
 
 apiVersion: {{.Values.service.backend.apiVersion}}
@@ -49,6 +52,8 @@ spec:
     app.kubernetes.io/name: {{ index .Values "service" "backend" "spec" "selector" "app.kubernetes.io/name" }}
   type : {{.Values.service.backend.spec.type}}
   ports:
-    - protocol: {{.Values.service.backend.spec.ports.protocol}}
-      port: {{.Values.service.backend.spec.ports.port}}
-      targetPort: {{.Values.service.backend.spec.ports.targetPort}}
+    {{- range $port := .Values.service.backend.spec.ports }}
+    - protocol: {{$port.protocol}}
+      port: {{$port.port}}
+      targetPort: {{$port.targetPort}}
+    {{- end}}

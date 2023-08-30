@@ -3,17 +3,20 @@ kind: {{.Values.ingress.frontend.kind}}
 metadata:
   name: {{.Values.ingress.frontend.metadata.name}}
   namespace: {{.Values.ingress.frontend.metadata.namespace}}
-  
 spec:
   rules:
-  - host: {{.Values.ingress.frontend.spec.rules.host}}
-    http:
-      paths:
-      - pathType: {{.Values.ingress.frontend.spec.rules.host.http.paths.pathType}}
-        path: {{.Values.ingress.frontend.spec.rules.host.http.paths.pathType.path}}
-        backend:
-          service:
-            name: {{.Values.ingress.frontend.spec.rules.host.http.paths.pathType.backend.service.name}}
-            port:
-              number: {{.Values.ingress.frontend.spec.rules.host.http.paths.pathType.backend.service.port.number}}
-  ingressClassName: {{.Values.ingress.frontend.spec.rules.host.ingressClassName}}
+  {{- range $rule := .Values.ingress.frontend.spec.rules }}
+    - host: {{$rule.host}}
+      http:
+        paths:
+        {{- range $path := $rule.http.paths }}
+          - pathType: {{$path.pathType}}
+            path: {{$path.path}}
+            backend:
+              service:
+                name: {{$path.backend.service.name}}
+                port:
+                  number: {{$path.backend.service.port.number}}
+        {{- end}}
+  {{- end }}
+  ingressClassName: {{.Values.ingress.frontend.spec.ingressClassName}}

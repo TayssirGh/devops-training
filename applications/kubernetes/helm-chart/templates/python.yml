@@ -1,4 +1,4 @@
-apiVersion: {{.Values.deployment.python.apiVersion}}
+apiVersion: {{ .Values.deployment.python.apiVersion }}
 kind: {{.Values.deployment.python.kind}}
 metadata:
   name: {{.Values.deployment.python.metadata.name}}
@@ -19,26 +19,28 @@ spec:
         app.kubernetes.io/name: {{ index .Values "deployment" "python" "spec" "template" "metadata" "labels" "app.kubernetes.io/name"}}
     spec:
       containers:
-      - name: {{.Values.deployment.python.spec.template.spec.containers.name}}
-        image: {{.Values.deployment.python.spec.template.spec.containers.image}}
-        ports:
-        - containerPort: {{.Values.deployment.python.spec.template.spec.containers.containerPort}}
-        resources:
-          requests:
-            memory: {{.Values.deployment.python.spec.template.spec.containers.resources.requests.memory}}
-            cpu: {{.Values.deployment.python.spec.template.spec.containers.resources.requests.cpu}}
-          limits:
-            memory: {{.Values.deployment.python.spec.template.spec.containers.resources.limits.memory}}
-            cpu: {{.Values.deployment.python.spec.template.spec.containers.resources.limits.cpu}}
-        env:
-          {{- range $env := .Values.deployment.python.spec.template.spec.env}}
-          - name: {{$env.name}}
-            valueFrom:
-              secretKeyRef:
-                name: {{$env.valueFrom.secretKeyRef.name}}
-                key: {{$env.valueFrom.secretKeyRef.key}}
-          {{- end }}
+      {{- range $container := .Values.deployment.python.spec.template.spec.containers}}
+        - name: {{$container.name}}
+          image: {{$container.image}}
+          ports:
+            - containerPort: {{$container.containerPort}}
+          resources:
+            requests:
+              memory: {{$container.resources.requests.memory}}
+              cpu: {{$container.resources.requests.cpu}}
+            limits:
+              memory: {{$container.resources.limits.memory}}
+              cpu: {{$container.resources.limits.cpu}}
+          env:
+            {{- range $env := $container.env}}
+            - name: {{$env.name}}
+              valueFrom:
+                secretKeyRef:
+                  name: {{$env.valueFrom.secretKeyRef.name}}
+                  key: {{$env.valueFrom.secretKeyRef.key}}
+            {{- end }}
          
+      {{- end }}
 ---
 
 apiVersion: {{.Values.service.python.apiVersion}}
@@ -51,6 +53,8 @@ spec:
     app.kubernetes.io/name: {{ index .Values "service" "python" "spec" "selector" "app.kubernetes.io/name" }}
   type : {{.Values.service.python.spec.type}}
   ports:
-    - protocol: {{.Values.service.python.spec.ports.protocol}}
-      port: {{.Values.service.python.spec.ports.port}}
-      targetPort: {{.Values.service.python.spec.ports.targetPort}}
+    {{- range $port := .Values.service.python.spec.ports }}
+    - protocol: {{$port.protocol}}
+      port: {{$port.port}}
+      targetPort: {{$port.targetPort}}
+    {{- end}}

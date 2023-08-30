@@ -18,24 +18,31 @@ spec:
 
     spec:
       containers:
-      - name: {{.Values.deployment.frontend.spec.template.spec.containers.name}}
-        image: {{.Values.deployment.frontend.spec.template.spec.containers.image}}
-        ports:
-        - containerPort: {{.Values.deployment.frontend.spec.template.spec.containers.containerPort}}
-        resources:
-          requests:
-            memory: {{.Values.deployment.frontend.spec.template.spec.containers.resources.requests.memory}}
-            cpu: {{.Values.deployment.frontend.spec.template.spec.containers.resources.requests.cpu}}
-          limits:
-            memory: {{.Values.deployment.frontend.spec.template.spec.containers.resources.limits.memory}}
-            cpu: {{.Values.deployment.frontend.spec.template.spec.containers.resources.limits.cpu}}
-        volumeMounts:
-            - name: {{.Values.deployment.frontend.spec.template.spec.volumeMounts.name}}
-              mountPath: {{.Values.deployment.frontend.spec.template.spec.volumeMounts.mountPath}}
+      {{- range $container := .Values.deployment.frontend.spec.template.spec.containers}}
+        - name: {{$container.name}}
+          image: {{$container.image}}
+          ports:
+            - containerPort: {{$container.containerPort}}
+          resources:
+            requests:
+              memory: {{$container.resources.requests.memory}}
+              cpu: {{$container.resources.requests.cpu}}
+            limits:
+              memory: {{$container.resources.limits.memory}}
+              cpu: {{$container.resources.limits.cpu}}
+          volumeMounts:
+          {{- range $vm := $container.volumeMounts }}
+            - name: {{$vm.name}}
+              mountPath: {{$vm.mountPath}}
+          {{- end}}
+      {{- end }}
       volumes:
-        - name: {{.Values.deployment.frontend.spec.template.spec.volumes.name}}
+        {{- range $volume := .Values.deployment.frontend.spec.template.spec.volumes }}  
+        - name: {{$volume.name}}
           configMap:
-            name: {{.Values.deployment.frontend.spec.template.spec.volumes.configMap.name}}
+            name: {{$volume.configMap.name}}
+        {{- end}}
+        
 
 ---
 
@@ -49,6 +56,9 @@ spec:
     app.kubernetes.io/name: {{ index .Values "service" "frontend" "spec" "selector" "app.kubernetes.io/name" }}
   type : {{.Values.service.frontend.spec.type}}
   ports:
-    - protocol: {{.Values.service.frontend.spec.ports.protocol}}
-      port: {{.Values.service.frontend.spec.ports.port}}
-      targetPort: {{.Values.service.frontend.spec.ports.targetPort}}
+    {{- range $port := .Values.service.frontend.spec.ports }}
+    - protocol: {{$port.protocol}}
+      port: {{$port.port}}
+      targetPort: {{$port.targetPort}}
+    {{- end}}
+  

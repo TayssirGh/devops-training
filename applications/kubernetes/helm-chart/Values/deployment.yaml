@@ -110,66 +110,66 @@ deployment:
             app: python
         spec:
           containers:
-          - name: python
-            image: oussachour/qr_python_code:latest
-            ports:
-            - containerPort: 8420
-            resources:
-              requests:
-                memory: "64Mi"
-                cpu: "250m"
-              limits:
-                memory: "128Mi"
-                cpu: "500m"
-            env:
-              - name: QR_TMP_FOLDER
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: QR_TMP_FOLDER
-              - name: QR_FILL_COLOR
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: QR_FILL_COLOR
-              - name: QR_BACKGROUND_COLOR
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: QR_BACKGROUND_COLOR
-              - name: USE_BUCKET
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: USE_BUCKET
-              - name: BUCKET_ENDPOINT
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_ENDPOINT
-              - name: BUCKET_ENDPOINT_WEB
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_ENDPOINT_WEB
-              - name: BUCKET_ACCESS_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_ACCESS_KEY
-              - name: BUCKET_SECRET_KEY
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_SECRET_KEY
-              - name: BUCKET_NAME
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_NAME
-              - name: BUCKET_PATH
-                valueFrom:
-                  secretKeyRef:
-                    name: minio-s3-secret
-                    key: BUCKET_PATH  
+            - name: python
+              image: oussachour/qr_python_code:latest
+              ports:
+                - containerPort: 8420
+              resources:
+                requests:
+                  memory: "64Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "128Mi"
+                  cpu: "500m"
+              env:
+                - name: QR_TMP_FOLDER
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: QR_TMP_FOLDER
+                - name: QR_FILL_COLOR
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: QR_FILL_COLOR
+                - name: QR_BACKGROUND_COLOR
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: QR_BACKGROUND_COLOR
+                - name: USE_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: USE_BUCKET
+                - name: BUCKET_ENDPOINT
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_ENDPOINT
+                - name: BUCKET_ENDPOINT_WEB
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_ENDPOINT_WEB
+                - name: BUCKET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_ACCESS_KEY
+                - name: BUCKET_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_SECRET_KEY
+                - name: BUCKET_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_NAME
+                - name: BUCKET_PATH
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-s3-secret
+                      key: BUCKET_PATH  
   

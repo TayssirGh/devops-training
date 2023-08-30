@@ -1,9 +1,7 @@
-data: {{ printf "%#v" .Values }}
-
-{{/*apiVersion: {{ index .Values "configMaps" "apiVersion" }}
+apiVersion: {{ index .Values.configMaps.apiVersion}}
 kind: {{.Values.configMaps.kind}}
 metadata:
   name: {{.Values.configMaps.metadata.name}}
   namespace: {{.Values.configMaps.metadata.namespace}}
 data:
-  app-config.json: {{.Values.configMaps.data.app_config.json}}*/}}
+  app-config.json: {{.Values.configMaps.data.app_config.json | toJson }}
