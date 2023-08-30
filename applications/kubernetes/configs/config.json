@@ -1,0 +1,4 @@
+{
+    "backendUrl": "http://app.backend.com:3000/access",
+    "APP_PORT": "3000"
+}

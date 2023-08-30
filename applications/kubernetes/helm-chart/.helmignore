@@ -23,3 +23,5 @@
 .vscode/
 # Scripts 
 templates/secrets
+# Templates
+# templates/namespaces.yml

@@ -3,7 +3,7 @@ kind: {{.Values.deployment.python.kind}}
 metadata:
   name: {{.Values.deployment.python.metadata.name}}
   labels:
-    app: {{.Values.deployment.python.metadata.labels}}
+    app: {{.Values.deployment.python.metadata.labels.app}}
   namespace: {{.Values.deployment.python.metadata.namespace}}
 spec:
   replicas: {{.Values.deployment.python.spec.replicas}}
@@ -23,7 +23,9 @@ spec:
         - name: {{$container.name}}
           image: {{$container.image}}
           ports:
-            - containerPort: {{$container.containerPort}}
+          {{- range $port := $container.ports}}
+            - containerPort: {{$port.containerPort}}
+          {{- end}}
           resources:
             requests:
               memory: {{$container.resources.requests.memory}}
@@ -47,11 +49,10 @@ apiVersion: {{.Values.service.python.apiVersion}}
 kind: {{.Values.service.python.kind}}
 metadata:
   name: {{.Values.service.python.metadata.name}}
-  namespace: {{.Values.service.python.metadata.name}}
+  namespace: {{.Values.service.python.metadata.namespace}}
 spec:
   selector:
     app.kubernetes.io/name: {{ index .Values "service" "python" "spec" "selector" "app.kubernetes.io/name" }}
-  type : {{.Values.service.python.spec.type}}
   ports:
     {{- range $port := .Values.service.python.spec.ports }}
     - protocol: {{$port.protocol}}

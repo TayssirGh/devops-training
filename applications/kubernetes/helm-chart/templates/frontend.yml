@@ -3,7 +3,7 @@ kind: {{.Values.deployment.frontend.kind}}
 metadata:
   name: {{.Values.deployment.frontend.metadata.name}}
   labels:
-    app: {{.Values.deployment.frontend.metadata.labels}}
+    app: {{.Values.deployment.frontend.metadata.labels.app}}
   namespace: {{.Values.deployment.frontend.metadata.namespace}}
 spec:
   replicas: {{.Values.deployment.frontend.spec.replicas}}
@@ -22,7 +22,9 @@ spec:
         - name: {{$container.name}}
           image: {{$container.image}}
           ports:
-            - containerPort: {{$container.containerPort}}
+          {{- range $port := $container.ports}}
+            - containerPort: {{$port.containerPort}}
+          {{- end}}
           resources:
             requests:
               memory: {{$container.resources.requests.memory}}
@@ -50,7 +52,7 @@ apiVersion: {{.Values.service.frontend.apiVersion}}
 kind: {{.Values.service.frontend.kind}}
 metadata:
   name: {{.Values.service.frontend.metadata.name}}
-  namespace: {{.Values.service.frontend.metadata.name}}
+  namespace: {{.Values.service.frontend.metadata.namespace}}
 spec:
   selector:
     app.kubernetes.io/name: {{ index .Values "service" "frontend" "spec" "selector" "app.kubernetes.io/name" }}

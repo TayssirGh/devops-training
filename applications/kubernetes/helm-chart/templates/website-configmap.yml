@@ -4,4 +4,5 @@ metadata:
   name: {{.Values.configMaps.metadata.name}}
   namespace: {{.Values.configMaps.metadata.namespace}}
 data:
-  app-config.json: {{.Values.configMaps.data.app_config.json | toJson }}
+  app-config.json: |-
+    {{- .Files.Get "configs/config.json" | nindent 4 -}}

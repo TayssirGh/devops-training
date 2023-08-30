@@ -3,7 +3,7 @@ kind: {{.Values.deployment.backend.kind}}
 metadata:
   name: {{.Values.deployment.backend.metadata.name}}
   labels:
-    app: {{.Values.deployment.backend.metadata.labels}}
+    app: {{.Values.deployment.backend.metadata.labels.app}}
   namespace: {{.Values.deployment.backend.metadata.namespace}}
 spec:
   replicas: {{.Values.deployment.backend.spec.replicas}}
@@ -22,7 +22,9 @@ spec:
         - name: {{$container.name}}
           image: {{$container.image}}
           ports:
-            - containerPort: {{$container.containerPort}}
+          {{- range $port := $container.ports}}
+            - containerPort: {{$port.containerPort}}
+          {{- end}}
           resources:
             requests:
               memory: {{$container.resources.requests.memory}}
@@ -46,7 +48,7 @@ apiVersion: {{.Values.service.backend.apiVersion}}
 kind: {{.Values.service.backend.kind}}
 metadata:
   name: {{.Values.service.backend.metadata.name}}
-  namespace: {{.Values.service.backend.metadata.name}}
+  namespace: {{.Values.service.backend.metadata.namespace}}
 spec:
   selector:
     app.kubernetes.io/name: {{ index .Values "service" "backend" "spec" "selector" "app.kubernetes.io/name" }}
