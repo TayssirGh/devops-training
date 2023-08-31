@@ -51,6 +51,13 @@ spec:
         - -c
         args: 
         - minio server /data --console-address :9090
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
         volumeMounts:
         - mountPath: /data
           name: minio # Corresponds to the `spec.volumes` Persistent Volume
@@ -70,11 +77,13 @@ kind: Service
 metadata:
   name: minio-service
   namespace: training-app-backend-prod
+  labels: 
+    app: minio
 spec:
   selector:
     app.kubernetes.io/name: minio
   type : LoadBalancer
   ports:
     - protocol: TCP
-      port: 9090
-      targetPort: 9090
+      port: 9000
+      targetPort: 9000

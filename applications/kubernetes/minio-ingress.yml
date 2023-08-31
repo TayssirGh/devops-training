@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: ingress-minio
   namespace: training-app-backend-prod
+  labels:
+    app: minio
   
 spec:
   rules:
