@@ -72,6 +72,8 @@ spec:
       name: minio-console
       port: 9090
       targetPort: 9090
+  # purpose : accessing the minio server from python through this IP@ . 
+  # result : failed to access it ; can only access the minio server through the dynamically assigned IP @
   externalIPs:
     - 172.26.0.2
     
