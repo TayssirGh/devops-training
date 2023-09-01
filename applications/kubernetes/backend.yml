@@ -19,6 +19,7 @@ spec:
       containers:
       - name: backend
         image: oussachour/qr_backend
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         resources:

@@ -19,18 +19,19 @@ spec:
       containers:
       - name: minio
         image: quay.io/minio/minio:latest
+        imagePullPolicy: IfNotPresent
         command:
         - /bin/bash
         - -c
         args: 
         - minio server /data --address :9000 --console-address :9090
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
         ports:  
           - name:  minio-api
             containerPort: 9000
@@ -72,6 +73,6 @@ spec:
       port: 9090
       targetPort: 9090
   externalIPs:
-    - 172.26.0.10
+    - 172.26.0.2
     
     

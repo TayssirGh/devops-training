@@ -19,6 +19,7 @@ spec:
       containers:
       - name: frontend
         image: oussachour/qr_frontend:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         resources:
