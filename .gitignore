@@ -40,4 +40,4 @@ applications/website/src/assets/configs/app-config.json
 **/Thumbs.db
 
 # Gitlab runner build directory
-**/builds
+builds/**
