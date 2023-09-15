@@ -5,7 +5,7 @@
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
 **/.env
-
+builds/**
 # compiled output
 **/dist
 **/tmp
