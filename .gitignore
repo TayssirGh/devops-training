@@ -4,7 +4,7 @@
 **/venv
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
-**/.env
+# **/.env
 
 # compiled output
 **/dist
