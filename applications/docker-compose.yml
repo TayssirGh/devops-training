@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  qr:
+    image: qr:1.0
+    container_name: qr
+    restart: always
+    build:
+      context: ./qr
+      dockerfile: Dockerfile 
+    networks:
+      - network
+    ports:
+      - 8000:8000
+    env_file:
+      - ./qr/.env
+  backend:
+    image: backend:1.0
+    container_name: backend
+    restart: always
+    environment:
+      - APP_PORT=3000
+      - QR_URL=http://qr:8000
+      - MONGO_URI=mongodb+srv://houssein:kairouan@cluster0.0tc12ie.mongodb.net
+    build:
+      context: ./backend
+      dockerfile: Dockerfile 
+      target: backend
+    depends_on: 
+      - qr
+    networks:
+      - network
+    ports:
+      - 3000:3000
+    env_file:
+      - ./backend/.env
+  website:
+    image: website:1.0
+    container_name: website
+    restart: always
+    build:
+      context: ./website
+      dockerfile: Dockerfile 
+      target: website
+    depends_on: 
+      - backend
+    networks:
+      - network
+    ports:
+      - 80:80
+  
+networks:
+  network:
+    driver: bridge
