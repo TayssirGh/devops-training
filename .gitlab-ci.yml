@@ -7,10 +7,10 @@ variables:
 build:
   stage: build
   
-  image: docker:24.0.7
+  image: docker:cli
   
   services:
-    - docker:24.0.7-dind
+    - docker:dind
   
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
@@ -25,4 +25,5 @@ build:
       - $WORKING_BRANCH == "t-010-dev"
   tags:
     - t010-build-protected
+
 
