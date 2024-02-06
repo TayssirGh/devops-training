@@ -18,8 +18,7 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
   
   script:
-    - cd applications/qr && docker build -t qr:1.0 .    
-    - ifconfig | grep -i 192.168.204.2
+    - cd applications/qr && docker build -t qr:1.0 .   
   only:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
