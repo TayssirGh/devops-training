@@ -6,13 +6,7 @@ variables:
 build:
   stage: build
   
-  image: docker:24.0.7
   
-  services:
-    - docker:24.0.7-dind
-  
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
   
   script:
     - cd applications && docker compose up -d --force-recreate app_ui
