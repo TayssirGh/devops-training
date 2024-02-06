@@ -16,3 +16,6 @@ build:
   
   script:
     - cd applications && docker compose up -d --force-recreate app_ui
+  
+  tags:
+    - 	t-nidhal-build-protected
