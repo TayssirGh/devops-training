@@ -18,7 +18,7 @@ build:
   before_script:
     - docker info
   script:
-    - cd applications/qr && docker build -t qr:1.0 .    
+    - cd applications/qr && docker compose up --force-recreate   
 
   only:
     variables:
