@@ -6,12 +6,21 @@ variables:
 
 build:
   stage: build
+  
+  image: docker:24.0.7
+  
+  services:
+    - docker:24.0.7-dind
+  
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  
   script:
-    - cd applications/qr && docker-compose up --force-recreate   
+    - cd applications/qr && docker build -t qr:1.0 .    
+
   only:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
   tags:
     - t010-build-protected
-
 
