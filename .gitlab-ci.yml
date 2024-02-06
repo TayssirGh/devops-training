@@ -22,4 +22,5 @@ build:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
   tags:
-    - t010-runner
+    - t010-build-protected
+
