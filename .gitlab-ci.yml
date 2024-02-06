@@ -4,8 +4,6 @@ stages:
 variables:
   WORKING_BRANCH: t-010-dev
 
-
-
 build:
   stage: build
   
