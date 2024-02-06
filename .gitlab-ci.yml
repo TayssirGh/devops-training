@@ -16,7 +16,7 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
   
   script:
-    - docker build -t qr:1.0 ./applications/qr     
+    - cd applications/qr && docker build -t qr:1.0 .    
 
   only:
     variables:
