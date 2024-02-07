@@ -3,9 +3,9 @@ stages:
 
 variables:
   WORKING_BRANCH: t-010-dev
-  IMAGE_QR: qr:1.0
-  IMAGE_BACKEND: backend:1.0
-  IMAGE_WEBSITE: website:1.0
+  IMAGE_QR: qr
+  IMAGE_BACKEND: backend
+  IMAGE_WEBSITE: website
   DOCKER_HUB_REPO: khalilmk/devops-training
 
 build:
