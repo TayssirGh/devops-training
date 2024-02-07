@@ -3,6 +3,10 @@ stages:
 
 variables:
   WORKING_BRANCH: t-010-dev
+  IMAGE_QR: qr:1.0
+  IMAGE_BACKEND: backend:1.0
+  IMAGE_WEBSITE: website:1.0
+  DOCKER_HUB_REPO: khalilmk/devops-training
 
 build:
   stage: build
@@ -14,11 +18,17 @@ build:
   
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
-  
+
+  before_script:
+    - docker login -u $T10_REGISTRY_USER -p $T10_REGISTRY_PASS
+      
   script:
-    - docker build -t qr:1.0 applications/qr/
-    - docker build -t backend:1.0 applications/backend/ 
-    - docker build -t website:1.0 applications/website 
+    - docker build -t $IMAGE_QR applications/qr/
+    - docker build -t $IMAGE_BACKEND applications/backend/ 
+    - docker build -t $IMAGE_WEBSITE applications/website 
+    - docker push $DOCKER_HUB_REPO:$IMAGE_QR
+    - docker push $DOCKER_HUB_REPO:$IMAGE_BACKEND
+    - docker push $DOCKER_HUB_REPO:$IMAGE_WEBSITE
   only:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
