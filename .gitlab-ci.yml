@@ -16,7 +16,9 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
   
   script:
-    - cd applications/qr && docker build -t qr:1.0 .   
+    - docker build -t qr:1.0 applications/qr/
+    - docker build -t backend:1.0 applications/backend/ 
+    - docker build -t website:1.0 applications/website 
   only:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
