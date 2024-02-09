@@ -9,7 +9,7 @@ variables:
   DOCKER_HUB_REPO: khalilmk/devops-training
 
 build:
-  stage: build
+  stage: build_deploy
   
   image: docker:20.10.12
   
