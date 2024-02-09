@@ -1,2 +1,2 @@
 #!/bin/sh
-docker compose -f docker-compose-D.yml build 
+cd applications && docker compose -f docker-compose-D.yml build 
