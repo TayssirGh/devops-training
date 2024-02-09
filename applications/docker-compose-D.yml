@@ -15,8 +15,6 @@ services:
       mode: replicated
       replicas: 2
 
-    env_file:
-      - ./qr/.env
     volumes:
       - minio-data:/app/generated_qr/
     networks:
@@ -40,8 +38,6 @@ services:
       - qr_network
     ports:
       - 3000
-    env_file:
-      - ./backend/.env
 
 
   website:
