@@ -38,3 +38,7 @@ applications/website/src/assets/configs/app-config.json
 # System Files
 **/.DS_Store
 **/Thumbs.db
+
+#certs
+**/my-site.key
+**/my-site.pfx
