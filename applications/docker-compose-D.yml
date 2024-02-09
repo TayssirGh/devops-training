@@ -17,8 +17,6 @@ services:
 
     volumes:
       - minio-data:/app/generated_qr/
-    networks:
-      - qr_network
 
 
   backend:
