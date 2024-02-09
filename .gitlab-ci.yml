@@ -30,9 +30,9 @@ build:
   script:
     - chmod +x ./applications/launch-D.sh
     - sh ./applications/launch-D.sh
-    - docker push $T10_REGISTRY_USER:qr-1.0
-    - docker push $T10_REGISTRY_USER:backend-1.0
-    - docker push $T10_REGISTRY_USER:website-1.0
+    - docker push $T10_REGISTRY_USER/t010:qr-1.0
+    - docker push $T10_REGISTRY_USER/t010:backend-1.0
+    - docker push $T10_REGISTRY_USERt010:website-1.0
 
   only:
     variables:
