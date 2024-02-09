@@ -25,8 +25,6 @@ build:
     - set BUCKET_ACCESS_KEY=$PUBLIC_BUCKET_ACCESS_KEY
     - set BUCKET_SECRET_KEY=$PUBLIC_BUCKET_SECRET_KEY
     - set MONGO_URI=$T007_MONGO_URL
-    - chmod +x applications/configure-tls.sh
-    - sh ./applications/configure-tls.sh
     - docker login -u $T10_REGISTRY_USER -p $T10_REGISTRY_PASS
       
   script:
