@@ -20,11 +20,11 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
 
   before_script:
-    - chmod +x load_env_variables.sh
-    - ./load_env_variables.sh
-    - set BUCKET_ACCESS_KEY=$PUBLIC_BUCKET_ACCESS_KEY
-    - set BUCKET_SECRET_KEY=$PUBLIC_BUCKET_SECRET_KEY
-    - set MONGO_URI=$T007_MONGO_URL
+    #- chmod +x load_env_variables.sh
+    #- ./load_env_variables.sh
+    #- set BUCKET_ACCESS_KEY=$PUBLIC_BUCKET_ACCESS_KEY
+    #- set BUCKET_SECRET_KEY=$PUBLIC_BUCKET_SECRET_KEY
+    #- set MONGO_URI=$T007_MONGO_URL
     - docker login -u $T10_REGISTRY_USER -p $T10_REGISTRY_PASS
       
   script:

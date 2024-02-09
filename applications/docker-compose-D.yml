@@ -91,23 +91,23 @@ services:
   #     - ./nginx/my-site.crt:/etc/ssl/certs/my-site.crt
   #     - ./nginx/my-site.key:/etc/ssl/private/my-site.key
 
-    load_balancer:
-      image: load_balancer
-      container_name: load_balancer
-      build:
-        context: ./nginx
-        dockerfile: Dockerfile 
-      ports:
-        - 80:80
+  load_balancer:
+    image: load_balancer
+    container_name: load_balancer
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile 
+    ports:
+      - 80:80
 
-      networks:
-        - qr_network
-        - app_network
-      depends_on:
-        - website
-        - backend
-        - minio
-        - qr
+    networks:
+      - qr_network
+      - app_network
+    depends_on:
+      - website
+      - backend
+      - minio
+      - qr
 
   
 networks:
