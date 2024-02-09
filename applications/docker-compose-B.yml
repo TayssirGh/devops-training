@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+
+  qr:
+    extends:
+      file: docker-compose-A.yml
+      service: qr
+   
+
+
+  backend:
+    extends:
+      file: docker-compose-A.yml
+      service: backend
+    depends_on:
+      - qr
+
+
+  website:
+    extends:
+      file: docker-compose-A.yml
+      service: website
+    depends_on:
+      - backend
+    
+
+  
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio-data:/data
+    environment:
+      - MINIO_ROOT_USER=test_user
+      - MINIO_ROOT_PASSWORD=test_password
+    command: server /data --console-address ":9001"
+
+volumes:
+  minio-data:
+  generated_qr:
+
+networks:
+  qr_network:
+    driver: bridge
+  app_network:
+    driver: bridge

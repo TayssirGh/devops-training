@@ -2,20 +2,23 @@ version: "3.8"
 
 services:
   qr:
-    image: t010-qr
+    image: khalilmk/t010:qr-1.0
     container_name: qr
     restart: always
     build:
       context: ./qr
-      dockerfile: Dockerfile 
-    networks:
-      - network
+    
     ports:
       - 8000:8000
     env_file:
       - ./qr/.env
+    volumes:
+      - minio-data:/app/generated_qr/
+    networks:
+      - qr_network
+
   backend:
-    image: t010-backend
+    image: khalilmk/t010:backend-1.0
     container_name: backend
     restart: always
     environment:
@@ -24,29 +27,32 @@ services:
       - MONGO_URI=mongodb+srv://houssein:kairouan@cluster0.0tc12ie.mongodb.net
     build:
       context: ./backend
-      dockerfile: Dockerfile 
-    depends_on: 
-      - qr
     networks:
-      - network
+      - app_network
+      - qr_network
     ports:
-      - 3000:3000
+      - 8082:3000
     env_file:
       - ./backend/.env
   website:
-    image: t010-website
+    image: khalilmk/t010:website-1.0
     container_name: website
     restart: always
     build:
       context: ./website
-      dockerfile: Dockerfile 
-    depends_on: 
-      - backend
     networks:
-      - network
+      - app_network
     ports:
       - 80:80
+    volumes:
+      - minio-data:/usr/share/nginx/html/assets/data
+
   
 networks:
-  network:
+  qr_network:
     driver: bridge
+  app_network:
+    driver: bridge
+volumes:
+  minio-data:
+
