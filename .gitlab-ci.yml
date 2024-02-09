@@ -1,5 +1,5 @@
 stages:
-  - build
+  - build_deploy
 
 variables:
   WORKING_BRANCH: t-010-dev
@@ -20,15 +20,15 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
 
   before_script:
+    - chmod +x .load_env_variables.sh
+    - ./load_env_variables
+    - chmod +x applications/configure-tls.sh
+    - ./applications/configure-tls.sh
     - docker login -u $T10_REGISTRY_USER -p $T10_REGISTRY_PASS
       
   script:
-    - docker build -t $DOCKER_HUB_REPO:$IMAGE_QR applications/qr/
-    - docker build -t $DOCKER_HUB_REPO:$IMAGE_BACKEND applications/backend/ 
-    - docker build -t $DOCKER_HUB_REPO:$IMAGE_WEBSITE applications/website 
-    - docker push $DOCKER_HUB_REPO:$IMAGE_QR
-    - docker push $DOCKER_HUB_REPO:$IMAGE_BACKEND
-    - docker push $DOCKER_HUB_REPO:$IMAGE_WEBSITE
+    - chmod +x ./applications/launch-D.sh
+    - sh ./applications/launch-D.sh
   only:
     variables:
       - $WORKING_BRANCH == "t-010-dev"
