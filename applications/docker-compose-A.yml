@@ -1,52 +1,61 @@
 version: "3.8"
 
 services:
-  node_api:
-    image: node-api:latest
+
+  backend:
+    image: backend:latest
     container_name: node_api
     restart: always
     build:
       context: backend
-      dockerfile: Dockerfile
-      target: node_api 
+      # dockerfile: Dockerfile
+      # target: node_api 
     ports:
-      - 3000:3000
+      - 8082:3000
     networks:
       - api
     env_file:
       - .env
 
-  qr_api:
+  qr:
     image: qr-api:latest
     container_name: qr_api
     restart: always
     build:
       context: qr
-      dockerfile: Dockerfile
-      target: qr_api
+      # dockerfile: Dockerfile
+      # target: qr_api
     networks:
       - api
     ports:
       - 8420:8420
     env_file:
       - .env
+    volumes:
+      - generated_qr:/qr_api/generated_qr/
 
-  app_ui:
-    image: app-ui:latest
+
+  website:
+    image: website:latest
     container_name: app_ui
     restart: always
     build:
       context: website
-      dockerfile: Dockerfile
-      target: app_ui
+      # dockerfile: Dockerfile
+      # target: app_ui
     networks:
       - api
     ports:
-      - 8666:80
+      - 80:80
     env_file:
       - .env
+    volumes:
+    - generated_qr:/usr/share/nginx/html/assets/data
+
 
 networks:
   api:
     driver: bridge
 
+volumes:
+  generated_qr: {}

@@ -2,10 +2,15 @@ stages:
   - build
 
 variables:
-  
-build:
-  image: docker:24.0.7
+  DOCKER_HUB_REPO: nidhalhajjej/devops-training
+  IMAGE_BACKEND: node-api
+  IMAGE_QR: qr-api
+  IMAGE_WEBSITE: app-ui
 
+build:
+  stage: build
+
+  image: docker:24.0.7
 
   services:
     - docker:24.0.7-dind
@@ -13,10 +18,14 @@ build:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
     
-  stage: build
-  
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+
   script:
-    - cd applications && docker compose up -d --force-recreate app_ui
+    - cd applications && docker compose up --force-recreate
+    - docker push $DOCKER_HUB_REPO:$IMAGE_BACKEND
+    - docker push $DOCKER_HUB_REPO:$IMAGE_QR
+    - docker push $DOCKER_HUB_REPO:$IMAGE_WEBSITE
   
   tags:
     - t-nidhal-build-protected

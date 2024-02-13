@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend:latest
+    restart: always
+    build:
+      context: backend
+      dockerfile: Dockerfile
+      target: node_api 
+    deploy:
+      replicas: 2 
+    ports: 
+      - 3000
+    networks:
+      - qr_network
+    env_file:
+      - .env
+
+  qr:
+    image: qr-api:latest
+    restart: always
+    build:
+      context: qr
+      dockerfile: Dockerfile
+      target: qr_api
+    deploy:
+      replicas: 2 
+    ports: 
+      - 8420
+    volumes:
+      - minio_data:/usr/src/generated_qr
+    networks:
+      - qr_network
+    env_file:
+      - .env
+    
+  website:
+    image: website:latest
+    build: 
+      context: website
+      dockerfile: Dockerfile
+      target: app_ui
+    restart: always
+    deploy:
+      replicas: 2
+    ports: 
+    - 80
+    networks:
+      - qr_network
+    volumes:
+      - minio_data:/website/assets/data
+    env_file:
+    - .env
+
+  minio:
+    image: minio/minio:latest
+    container_name: myminio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=strass
+      - MINIO_ROOT_PASSWORD=strass22
+    volumes:
+      - minio_data:/data
+    command: server --console-address ":9090" /data
+    networks:
+      - qr_network
+    env_file:
+      - .env
+    
+  nginx:
+    image: nginx-load:latest
+    container_name: nginx
+    build: 
+      context: nginx
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+    - 80:80 
+    networks:
+      - qr_network
+    depends_on:
+      - minio
+      - website
+      - qr
+      - backend
+  
+networks:
+  qr_network:
+  
+volumes:
+  minio_data:
+  generated_qr:
