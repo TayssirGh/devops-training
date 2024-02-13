@@ -3,9 +3,9 @@ stages:
 
 variables:
   DOCKER_HUB_REPO: nidhalhajjej/devops-training
-  IMAGE_BACKEND: node-api
+  IMAGE_BACKEND: backend
   IMAGE_QR: qr-api
-  IMAGE_WEBSITE: app-ui
+  IMAGE_WEBSITE: website
 
 build:
   stage: build
@@ -22,7 +22,8 @@ build:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
 
   script:
-    - cd applications && docker compose up --force-recreate
+    - chmod +x ./applications/launch-D.sh
+    - sh ./applications/launch-D.sh
     - docker push $DOCKER_HUB_REPO:$IMAGE_BACKEND
     - docker push $DOCKER_HUB_REPO:$IMAGE_QR
     - docker push $DOCKER_HUB_REPO:$IMAGE_WEBSITE
