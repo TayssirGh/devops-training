@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-deployment
+  namespace: training-app-frontend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+        - name: website
+          image: nidhalhajjej/website:website
+          ports:
+            - containerPort: 4200
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nginx/html/assets/configs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: website-configmap
