@@ -10,7 +10,7 @@ fi
 CLUSTER_NAME="devops-training-cluster"
 
 # Create k3d cluster with one master node, one worker node, and load balancer
-k3d cluster create $CLUSTER_NAME --api-port 6550 --servers 1 --agents 1 --port '80:80' --port '443:443' --volume '/tmp/cluster_data:/data'
+k3d cluster create $CLUSTER_NAME --api-port 6550 --servers 1 --agents 1 --port '80:80@loadbalancer' --port '443:443@loadbalancer' --volume '/tmp/cluster_data:/data'
 
 # Mount a volume for data persistence
 k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context

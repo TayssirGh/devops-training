@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: website
-          image: khalilmk/t010:backend-1.0
+          image: khalilmk/t010:website-1.0
           ports:
-            - containerPort: 4200
+            - containerPort: 80
           resources:
             limits:
               memory: "128Mi"
