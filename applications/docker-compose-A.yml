@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  qr:
+    build: 
+      context: ./qr
+      dockerfile: Dockerfile
+    env_file:
+      - ./qr/.env
+    ports:
+      - 8420:8420
+    volumes:
+      - qr_data:/app/scripts/generated_qr
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    ports:
+      - 8082:3000
+
+  website:
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4201:4200
+    volumes:
+      - qr_data:/app/scripts/generated_qr
+
+volumes:
+  qr_data:
