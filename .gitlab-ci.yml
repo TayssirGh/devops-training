@@ -1,0 +1,48 @@
+stages:
+  - build
+
+before_script:
+  - echo "$T011_DOCKER_HUB_TOKEN" | docker login -u $T011_REGISTRY_USER_NAME --password-stdin
+
+qr_build_push:
+  stage: build
+  variables:
+    image_name : qr
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - imagesbuilder
+  only:
+    changes:
+      - applications/qr/**/*
+
+
+backend_build_push:
+  stage: build
+  variables:
+    image_name : backend
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - imagesbuilder
+  only:
+    changes:
+      - applications/backend/**/*
+
+website_build_push:
+  stage: build
+  variables:
+    image_name : website
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - imagesbuilder
+  only:
+    changes:
+      - applications/website/**/*
