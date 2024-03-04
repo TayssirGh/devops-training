@@ -58,5 +58,5 @@
 
     Explanation: These commands download and install k3d, a lightweight Kubernetes distribution, and add the app-runner user to the docker group for k3d to function correctly.
 
+
 ![image](./01.png)
-![image](./02.png)
