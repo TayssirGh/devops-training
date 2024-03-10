@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9090:9090
+    environment:
+      - MINIO_ACCESS_KEY=your-minio-access-key
+      - MINIO_SECRET_KEY=your-minio-secret-key
+    volumes:
+      - minio_data:/data:z
+    command: server --console-address ":9090" /data
+    networks:
+      - qr_network
+    env_file:
+      - qr/.env
+
+  qr_python_code:
+    image: m55609414/bqw-qr:dev  
+    container_name: qr_python_code
+    restart: always
+    volumes:
+      - minio_data:/usr/src/generated_qr:z
+    env_file:
+      - ./backend/.env
+
+  qr_backend:
+    image: m55609414/bqw:dev  
+    container_name: qr_backend
+    restart: always
+    networks:
+      - qr_network
+    env_file:
+      - backend/.env
+
+  qr_front:
+    image: m55609414/bqw-website:dev  
+    container_name: qr_front
+    restart: always
+    networks:
+      - qr_network
+    volumes:
+      - minio_data:/qr-frontend/assets/data:ro
+
+networks:
+  qr_network:
+    external: true
+
+volumes:
+  minio_data:

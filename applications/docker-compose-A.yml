@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  qr:
+    image: m55609414/bqw-qr:dev
+    container_name: qr
+    restart: always
+    ports:
+      - 8000:8000
+    env_file:
+      - qr/.env
+    volumes:
+      - generated_qr:/usr/src/generated_qr
+    networks:
+      - qr_network
+
+  backend:
+    image: m55609414/bqw:dev
+    container_name: backend
+    restart: always
+    networks:
+      - qr_network
+    ports:
+      - 8082:3000
+    env_file:
+      - backend/.env
+
+  website:
+    image: m55609414/bqw-website:dev
+    container_name: website
+    restart: always
+    networks:
+      - qr_network
+    ports:
+      - 80:80
+    volumes:
+      - generated_qr:/qr-frontend/assets/data
+
+networks:
+  qr_network:
+    driver: bridge
+
+volumes:
+  generated_qr:
