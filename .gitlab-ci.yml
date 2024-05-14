@@ -15,7 +15,7 @@ dockerhub_login:
 qr_build_jobs:
   stage: build
   script:
-    - docker build -t t012-qr:dev qr/   
+    - docker build -t t012-qr:dev ./applications/qr   
   tags:
     - t012-build-protected
 
