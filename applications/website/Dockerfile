@@ -6,7 +6,7 @@ COPY . /app/
 RUN npm run build
 
 FROM nginx:alpine
-RUN apt-get update && apt-get install -y iputils-ping
+RUN apk add --no-cache iputils-ping
 COPY --from=build /app/dist/website  /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

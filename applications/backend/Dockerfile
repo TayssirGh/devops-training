@@ -1,5 +1,5 @@
 FROM node:20-alpine
-RUN apt-get update && apt-get install -y iputils-ping
+RUN apk add --no-cache iputils-ping
 WORKDIR /backend
 COPY package.json package-lock.json ./
 RUN npm install
