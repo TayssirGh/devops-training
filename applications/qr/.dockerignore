@@ -1,0 +1,6 @@
+.env
+.env.example
+env_file
+venv
+generated_qr
+__pycache__

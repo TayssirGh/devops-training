@@ -55,3 +55,4 @@ class EnvValidator:
     @staticmethod
     def bucket_path():
         return os.getenv('BUCKET_PATH')
+ 

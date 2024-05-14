@@ -1,3 +1,4 @@
+require('dotenv').config();
 const api = require('./config/api')
 const {
     APP_PORT
@@ -6,7 +7,7 @@ const {
 const databaseConnection = require('./config/database')
 
 databaseConnection()
-    .then(() => {
+    .then(() => { 
         console.info('Successfully connected to database.')
         api.listen(APP_PORT, () => {
             console.log(`Listening on port ${APP_PORT}`);

@@ -3,6 +3,9 @@ from scripts.qr_request_body import QR
 from scripts.qr_generator import QrGenerator
 from scripts.save_s3 import S3Manager
 from scripts.validate_env import EnvValidator
+from dotenv import load_dotenv
+ 
+load_dotenv()
 
 EnvValidator.validate_variables()
 
