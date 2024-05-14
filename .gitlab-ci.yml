@@ -5,7 +5,7 @@ stages:
 test:
   stage: dockerhub_login
   script:
-    - doceker --help
+    - docker --help
 
 # dockerhub_login:
 #   stage: dockerhub_login
