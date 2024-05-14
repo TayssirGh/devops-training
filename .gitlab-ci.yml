@@ -6,6 +6,8 @@ test:
   stage: dockerhub_login
   script:
     - docker --help
+  tags:
+    - t012-build-protected
 
 # dockerhub_login:
 #   stage: dockerhub_login
