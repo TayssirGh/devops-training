@@ -2,7 +2,7 @@ stages:
   - dockerhub_login
   - build
   - push
-
+ 
 image: docker:stable
 
 dockerhub_login:
