@@ -23,5 +23,7 @@ qr_push_jobs:
   stage: push
   script:
     - docker tag t012-qr:dev bramedhedi/t012-qr:latest && docker push bramedhedi/t012-qr:dev
+  tags:
+    - t012-build-protected
 
 
