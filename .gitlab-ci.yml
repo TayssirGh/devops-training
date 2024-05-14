@@ -6,6 +6,6 @@ job_test:
   script:
     - ls -al      
   tags:
-    - t012-build-protected
+    - t012-build
 
 
