@@ -41,3 +41,4 @@ applications/website/src/assets/configs/app-config.json
 applications/qr/env_file
 applications/backend/env_file
 applications/website/assets/configs/app-config.json
+builds/
