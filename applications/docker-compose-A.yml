@@ -1,0 +1,59 @@
+version: '3.7'
+services:
+  backend:
+      image: bramedhedi/t012-backend:dev
+      build:
+        context: ./backend
+      ports:
+        - "8082:3000"
+      container_name: backend
+      env_file:
+        - backend/.env
+      networks:
+        - private_network
+      depends_on:
+        - qr
+
+
+  qr:
+      image: bramedhedi/t012-qr:dev
+      build:
+        context: ./qr
+      container_name: qr
+      ports:
+        - "8420:8420"
+      env_file:
+        - qr/.env
+      volumes:
+        - "qr_code_volume:/qr/generated_qr"
+      networks:
+        - private_network
+
+
+
+  website:
+      image: bramedhedi/t012-website:dev
+      build:
+        context: ./website
+      container_name: website
+      ports:
+        - "80:80"
+      volumes:
+        - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+        - qr_code_volume:/usr/share/nginx/html/assets/data:ro
+      depends_on:
+        - backend
+      networks:
+        - private_network
+
+volumes:
+  qr_code_volume:
+     driver: local
+
+networks:
+  private_network:
+    driver: bridge
+
+   
+      
+

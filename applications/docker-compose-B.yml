@@ -1,0 +1,62 @@
+services:
+
+  qr:
+    extends:
+      file: docker-compose-A.yml
+      service: qr
+
+
+  backend:
+    extends:
+      file: docker-compose-A.yml
+      service: backend
+
+
+  website:
+    extends:
+      file: docker-compose-A.yml
+      service: website
+
+
+  s3service:
+    image: quay.io/minio/minio
+    container_name: s3service
+    command: server --console-address ":9001" /data
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    env_file: minio/.env
+    volumes:
+      - minios_storage_volume:/data
+    networks:
+      - private_network
+
+
+  initialize-s3service:
+    image: quay.io/minio/mc
+    container_name: initialize-s3service
+    depends_on:
+      - s3service
+    entrypoint: >
+      /bin/sh -c '
+      /usr/bin/mc alias set s3service http://s3service:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}";
+      /usr/bin/mc mb s3service/"$${BUCKET_NAME}";
+      /usr/bin/mc admin user add s3service "$${ACCESS_KEY}" "$${SECRET_KEY}";
+      /usr/bin/mc admin policy attach s3service readwrite --user "$${ACCESS_KEY}";
+      exit 0;
+      '
+    env_file: minio/.env
+    networks:
+      - private_network
+
+
+
+volumes:
+  qr_code_volume:
+     driver: local
+  minios_storage_volume:
+     driver: local
+
+networks:
+  private_network:
+    driver: bridge
