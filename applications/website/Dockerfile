@@ -3,7 +3,7 @@ WORKDIR /app
 COPY *.json /app/
 RUN npm install
 COPY . /app/
-RUN npm run build
+RUN npm run build 
 
 FROM nginx:alpine
 RUN apk add --no-cache iputils-ping
