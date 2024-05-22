@@ -11,7 +11,7 @@ dockerhub_login:
   script:
     - echo "$T012_DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$T012_DOCKER_HUB_USERNAME" --password-stdin
   tags:
-    - t012-build-protected
+    - t012-build-protected 
 
 # qr_build_jobs: 
 #   stage: build
