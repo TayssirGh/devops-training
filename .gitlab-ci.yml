@@ -13,12 +13,12 @@ dockerhub_login:
   tags:
     - t012-build-protected
 
-qr_build_jobs: 
-  stage: build
-  script:
-    - docker build -t t012-qr:dev ./applications/qr   
-  tags:
-    - t012-build-protected
+# qr_build_jobs: 
+#   stage: build
+#   script:
+#     - docker build -t t012-qr:dev ./applications/qr   
+#   tags:
+#     - t012-build-protected
 
 
 # backend_build_jobs:
