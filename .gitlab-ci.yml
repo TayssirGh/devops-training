@@ -2,7 +2,7 @@ stages:
   - dockerhub_login
   - build
   - push
-  - deploy
+  - deployment
  
 image: docker:stable
  
@@ -62,8 +62,8 @@ website_push_jobs:
 
 
 
-  deployment:
-    stage: deploy
+  auto_deployment:
+    stage: deployment
     script:
     - source ./applications/configure-tls.sh
     - source ./applications/launch-D.sh
