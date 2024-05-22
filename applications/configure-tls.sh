@@ -9,4 +9,8 @@ if !command_exists openssl; then
     apt-get install -y openssl
 fi
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.decrypted.key -out /etc/ssl/certs/localhost.crt -passin pass:$1
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/ssl/private/localhost.decrypted.pem \
+    -out /etc/ssl/certs/localhost.crt \
+    -passin pass:$1 \
+    -subj "/C=AU/ST=Some-State/L=City/O=Internet Widgits Pty Ltd/OU=/CN=/emailAddress="

@@ -55,11 +55,10 @@ services:
       volumes:
         - "./nginx/nginx-ssl.conf:/etc/nginx/conf.d/default.conf"
         - "/etc/ssl/certs/localhost.crt:/etc/ssl/certs/localhost.crt"
-        - "/etc/ssl/private/localhost.decrypted.key:/etc/ssl/certs/localhost.decrypted.pem"
+        - "/etc/ssl/private/localhost.decrypted.pem:/etc/ssl/certs/localhost.decrypted.pem"
       networks:
         - app_network
-      environment:
-        - SSL_KEY_PASSWORD=mohamed
+
       depends_on:
         - website
         - qr
