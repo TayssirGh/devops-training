@@ -64,7 +64,7 @@ image: docker:stable
 
 auto_deployment:
   stage: deployment
-  script:
+  script: 
   - source ./applications/configure-tls.sh
   - source ./applications/launch-D.sh
 
