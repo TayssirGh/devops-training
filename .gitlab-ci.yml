@@ -62,12 +62,12 @@ website_push_jobs:
 
 
 
-  auto_deployment:
-    stage: deployment
-    script:
-    - source ./applications/configure-tls.sh
-    - source ./applications/launch-D.sh
+auto_deployment:
+  stage: deployment
+  script:
+  - source ./applications/configure-tls.sh
+  - source ./applications/launch-D.sh
 
-    tags:
-      - t012-deploy
-    
+  tags:
+    - t012-deploy
+  
