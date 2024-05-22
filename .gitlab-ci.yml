@@ -70,4 +70,6 @@ auto_deployment:
 
   tags:
     - t012-deploy
+  only:
+    - t-012-prod
   
