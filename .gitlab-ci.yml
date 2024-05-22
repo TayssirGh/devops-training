@@ -13,55 +13,55 @@ dockerhub_login:
   tags:
     - t012-build-protected 
 
-# qr_build_jobs: 
-#   stage: build
-#   script:
-#     - docker build -t t012-qr:dev ./applications/qr   
-#   tags:
-#     - t012-build-protected
+qr_build_jobs: 
+  stage: build
+  script:
+    - docker build -t t012-qr:dev ./applications/qr   
+  tags:
+    - t012-build-protected
 
 
-# backend_build_jobs:
-#   stage: build
-#   script:
-#     - docker build -t t012-backend:dev ./applications/backend   
-#   tags:
-#     - t012-build-protected
+backend_build_jobs:
+  stage: build
+  script:
+    - docker build -t t012-backend:dev ./applications/backend   
+  tags:
+    - t012-build-protected
 
-# website_build_jobs:
-#   stage: build
-#   script:
-#     - docker build -t t012-website:dev  ./applications/website   
-#   tags:
-#     - t012-build-protected
-
-
+website_build_jobs:
+  stage: build
+  script:
+    - docker build -t t012-website:dev  ./applications/website   
+  tags:
+    - t012-build-protected
 
 
-# qr_push_jobs:
-#   stage: push
-#   script:
-#     - docker tag t012-qr:dev "$T012_DOCKER_HUB_USERNAME/t012-qr:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-qr:dev"
-#   tags:
-#     - t012-build-protected
 
 
-# backend_push_jobs:
-#   stage: push
-#   script:
-#     - docker tag t012-backend:dev "$T012_DOCKER_HUB_USERNAME/t012-backend:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-backend:dev"
-#   tags:
-#     - t012-build-protected
-
-# website_push_jobs:
-#   stage: push
-#   script:
-#     - docker tag t012-website:dev "$T012_DOCKER_HUB_USERNAME/t012-website:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-website:dev"
-#   tags:
-#     - t012-build-protected
+qr_push_jobs:
+  stage: push
+  script:
+    - docker tag t012-qr:dev "$T012_DOCKER_HUB_USERNAME/t012-qr:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-qr:dev"
+  tags:
+    - t012-build-protected
 
 
-  
+backend_push_jobs:
+  stage: push
+  script:
+    - docker tag t012-backend:dev "$T012_DOCKER_HUB_USERNAME/t012-backend:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-backend:dev"
+  tags:
+    - t012-build-protected
+
+website_push_jobs:
+  stage: push
+  script:
+    - docker tag t012-website:dev "$T012_DOCKER_HUB_USERNAME/t012-website:dev" && docker push "$T012_DOCKER_HUB_USERNAME/t012-website:dev"
+  tags:
+    - t012-build-protected
+
+
+   
 auto_deployment: 
   stage: deployment
   script: 
