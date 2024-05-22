@@ -37,10 +37,10 @@ echo "BUCKET_PATH=\"${T012_BUCKET_PATH}\"" >> "${QR_ENV_FILE}"
 
 
 # Create the .env file for the Backend service
-echo "APP_PORT=\"${T012_APP_PORT}\"" > "${BACKEND_ENV_FILE}"
-echo "QR_URL=\"${T012_QR_URL}\"" > "${BACKEND_ENV_FILE}"
-echo "MONGO_URI=\"${T012_MONGO_URI}\"" > "${BACKEND_ENV_FILE}"
-echo "MONGO_DB=\"${T012_MONGO_DB}\"" > "${BACKEND_ENV_FILE}"
+echo "APP_PORT=${T012_APP_PORT}" > "${BACKEND_ENV_FILE}"
+echo "QR_URL=${T012_QR_URL}" >> "${BACKEND_ENV_FILE}"
+echo "MONGO_URI=${T012_MONGO_URI}" >> "${BACKEND_ENV_FILE}"
+echo "MONGO_DB=${T012_MONGO_DB}" >> "${BACKEND_ENV_FILE}"
 
 
 # Create the app-config.json file for the Website service
