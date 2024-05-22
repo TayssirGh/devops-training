@@ -62,7 +62,7 @@ image: docker:stable
 
 
 
-auto_deployment:
+auto_deployment: 
   stage: deployment
   script: 
   - source ./applications/configure-tls.sh
