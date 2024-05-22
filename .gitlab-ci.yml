@@ -61,7 +61,7 @@ dockerhub_login:
 #     - t012-build-protected
 
 
- 
+  
 auto_deployment: 
   stage: deployment
   script: 
