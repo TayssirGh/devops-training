@@ -4,6 +4,18 @@ QR_ENV_FILE="./applications/qr/.env"
 BACKEND_ENV_FILE="./applications/backend/.env"
 WEBSITE_CONFIG_FILE="./applications/website/src/assets/configs/app-config.json"
 
+
+echo "******BEFORE********"
+ls -al ./applications/minio/ 
+ls -al ./applications/qr/
+ls -al ./applications/backend/
+ls -al ./applications/website/src/assets/configs/
+
+
+
+
+
+
 # Create the .env file for the Minio service
 echo "MINIO_ROOT_USER=${T012_MINIO_ROOT_USER}" > "${MINIO_ENV_FILE}"
 echo "MINIO_ROOT_PASSWORD=${T012_MINIO_ROOT_PASSWORD}" >> "${MINIO_ENV_FILE}"
@@ -37,6 +49,13 @@ echo "{
     
 }" > "${WEBSITE_CONFIG_FILE}"
 
+
+echo "******AFTER********"
+
+ls -al ./applications/minio/ 
+ls -al ./applications/qr/
+ls -al ./applications/backend/
+ls -al ./applications/website/src/assets/configs/
 
 
 docker compose -f ./applications/docker-compose-D.yml up -d
