@@ -4,7 +4,7 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-if !command_exists openssl; then
+if ! command_exists openssl; then
     apt-get update
     apt-get install -y openssl
 fi

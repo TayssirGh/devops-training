@@ -66,6 +66,7 @@ auto_deployment:
   stage: deployment
   script:
   - source ./applications/configure-tls.sh
+  - ls -al
   - source ./applications/launch-D.sh
 
   tags:
