@@ -45,7 +45,7 @@ echo "MONGO_DB=${T012_MONGO_DB}" >> "${BACKEND_ENV_FILE}"
 
 # Create the app-config.json file for the Website service
 echo "{
-    \"backendUrl\": \"${T012_BACKEND_URL}\",
+    \"backendUrl\": \"${T012_BACKEND_URL}\"
     
 }" > "${WEBSITE_CONFIG_FILE}"
 
