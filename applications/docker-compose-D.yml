@@ -27,8 +27,8 @@ services:
       - app_network
     deploy:
       replicas: 2
-    depends_on:
-      - initialize-s3service
+    # depends_on:
+    #   - initialize-s3service
 
   website:
     image: bramedhedi/t012-website:dev
@@ -67,28 +67,28 @@ services:
  
 
 
-  s3service:
-    image: quay.io/minio/minio
-    container_name: s3service
-    command: server --console-address ":9001" /data
+  # s3service:
+  #   image: quay.io/minio/minio
+  #   container_name: s3service
+  #   command: server --console-address ":9001" /data
 
-    env_file: minio/.env
-    volumes:
-      - minios_storage_volume:/data
-    networks:
-      - app_network
+  #   env_file: minio/.env
+  #   volumes:
+  #     - minios_storage_volume:/data
+  #   networks:
+  #     - app_network
 
 
-  initialize-s3service:
-    image: quay.io/minio/mc
-    container_name: initialize-s3service
-    depends_on:
-      - s3service
-    entrypoint: >
-      /bin/sh -c ' /usr/bin/mc alias set s3service http://s3service:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}"; /usr/bin/mc mb s3service/"$${BUCKET_NAME}"; /usr/bin/mc admin user add s3service "$${ACCESS_KEY}" "$${SECRET_KEY}"; /usr/bin/mc admin policy attach s3service readwrite --user "$${ACCESS_KEY}"; exit 0; '
-    env_file: minio/.env
-    networks:
-      - app_network
+  # initialize-s3service:
+  #   image: quay.io/minio/mc
+  #   container_name: initialize-s3service
+  #   depends_on:
+  #     - s3service
+  #   entrypoint: >
+  #     /bin/sh -c ' /usr/bin/mc alias set s3service http://s3service:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}"; /usr/bin/mc mb s3service/"$${BUCKET_NAME}"; /usr/bin/mc admin user add s3service "$${ACCESS_KEY}" "$${SECRET_KEY}"; /usr/bin/mc admin policy attach s3service readwrite --user "$${ACCESS_KEY}"; exit 0; '
+  #   env_file: minio/.env
+  #   networks:
+  #     - app_network
 
 volumes:
   qr_code_volume:
