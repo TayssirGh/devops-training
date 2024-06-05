@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-ingress
+  namespace: training-app-frontend-prod
+spec:
+  rules:
+    - host: "app.frontend.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: website-service
+                port:
+                  number: 80
+

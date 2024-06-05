@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: training-app-backend-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: bramedhedi/t012-backend:dev
+        # imagePullPolicy: Always
+        ports: 
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: backend-env
+        - secretRef:
+            name: backend-secret
+      restartPolicy: Always
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    app: backend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30002

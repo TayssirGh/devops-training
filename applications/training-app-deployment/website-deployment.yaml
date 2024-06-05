@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  namespace: training-app-frontend-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+      - name: website
+        image: bramedhedi/t012-website:dev
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/assets/configs
+          name: website-configmap
+        # - mountPath: /usr/share/nginx/html/assets/data
+        #   name: qr-code-volume
+          readOnly: true
+      volumes:
+      - name: website-configmap
+        configMap:
+          name: website-configmap
+
+      # - name: qr-code-volume
+      #   persistentVolumeClaim:
+      #     claimName: qr-code-pvc
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-service
+  namespace: training-app-frontend-prod
+spec:
+  selector:
+    app: website
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30003

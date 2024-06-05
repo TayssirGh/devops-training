@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-env
+  namespace: training-app-backend-prod
+data:
+  APP_PORT: "3000"
+  QR_URL: http://qr-service:8420
+

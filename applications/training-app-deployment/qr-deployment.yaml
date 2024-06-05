@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qr
+  namespace: training-app-backend-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qr
+  template:
+    metadata:
+      labels:
+        app: qr
+    spec:
+      containers:
+      - name: qr
+        image: bramedhedi/t012-qr:dev
+        ports:
+        - containerPort: 8420
+        # volumeMounts:
+        # - mountPath: /qr/generated_qr
+        #   name: qr-code-volume
+        envFrom:
+        - configMapRef:
+            name: qr-env
+      # volumes:
+      # - name: qr-code-volume
+      #   persistentVolumeClaim:
+      #     claimName: qr-code-pvc
+      # restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-service
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    app: qr
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8420
+      targetPort: 8420
+
+
+

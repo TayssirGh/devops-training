@@ -1,0 +1,12 @@
+resources:
+- training-app-backend-prod.yaml
+- training-app-frontend-prod.yaml
+- qr-configmap.yaml
+- qr-deployment.yaml
+- backend-configmap.yaml
+- backend-secret.yaml
+- backend-deployment.yaml
+- backend-ingress.yaml
+- website-configmap.yaml
+- website-deployment.yaml
+- website-ingress.yaml
