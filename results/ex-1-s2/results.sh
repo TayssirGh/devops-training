@@ -29,6 +29,7 @@ sudo usermod -aG sudo app-runner
 ssh-keygen -t rsa
 ##ssh-copy-id username@remote_host
 ssh-copy-id $1@$2
+ssh $1@$2
 
 # Installing `k3d` on the machine
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
