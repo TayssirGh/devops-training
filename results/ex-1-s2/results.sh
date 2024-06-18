@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#upgrading
 sudo apt update 
 sudo apt upgrade
 
+#installing docker dependencies
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -25,6 +27,7 @@ sudo usermod -aG sudo app-runner
 
 #generating ssh key pairs
 ssh-keygen -t rsa
+##ssh-copy-id username@remote_host
 
 # Installing `k3d` on the machine
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
