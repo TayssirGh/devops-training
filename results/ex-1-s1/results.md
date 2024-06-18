@@ -31,8 +31,12 @@
 
    >ssh-keygen -t rsa
 
-   output the contents of the file
-   >cat ~/.ssh/id_rsa.pub
+   copy your public key to an existing server
+   >ssh-copy-id usename@host
+
+   connect to the machine
+   >ssh username@host
+
 
 
 >ssh username@server_address /*connect to the host*/
