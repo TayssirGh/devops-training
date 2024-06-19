@@ -6,7 +6,7 @@ class AccessService {
         this.validateAccessData(accessData)
         accessData.qr_id = this.makeid();
         return QrClient.generateQr(accessData.qr_id, accessData.qr_content).then(result => {
-            accessData.qr_url = result.data.res
+            accessData.qr_url = toString(result.data.res)
             accessData.is_s3 = result.data.s3
             const access = new AccessModel(accessData)
             return access.save().then(savedAccess => {
