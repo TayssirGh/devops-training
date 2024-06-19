@@ -1,9 +1,12 @@
 const api = require('./config/api')
+require('dotenv').config();
+
 const {
     APP_PORT
 } = process.env
 
 const databaseConnection = require('./config/database')
+
 
 databaseConnection()
     .then(() => {
