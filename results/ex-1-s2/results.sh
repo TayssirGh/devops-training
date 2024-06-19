@@ -9,7 +9,7 @@ generate_ssh_keys() {
     fi
 }
 update_the_system(){
-  zypper refresh && sudo zypper update -y
+  zypper refresh &&  zypper update -y
 }
 install_docker(){
   zypper install -y docker
