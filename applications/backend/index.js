@@ -1,8 +1,9 @@
 const api = require('./config/api')
 require('dotenv').config();
 const {
-    APP_PORT
+    APP_PORT, QR_URL,
 } = process.env
+console.log('index QR_URL:', QR_URL);
 
 const databaseConnection = require('./config/database')
 
