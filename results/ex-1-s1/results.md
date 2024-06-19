@@ -43,8 +43,6 @@
     This command generates an SSH key pair associated to the machine in order to be able to access it through SSH
     * ssh-copy-id username@remote_host
     This command copies the public key to an existing server to be able to connect through ssh
-    * ssh username@remote_host
-    This command connects to a remote host through ssh
 
 # Installing `k3d` on the machine.
     * curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
