@@ -13,6 +13,7 @@ export class EnvLoaderService {
   }
 
   getBackendUrl(): string {
+    console.log('Getting backend URL:', this.backendUrl);
     return this.backendUrl;
   }
 
@@ -24,6 +25,7 @@ export class EnvLoaderService {
     return new Promise(resolve => {
       this.http.get<any>(`assets/configs/app-config.json`).toPromise().then(data => {
         this.backendUrl = data.backendUrl
+        console.log('Backend URL:', this.backendUrl);
         resolve();
       })
     });

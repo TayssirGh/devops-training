@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
         .then(res => {
           this.getLogs();
         });
+      console.log('QR sent:', this.value);
       this.value = "";
     }
   }
