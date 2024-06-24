@@ -29,7 +29,7 @@ variables:
 build_qr:
   stage: build
   script:
-    - docker build -t qr:latest $REGISTRY/$PROJECT/applications/qr
+    - docker build -t qr:latest ./applications/qr
   tags:
     - t-013-build-protected
   only:
