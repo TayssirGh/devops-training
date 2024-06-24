@@ -8,23 +8,23 @@ variables:
   REGISTRY: $CI_REGISTRY
   PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
 
-#build_website:
-#  stage: build
-#  script:
-#    - docker build -t website:latest ./application/website
-#  tags:
-#    - t-013-build-protected
-#  only:
-#    - t-013-dev
-#
-#build_backend:
-#  stage: build
-#  script:
-#    - docker build -t backend:latest ./application/backend
-#  tags:
-#    - t-013-build-protected
-#  only:
-#    - t-013-dev
+build_website:
+  stage: build
+  script:
+    - docker build -t t013-website:dev ./applications/website
+  tags:
+    - t-013-build-protected
+  only:
+    - t-013-dev
+
+build_backend:
+  stage: build
+  script:
+    - docker build -t t013-backend:dev ./applications/backend
+  tags:
+    - t-013-build-protected
+  only:
+    - t-013-dev
 
 build_qr:
   stage: build
@@ -59,14 +59,14 @@ build_qr:
 #  only:
 #    - t-013-dev
 
-push_qr:
-  stage: push
-  script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $REGISTRY/$PROJECT/qr:latest
-  tags:
-    - t-013-build-protected
-  dependencies:
-    - build_qr
-  only:
-    - t-013-dev
+#push_qr:
+#  stage: push
+#  script:
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#    - docker push $REGISTRY/$PROJECT/qr:latest
+#  tags:
+#    - t-013-build-protected
+#  dependencies:
+#    - build_qr
+#  only:
+#    - t-013-dev
