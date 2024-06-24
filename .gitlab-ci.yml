@@ -16,7 +16,7 @@ variables:
 #    - t-013-build-protected
 #  only:
 #    - t-013-dev
-
+#
 #build_backend:
 #  stage: build
 #  script:
@@ -29,7 +29,7 @@ variables:
 build_qr:
   stage: build
   script:
-    - docker build -t qr:latest ./application/qr
+    - docker build -t $REGISTRY/$PROJECT/qr:latest application/qr
   tags:
     - t-013-build-protected
   only:
@@ -58,7 +58,7 @@ build_qr:
 #    - build_backend
 #  only:
 #    - t-013-dev
-#
+
 push_qr:
   stage: push
   script:
@@ -70,4 +70,3 @@ push_qr:
     - build_qr
   only:
     - t-013-dev
-
