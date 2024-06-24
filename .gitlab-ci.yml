@@ -2,6 +2,8 @@ stages:
   - build
   - push
 
+image: docker:stable
+
 variables:
   REGISTRY: $CI_REGISTRY
   PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
