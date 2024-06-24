@@ -11,7 +11,7 @@ variables:
 build_website:
   stage: build
   script:
-    - docker build -t $REGISTRY/$PROJECT/website:latest application/website
+    - docker build -t website:latest ./application/website
   tags:
     - t-013-build-protected
   only:
@@ -20,7 +20,7 @@ build_website:
 build_backend:
   stage: build
   script:
-    - docker build -t $REGISTRY/$PROJECT/backend:latest application/backend
+    - docker build -t backend:latest ./application/backend
   tags:
     - t-013-build-protected
   only:
@@ -29,7 +29,7 @@ build_backend:
 build_qr:
   stage: build
   script:
-    - docker build -t $REGISTRY/$PROJECT/qr:latest application/qr
+    - docker build -t qr:latest ./application/qr
   tags:
     - t-013-build-protected
   only:
