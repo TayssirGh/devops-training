@@ -35,15 +35,15 @@ build_qr:
   only:
     - t-013-dev
 
-#push_website:
-#  stage: push
-#  script:
-#    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
-#    - docker tag t013-website:dev " $T013_REGISTRY_USERNAME/t013-website:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
-#    - docker push $REGISTRY/$PROJECT/website:latest
-#  tags:
-#    - t-013-build-protected
-#  dependencies:
-#    - build_website
-#  only:
-#    - t-013-dev
+push_website:
+  stage: push
+  script:
+    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
+    - docker tag t013-website:dev " $T013_REGISTRY_USERNAME/t013-website:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
+    - docker push $REGISTRY/$PROJECT/website:latest
+  tags:
+    - t-013-build-protected
+  dependencies:
+    - build_website
+  only:
+    - t-013-dev
