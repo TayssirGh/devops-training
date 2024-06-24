@@ -31,7 +31,7 @@ build_qr:
   script:
     - docker build -t t013-qr:dev ./applications/qr
   tags:
-    - t013-build-protected
+    - t-013-build-protected
   only:
     - t-013-dev
 
