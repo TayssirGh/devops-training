@@ -8,33 +8,33 @@ variables:
   REGISTRY: $CI_REGISTRY
   PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
 
-build_website:
-  stage: build
-  script:
-    - docker build -t t013-website:dev ./applications/website
-  tags:
-    - t-013-build-protected
-  only:
-    - t-013-dev
-
-build_backend:
-  stage: build
-  script:
-    - docker build -t t013-backend:dev ./applications/backend
-  tags:
-    - t-013-build-protected
-  only:
-    - t-013-dev
-#
-#build_qr:
+#build_website:
 #  stage: build
 #  script:
-#    - docker build -t t013-qr:dev ./applications/qr
+#    - docker build -t t013-website:dev ./applications/website
 #  tags:
 #    - t-013-build-protected
 #  only:
 #    - t-013-dev
 #
+#build_backend:
+#  stage: build
+#  script:
+#    - docker build -t t013-backend:dev ./applications/backend
+#  tags:
+#    - t-013-build-protected
+#  only:
+#    - t-013-dev
+#
+build_qr:
+  stage: build
+  script:
+    - docker build -t t013-qr:dev ./applications/qr
+  tags:
+    - t-013-build-protected
+  only:
+    - t-013-dev
+
 #push_website:
 #  stage: push
 #  script:
