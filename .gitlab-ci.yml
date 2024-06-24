@@ -4,6 +4,9 @@ stages:
 
 image: docker:stable
 
+services:
+  - docker:dind
+
 variables:
   REGISTRY: $CI_REGISTRY
   PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
