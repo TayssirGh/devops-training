@@ -39,8 +39,7 @@ push_website:
   stage: push
   script:
     - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
-    - docker tag t013-website:dev " $T013_REGISTRY_USERNAME/t013-website:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
-    - docker push $REGISTRY/$PROJECT/website:latest
+    - docker tag t013-website:dev "$T013_REGISTRY_USERNAME/t013-website:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
   tags:
     - t-013-build-protected
   dependencies:
