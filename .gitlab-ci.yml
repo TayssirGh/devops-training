@@ -4,13 +4,9 @@ stages:
 
 image: docker:stable
 
-services:
-  - docker:dind
-
 variables:
   REGISTRY: $CI_REGISTRY
   PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-  DOCKER_HOST: tcp://docker:2375
 
 build_website:
   stage: build
@@ -29,25 +25,25 @@ build_backend:
     - t-013-build-protected
   only:
     - t-013-dev
-
-build_qr:
-  stage: build
-  script:
-    - docker build -t t013-qr:dev ./applications/qr
-  tags:
-    - t-013-build-protected
-  only:
-    - t-013-dev
-
-push_website:
-  stage: push
-  script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker tag t013-website:dev " $T013_REGISTRY_USERNAME/t012-qr:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
-    - docker push $REGISTRY/$PROJECT/website:latest
-  tags:
-    - t-013-build-protected
-  dependencies:
-    - build_website
-  only:
-    - t-013-dev
+#
+#build_qr:
+#  stage: build
+#  script:
+#    - docker build -t t013-qr:dev ./applications/qr
+#  tags:
+#    - t-013-build-protected
+#  only:
+#    - t-013-dev
+#
+#push_website:
+#  stage: push
+#  script:
+#    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD $CI_REGISTRY
+#    - docker tag t013-website:dev " $T013_REGISTRY_USERNAME/t012-qr:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev"
+#    - docker push $REGISTRY/$PROJECT/website:latest
+#  tags:
+#    - t-013-build-protected
+#  dependencies:
+#    - build_website
+#  only:
+#    - t-013-dev
