@@ -1,5 +1,3 @@
-ARG NODE_VERSION=16.20.2
-# FROM node:${NODE_VERSION}-alpine as base
 FROM node:alpine as base
 
 WORKDIR /
