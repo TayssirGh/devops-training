@@ -5,7 +5,7 @@ stages:
 image: docker:stable
 
 variables:
-  SCRIPT_PATH: "img_push.sh"
+  SCRIPT_PATH: "./ci-scripts/img_push.sh"
 
 build_website:
   stage: build
@@ -37,7 +37,7 @@ build_qr:
 push_website:
   stage: push
   script:
-    - $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+    - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
@@ -47,7 +47,7 @@ push_website:
 push_backend:
   stage: push
   script:
-    - $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+    - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
@@ -57,7 +57,7 @@ push_backend:
 push_qr:
   stage: push
   script:
-    - $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+    - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
