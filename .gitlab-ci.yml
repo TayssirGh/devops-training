@@ -1,0 +1,6 @@
+build:
+    image:  python:alpine
+    before_script: 
+        -  apt-get update && apt-get install make
+    script:
+        -  make  test
