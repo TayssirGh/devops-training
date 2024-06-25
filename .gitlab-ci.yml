@@ -1,8 +1,8 @@
-image: docker:stable
+image: docker:20.10.16
 
 build_website:
     services:
-        - docker:stable-dind
+        - docker:20.10.16-dind
 
     variables:
         IMAGE_NAME: ilefrjiba/t-014-website
