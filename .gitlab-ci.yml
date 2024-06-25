@@ -4,6 +4,9 @@ stages:
 
 image: docker:stable
 
+variables:
+  SCRIPT_PATH: "./ci-scripts/img_push.sh"
+
 build_website:
   stage: build
   script:
@@ -34,8 +37,7 @@ build_qr:
 push_website:
   stage: push
   script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
-    - docker tag t013-website:dev "$T013_REGISTRY_USERNAME/t013-website:dev" && docker push $T013_REGISTRY_USERNAME/t013-website:dev
+    - $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
@@ -45,8 +47,7 @@ push_website:
 push_backend:
   stage: push
   script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
-    - docker tag t013-backend:dev "$T013_REGISTRY_USERNAME/t013-backend:dev" && docker push $T013_REGISTRY_USERNAME/t013-backend:dev
+    - $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
@@ -56,8 +57,7 @@ push_backend:
 push_qr:
   stage: push
   script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
-    - docker tag t013-qr:dev "$T013_REGISTRY_USERNAME/t013-qr:dev" && docker push $T013_REGISTRY_USERNAME/t013-qr:dev
+    - $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-build-protected
   dependencies:
