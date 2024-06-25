@@ -1,22 +1,40 @@
-image: docker:alpine
+# image: docker:alpine
 
-build_website:
+# build_website:
 
-    variables:
+#     variables:
+#         IMAGE_NAME: ilefrjiba/t-014-website
+#         IMAGE_TAG: dev
+    
+#     before_script: 
+#         - sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#         - docker --version
+#         - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+
+#     script:
+
+#         - cd ./applications/website/
+#         - docker build --tag $IMAGE_NAME:$IMAGE_TAG .
+#         - docker push $IMAGE_NAME:$IMAGE_TAG
+#     tags:
+#         - t-014-build-protected
+#     only:
+#     - t-014-dev
+
+build_image:
+  variables:
         IMAGE_NAME: ilefrjiba/t-014-website
         IMAGE_TAG: dev
-    
-    before_script: 
-        - sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-        - docker --version
-        - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
-
-    script:
-
-        - cd ./applications/website/
-        - docker build --tag $IMAGE_NAME:$IMAGE_TAG .
-        - docker push $IMAGE_NAME:$IMAGE_TAG
-    tags:
-        - t-014-build-protected
-    only:
-    - t-014-dev
+#   stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG ./applications/website/
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  tags:
+    - t-014-build-protected
