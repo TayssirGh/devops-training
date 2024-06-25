@@ -1,5 +1,6 @@
+image: docker:stable
+
 build_website:
-    image: docker:stable
     services:
         - docker:stable-dind
 
