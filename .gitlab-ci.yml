@@ -1,9 +1,6 @@
 image: docker:stable
 
-
-
 build_website:
-    privileged: true
     services:
         - docker:stable-dind
 
