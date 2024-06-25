@@ -10,9 +10,11 @@ build_website:
         DOCKER_TLS_CERTDIR: "/certs"
     
     before_script: 
+        - echo "docker --version"
         - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
 
     script:
+
         - cd ./applications/website/
         - docker build --tag $IMAGE_NAME:$IMAGE_TAG .
         - docker push $IMAGE_NAME:$IMAGE_TAG
