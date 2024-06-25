@@ -5,7 +5,7 @@ stages:
 image: docker:stable
 
 variables:
-  SCRIPT_PATH: "./ci-scripts/img_push.sh"
+  SCRIPT_PATH: "ci-scripts/img_push.sh"
 
 build_website:
   stage: build
