@@ -1,9 +1,24 @@
-build:
+image: docker:stable
+
+
+
+build_website:
+    services:
+        - docker:stable-dind
+
+    build_variables:
+        - IMAGE_NAME: ilefrjiba/t-014-website
+        - IMAGE_TAG: dev
+    
+    variables:
+        DOCKER_TLS_CERTDIR: "/certs"
+    
+    before_script: 
+        - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+
     script:
-        - echo "hello i am working"
+        - cd ./applications/website/
+        - docker build --tag $IMAGE_NAME:$IMAGE_TAG .
+        - docker push $IMAGE_NAME:$IMAGE_TAG
     tags:
         - t-014-build-protected
-
-# push_to_dockerhub:
-#     script:
-#     - docker build -t 
