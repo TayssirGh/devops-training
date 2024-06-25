@@ -20,3 +20,6 @@ build_website:
         - docker push $IMAGE_NAME:$IMAGE_TAG
     tags:
         - t-014-build-protected
+    privileged: true
+    only:
+    - t-014-dev
