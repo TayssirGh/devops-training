@@ -7,9 +7,9 @@ build_website:
         - docker:stable-dind
 
     variables:
-        - IMAGE_NAME: ilefrjiba/t-014-website
-        - IMAGE_TAG: dev
-        - DOCKER_TLS_CERTDIR: "/certs"
+        IMAGE_NAME: ilefrjiba/t-014-website
+        IMAGE_TAG: dev
+        DOCKER_TLS_CERTDIR: "/certs"
     
     before_script: 
         - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
