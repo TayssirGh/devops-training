@@ -4,10 +4,6 @@ stages:
 
 image: docker:stable
 
-variables:
-  REGISTRY: $CI_REGISTRY
-  PROJECT: $CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-
 build_website:
   stage: build
   script:
@@ -49,7 +45,6 @@ push_website:
 push_backend:
   stage: push
   script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
     - docker tag t013-backend:dev "$T013_REGISTRY_USERNAME/t013-backend:dev" && docker push $T013_REGISTRY_USERNAME/t013-backend:dev
   tags:
     - t-013-build-protected
@@ -60,7 +55,6 @@ push_backend:
 push_qr:
   stage: push
   script:
-    - docker login -u $T013_REGISTRY_USERNAME -p $T013_REGISTRY_PASSWORD
     - docker tag t013-qr:dev "$T013_REGISTRY_USERNAME/t013-qr:dev" && docker push $T013_REGISTRY_USERNAME/t013-qr:dev
   tags:
     - t-013-build-protected
