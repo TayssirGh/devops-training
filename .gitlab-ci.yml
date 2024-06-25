@@ -1,15 +1,13 @@
 image: docker:20.10.16
 
 build_website:
-    services:
-        - docker:20.10.16-dind
 
     variables:
         IMAGE_NAME: ilefrjiba/t-014-website
         IMAGE_TAG: dev
-        DOCKER_TLS_CERTDIR: "/certs"
     
     before_script: 
+        - sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
         - docker --version
         - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
 
