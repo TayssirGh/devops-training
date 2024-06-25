@@ -1,3 +1,9 @@
 build:
     script:
         - echo "hello i am working"
+    tags:
+        - t-014-build-protected
+
+# push_to_dockerhub:
+#     script:
+#     - docker build -t 
