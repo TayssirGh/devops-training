@@ -9,6 +9,8 @@ services:
       - "8420:8420"
     networks:
       - qr_net
+    volumes:
+      - qr-code
   backend:
     image: tayssirgh/t013-backend
     container_name: backend
@@ -23,6 +25,10 @@ services:
       context: ./website
     ports:
       - "80:80"
+    volumes:
+      - qr-code
 networks:
   qr_net :
     driver: bridge
+volumes:
+  qr-code:
