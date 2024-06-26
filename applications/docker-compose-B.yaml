@@ -17,14 +17,3 @@ services:
       file: docker-compose-A.yml
       service: website
 
-networks:
-  qr_net:
-    extends:
-      file: docker-compose-A.yml
-      service: qr_net
-
-volumes:
-  qr-code:
-    extends:
-      file: docker-compose-A.yml
-      service: qr-code
