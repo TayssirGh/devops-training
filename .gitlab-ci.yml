@@ -1,27 +1,5 @@
-# image: docker:alpine
 
-# build_website:
-
-#     variables:
-#         IMAGE_NAME: ilefrjiba/t-014-website
-#         IMAGE_TAG: dev
-    
-#     before_script: 
-#         - sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-#         - docker --version
-#         - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
-
-#     script:
-
-#         - cd ./applications/website/
-#         - docker build --tag $IMAGE_NAME:$IMAGE_TAG .
-#         - docker push $IMAGE_NAME:$IMAGE_TAG
-#     tags:
-#         - t-014-build-protected
-#     only:
-#     - t-014-dev
-
-build_image:
+build_website:
   variables:
         IMAGE_NAME: t-014-website
         IMAGE_TAG: dev
@@ -37,5 +15,37 @@ build_image:
     - docker build --tag t-014-website:dev ./applications/website/
     - docker tag t-014-website:dev ilefrjiba/t-014-website
     - docker push ilefrjiba/t-014-website
+  tags:
+    - t-014-build-protected
+
+build_qr:
+
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build --tag t-014-qr:dev ./applications/qr/
+    - docker tag t-014-qr:dev ilefrjiba/t-014-qr
+    - docker push ilefrjiba/t-014-qr
+  tags:
+    - t-014-build-protected
+
+build_backend:
+
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build --tag t-014-backend:dev ./applications/backend/
+    - docker tag t-014-backend:dev ilefrjiba/t-014-backend
+    - docker push ilefrjiba/t-014-backend
   tags:
     - t-014-build-protected
