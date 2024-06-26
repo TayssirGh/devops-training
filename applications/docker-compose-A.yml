@@ -33,7 +33,7 @@ services:
       - qr_net
     volumes:
       - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
-      - qr-code:/applications/website/src/assets/data
+      - qr-code:/src/assets/data
 networks:
   qr_net :
     driver: bridge
