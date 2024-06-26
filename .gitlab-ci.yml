@@ -35,6 +35,7 @@ build_image:
     - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
   script:
     - docker build --tag t-014-website:dev ./applications/website/
-    - docker push $IMAGE_NAME:$IMAGE_TAG
+    - docker tag t-014-website:dev ilefrjiba/t-014-website
+    - docker push ilefrjiba/t-014-website
   tags:
     - t-014-build-protected
