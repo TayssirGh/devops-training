@@ -5,6 +5,11 @@ services:
     container_name: qr
     build:
       context: ./qr
+    environment:
+      - QR_TMP_FOLDER="./generated_qr"
+      - QR_FILL_COLOR="#121128"
+      - QR_BACKGROUND_COLOR="#dcdbdb"
+      - USE_BUCKET=true
     ports:
       - "8420:8420"
     networks:
@@ -14,6 +19,10 @@ services:
   backend:
     image: tayssirgh/t013-backend
     container_name: backend
+    environment:
+      - APP_PORT=3000
+      - QR_URL=http://localhost:8420/
+      - MONGO_URI=mongodb+srv://tayssir:9F98N3PS@cluster0.xziulww.mongodb.net
     build:
       context: ./backend
     ports:
