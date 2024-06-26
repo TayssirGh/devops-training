@@ -34,7 +34,7 @@ build_image:
   before_script:
     - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
   script:
-    - docker build --tag $IMAGE_NAME:$IMAGE_TAG ./applications/website/
+    - docker build --tag t-014-website:dev ./applications/website/
     - docker push $IMAGE_NAME:$IMAGE_TAG
   tags:
     - t-014-build-protected
