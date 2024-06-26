@@ -26,9 +26,9 @@ build_image:
         IMAGE_NAME: ilefrjiba/t-014-website
         IMAGE_TAG: dev
 #   stage: build
-  image: docker:20.10.16
+  image: docker:stable
   services:
-    - docker:20.10.16-dind
+    - docker:stable-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
