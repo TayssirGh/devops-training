@@ -1,19 +1,28 @@
 version: "3.8"
 services:
   qr:
-    build: ./qr
+    image: tayssirgh/t013-website
+    container_name: qr
+    build:
+      context: ./qr
     ports:
       - "8420:8420"
+    networks:
+      - qr_net
   backend:
-    build: ./backend
+    image: tayssirgh/t013-backend
+    container_name: backend
+    build:
+      context: ./backend
     ports:
       - "8082:3000"
   website:
-    build: ./website
+    image: tayssirgh/t013-website
+    container_name: website
+    build:
+      context: ./website
     ports:
       - "80:80"
-    networks:
-      - private_network
 networks:
-  private_network :
+  qr_net :
     driver: bridge
