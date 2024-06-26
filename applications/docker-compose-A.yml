@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - qr_codes:/applications/website/src/assets/data
+      - qr_codes:/usr/share/nginx/html/assets/data:ro
       - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
     image: ilefrjiba/t-014-website
     depends_on:
@@ -33,9 +33,11 @@ services:
    ports:
     - "8420:8420"
    volumes:
-    - qr_codes:/qr/generated_qr
+    - qr_codes:/generated_qr
    networks:
     - private-network
+   env_file:
+    - ./qr/.env
 
 volumes:
   qr_codes:
