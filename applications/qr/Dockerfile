@@ -4,28 +4,28 @@ WORKDIR /
 
 COPY requirements.txt ./
 
-RUN apk add --no-cache \
-    build-base \
-    zlib-dev \
-    jpeg-dev \
-    gcc \
-    musl-dev \
-    freetype-dev \
-    lcms2-dev \
-    openjpeg-dev \
-    tiff-dev \
-    tk-dev \
-    tcl-dev \
-    harfbuzz-dev \
-    fribidi-dev \
-    libimagequant-dev \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    libwebp-dev \
-    libxcb-dev \
-    libffi-dev \
-    libxml2-dev \
-    libxslt-dev
+# RUN apk add --no-cache \
+#     build-base \
+#     zlib-dev \
+#     jpeg-dev \
+#     gcc \
+#     musl-dev \
+#     freetype-dev \
+#     lcms2-dev \
+#     openjpeg-dev \
+#     tiff-dev \
+#     tk-dev \
+#     tcl-dev \
+#     harfbuzz-dev \
+#     fribidi-dev \
+#     libimagequant-dev \
+#     libjpeg-turbo-dev \
+#     libpng-dev \
+#     libwebp-dev \
+#     libxcb-dev \
+#     libffi-dev \
+#     libxml2-dev \
+#     libxslt-dev
 
 RUN pip install --no-cache-dir -r requirements.txt
 
