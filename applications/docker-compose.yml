@@ -38,6 +38,8 @@ services:
     - private-network
    env_file:
     - ./qr/.env
+  #  environment:
+  #   - BUCKET_ENDPOINT="https://play.min.io:9000"
 
 volumes:
   qr_codes:

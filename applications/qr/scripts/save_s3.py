@@ -7,7 +7,8 @@ from .validate_env import EnvValidator
 class S3Manager:
 
     def __init__(self):
-        self.endpoint = EnvValidator.bucket_endpoint()
+        # self.endpoint = EnvValidator.bucket_endpoint()
+        self.endpoint = "https://play.min.io:9000"
         self.accessKey = EnvValidator.bucket_access_key()
         self.secretKey = EnvValidator.bucket_secret_key()
         self.bucketName = EnvValidator.bucket_name()
