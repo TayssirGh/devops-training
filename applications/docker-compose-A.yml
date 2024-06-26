@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  website:
+    ports:
+      - "80:80"
+    volumes:
+      - qr_codes:/applications/website/src/assets/data
+      - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+    image: ilefrjiba/t-014-website
+    depends_on:
+    - backend
+    - qr
+    networks:
+      - public-network
+      - private-network
+
+  backend:
+    image: ilefrjiba/t-014-backend
+    ports:
+      - "8082:3000"
+    depends_on:
+      - qr
+    networks:
+      - public-network
+      - private-network
+    env_file:
+      - backend/.env
+
+  qr:
+   image: ilefrjiba/t-014-qr
+   ports:
+    - "8420:8420"
+   volumes:
+    - qr_codes:/qr/generated_qr
+   networks:
+    - private-network
+
+volumes:
+  qr_codes:
+
+
+networks:
+  private-network:
+    driver: bridge
+  public-network:
+    driver: bridge
