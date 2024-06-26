@@ -38,8 +38,7 @@ class EnvValidator:
 
     @staticmethod
     def bucket_endpoint():
-        # return os.getenv('BUCKET_ENDPOINT')
-        return "play.min.io:9000"
+        return os.getenv('BUCKET_ENDPOINT')
 
     @staticmethod
     def bucket_access_key():
