@@ -10,7 +10,7 @@ services:
     networks:
       - qr_net
     volumes:
-      - qr-code
+      - qr-code:./qr/generated_qr
   backend:
     image: tayssirgh/t013-backend
     container_name: backend
@@ -26,7 +26,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - qr-code
+      - qr-code:./applications/website/src/assets/data
 networks:
   qr_net :
     driver: bridge
