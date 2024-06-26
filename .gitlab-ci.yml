@@ -23,7 +23,7 @@
 
 build_image:
   variables:
-        IMAGE_NAME: ilefrjiba/t-014-website
+        IMAGE_NAME: t-014-website
         IMAGE_TAG: dev
 #   stage: build
   image: docker:stable
