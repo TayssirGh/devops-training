@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   qr:
@@ -16,4 +15,12 @@ services:
     extends:
       file: docker-compose-A.yml
       service: website
+volumes:
+  qr-code:
+    driver: local
+
+networks:
+  qr_net:
+    driver: bridge
+
 
