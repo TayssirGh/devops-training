@@ -1,2 +1,7 @@
+# Here are the the commands used for creating the runners:
 
-hi
+    - gitlab-runner register  --url https://gitlab.comwork.io  --token <gitlab-token>
+    This command registers a new runner in gitlab ci 
+
+    - gitlab-runner run
+    This command manually verifies that the runner is available to pick up jobs.
