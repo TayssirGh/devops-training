@@ -1,0 +1,53 @@
+services:
+  minio:
+    extends:
+      file: docker-compose-B.yaml
+      service: minio
+  qr:
+    image: tayssirgh/t013-qr
+    env_file: ./qr/.env
+    networks:
+      - qr_net
+    volumes:
+        - qr-code:/qr/generated_qr
+    deploy:
+      replicas: 2
+  backend:
+    image: tayssirgh/t013-backend
+    environment:
+      - APP_PORT=3000
+      - QR_URL=http://qr:8420/
+      - MONGO_URI=mongodb+srv://tayssir:9F98N3PS@cluster0.xziulww.mongodb.net
+    networks:
+      - qr_net
+    depends_on:
+      - qr
+    deploy:
+      replicas: 2
+  website:
+    image: tayssirgh/t013-website
+    depends_on:
+      - backend
+    networks:
+      - qr_net
+    volumes:
+      - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+      - qr-code:/src/assets/data
+    deploy:
+      replicas: 2
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - qr-code:/etc/nginx/html/assets/data
+    networks:
+      - qr_net
+networks:
+  qr_net:
+    driver: bridge
+volumes:
+  qr-code:
+  minio-data:
