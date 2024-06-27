@@ -41,13 +41,15 @@ services:
 
   nginx:
     image: nginx:latest
-    ports:
-      - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - qr-code:/etc/nginx/html/assets/data
+    ports:
+      - 80:80
     networks:
       - qr_net
+    depends_on:
+      - website
 
 
 networks:
