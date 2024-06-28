@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EnvLoaderService} from "./env-loader.service";
 
 @Injectable({
@@ -25,6 +25,7 @@ export class AppClientService {
       access_date: any
       is_s3: boolean
     }>>(this.envLoader.getBackendUrl()).toPromise()
+                                       .catch(this.handleError);
   }
 
   public sendLog(value: string): Promise<{
@@ -43,5 +44,13 @@ export class AppClientService {
     }>(this.envLoader.getBackendUrl(), {
       qr_content: value
     }).toPromise()
+     .catch(this.handleError);
+  }
+
+  private handleError(error: HttpErrorResponse): Promise<any> {
+    console.error('An error occurred:', error.message);
+    console.error('Backend returned code', error.status);
+    console.error('Body was:', error.error);
+    return Promise.reject(error.message || error);
   }
 }
