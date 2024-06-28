@@ -7,7 +7,6 @@ image: docker:stable
 
 variables:
   SCRIPT_PATH: "./ci-scripts/img_push.sh"
-  TLS_CONFIG: "./applications/configure-tls.sh"
   LAUNCH_D: "./applications/launch-D.sh"
 
 build_website:
@@ -74,7 +73,6 @@ deploy_D:
   stage: deploy
   script:
     - chmod +x  $LAUNCH_D
-    - sh $TLS_CONFIG
     - sh $LAUNCH_D
   tags:
     - t-013-deploy
