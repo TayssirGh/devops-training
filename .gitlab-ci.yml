@@ -1,6 +1,7 @@
 stages:
   - build
   - push
+  - deploy
 
 image: docker:stable
 
@@ -37,6 +38,7 @@ build_qr:
 push_website:
   stage: push
   script:
+    - chmod +x $SCRIPT_PATH
     - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-deploy
@@ -47,6 +49,7 @@ push_website:
 push_backend:
   stage: push
   script:
+    - chmod +x $SCRIPT_PATH
     - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-deploy
@@ -57,10 +60,19 @@ push_backend:
 push_qr:
   stage: push
   script:
+    - chmod +x $SCRIPT_PATH
     - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
     - t-013-deploy
   dependencies:
     - build_qr
+  only:
+    - t-013-dev
+deploy_D:
+  stage: deploy
+  script:
+    - chmod +x  ./applications/launch-D.sh
+  tags:
+    - t-013-deploy
   only:
     - t-013-dev
