@@ -3,7 +3,7 @@ stages:
   - push
   - deploy
 
-image: docker:stable
+image: docker:latest
 
 variables:
   SCRIPT_PATH: "./ci-scripts/img_push.sh"
