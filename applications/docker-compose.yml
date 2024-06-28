@@ -27,16 +27,6 @@ services:
       - private-network
     env_file:
       - backend/.env
-    environment:
-      - QR_TMP_FOLDER=${QR_TMP_FOLDER}
-      - QR_FILL_COLOR=${QR_FILL_COLOR}
-      - QR_BACKGROUND_COLOR=${QR_BACKGROUND_COLOR}
-      - USE_BUCKET=${USE_BUCKET}
-      - BUCKET_ENDPOINT=${BUCKET_ENDPOINT}
-      - BUCKET_ACCESS_KEY=${BUCKET_ACCESS_KEY}
-      - BUCKET_SECRET_KEY=${BUCKET_SECRET_KEY}
-      - BUCKET_NAME=${BUCKET_NAME}
-      - BUCKET_PATH=${BUCKET_PATH}
 
   qr:
    image: ilefrjiba/t-014-qr
