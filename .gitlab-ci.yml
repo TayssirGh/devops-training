@@ -3,7 +3,7 @@ stages:
   - push
   - deploy
 
-image: docker:compose
+image: docker:stable
 
 variables:
   SCRIPT_PATH: "./ci-scripts/img_push.sh"
