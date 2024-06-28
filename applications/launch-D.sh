@@ -1,2 +1,4 @@
 #!/bin/bash
-docker-compose -f docker-compose-D.yml up
+pwd
+ls -l
+#docker-compose -f ./docker-compose-D.yml up
