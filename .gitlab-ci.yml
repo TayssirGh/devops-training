@@ -12,7 +12,7 @@ build_website:
   script:
     - docker build -t t013-website:dev ./applications/website
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   only:
     - t-013-dev
 
@@ -21,7 +21,7 @@ build_backend:
   script:
     - docker build -t t013-backend:dev ./applications/backend
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   only:
     - t-013-dev
 
@@ -30,7 +30,7 @@ build_qr:
   script:
     - docker build -t t013-qr:dev ./applications/qr
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   only:
     - t-013-dev
 
@@ -39,7 +39,7 @@ push_website:
   script:
     - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   dependencies:
     - build_website
   only:
@@ -49,7 +49,7 @@ push_backend:
   script:
     - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   dependencies:
     - build_backend
   only:
@@ -59,7 +59,7 @@ push_qr:
   script:
     - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
   tags:
-    - t-013-build-protected
+    - t-013-deploy
   dependencies:
     - build_qr
   only:
