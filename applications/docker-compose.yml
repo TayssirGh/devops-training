@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  website:
+    extends:
+      file: docker-compose-A.yml
+      service: website
+
+  backend:
+    extends:
+      file: docker-compose-A.yml
+      service: backend
+
+  qr:
+   extends:
+      file: docker-compose-A.yml
+      service: qr
+   env_file:
+      - qr/.env2
+   depends_on:
+    - minio
+   networks:
+      - private-network
+
+  minio:
+    image: 'minio/minio:latest'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ROOT_USER=user
+      - MINIO_ROOT_PASSWORD=secret_key
+    networks:
+      - private-network
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+
+volumes:
+  qr_codes:
+  minio_data:
+
+
+networks:
+  private-network:
+    driver: bridge
+  public-network:
+    driver: bridge
