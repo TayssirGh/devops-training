@@ -1,6 +1,6 @@
 upstream website{
-        server applications-website-1:80;
-        server applications-website-2:80;
+        server applications-website-3:80;
+        server applications-website-4:80;
 
     }
 
@@ -10,21 +10,13 @@ upstream backend{
 }
 
 upstream qr{
-        server applications-qr-1:8420;
+        server applications-qr-3:8420;
         server applications-qr-2:8420;
 }
+
 server {
     listen 80;
     server_name localhost;
-
-    return 301 https://$host$request_uri;
-}
-server {
-    listen 443 ssl;
-        server_name localhost;
-        ssl_certificate /etc/nginx/ssl/certificate.crt;
-        ssl_certificate_key /etc/nginx/ssl/private.key;
-
     location / {
         proxy_pass http://website;
     }
