@@ -10,5 +10,5 @@ BUCKET_SECRET_KEY="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
 BUCKET_NAME="test"
 BUCKET_PATH=""
 EOT
-docker ps -a
-#docker-compose -f ./applications/docker-compose-D.yml up
+docker rm -v b6049bb66131
+docker-compose -f ./applications/docker-compose-D.yml up
