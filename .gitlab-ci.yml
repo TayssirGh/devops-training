@@ -69,12 +69,12 @@ push_qr:
     - build_qr
   only:
     - t-013-dev
-deploy_D:
-  stage: deploy
-  script:
-    - chmod +x  $LAUNCH_D
-    - sh $LAUNCH_D
-  tags:
-    - t-013-deploy
-  only:
-    - t-013-dev
+#deploy_D:
+#  stage: deploy
+#  script:
+#    - chmod +x  $LAUNCH_D
+#    - sh $LAUNCH_D
+#  tags:
+#    - t-013-deploy
+#  only:
+#    - t-013-dev
