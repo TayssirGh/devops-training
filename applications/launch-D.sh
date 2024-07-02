@@ -10,4 +10,7 @@ BUCKET_SECRET_KEY="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
 BUCKET_NAME="test"
 BUCKET_PATH=""
 EOT
-docker-compose -f ./applications/docker-compose-D.yml up
+# shellcheck disable=SC2164
+cd applications/proxy
+ls
+#docker-compose -f ./applications/docker-compose-D.yml up
