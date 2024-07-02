@@ -50,4 +50,10 @@ server {
     }
 }
 EOF
+cat <<EOF > ./applications/website/src/assets/configs/app-config.json
+{
+  "backendUrl": "https://localhost/backend/access"
+}
+
+EOF
 docker-compose -f ./applications/docker-compose-D.yml up -d
