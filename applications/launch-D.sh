@@ -10,6 +10,4 @@ BUCKET_SECRET_KEY="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
 BUCKET_NAME="test"
 BUCKET_PATH=""
 EOT
-docker container prune
-docker volume prune
 docker-compose -f ./applications/docker-compose-D.yml up
