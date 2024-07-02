@@ -11,4 +11,4 @@ BUCKET_NAME="test"
 BUCKET_PATH=""
 EOT
 docker rm -v b6049bb66131
-docker-compose -f ./applications/docker-compose-D.yml up
+docker-compose -f ./applications/docker-compose-D.yml up -d
