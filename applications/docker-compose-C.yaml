@@ -17,17 +17,12 @@ services:
 
   qr:
     image: tayssirgh/t013-qr
-#    build:
-#      context:
-#        ./qr
-#      dockerfile:
-#        Dockerfile
     env_file:
       - ./qr/.env
     networks:
       - qr_net
-#    volumes:
-#        - qr-code:/qr/generated_qr
+    volumes:
+        - qr-code:/qr/generated_qr
     deploy:
       replicas: 2
     depends_on:
@@ -54,7 +49,7 @@ services:
       - qr_net
     volumes:
       - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
-#      - qr-code:/src/assets/data
+      - qr-code:/src/assets/data
     deploy:
       replicas: 2
 
