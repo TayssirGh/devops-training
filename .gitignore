@@ -4,6 +4,7 @@
 **/venv
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
+applications/website/src/assets/configs/app-config-nginx.json
 **/.env
 
 # compiled output

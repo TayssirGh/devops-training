@@ -27,6 +27,7 @@ services:
       - private-network
     env_file:
       - backend/.env
+    restart: unless-stopped
 
   qr:
    image: ilefrjiba/t-014-qr
