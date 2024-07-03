@@ -1,10 +1,16 @@
+image: docker:stable
+
+stages:
+  - build
+  - deploy
+
 
 build_website:
   variables:
         IMAGE_NAME: t-014-website
         IMAGE_TAG: dev
-#   stage: build
-  image: docker:stable
+  stage: build
+  # image: docker:stable
   services:
     - docker:stable-dind
   variables:
@@ -20,7 +26,8 @@ build_website:
 
 build_qr:
 
-  image: docker:stable
+  stage: build
+  # image: docker:stable
   services:
     - docker:stable-dind
   variables:
@@ -36,7 +43,7 @@ build_qr:
 
 build_backend:
 
-  image: docker:stable
+  # image: docker:stable
   services:
     - docker:stable-dind
   variables:
@@ -49,3 +56,11 @@ build_backend:
     - docker push ilefrjiba/t-014-backend
   tags:
     - t-014-build-protected
+  stage: build
+
+deploy:
+  stage: deploy
+  # image: docker:stable
+  script:
+    - chmod +x ./applications/launch-C.sh
+    - ./applications/launch-C.sh
