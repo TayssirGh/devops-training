@@ -65,4 +65,4 @@ deploy:
     - chmod +x ./applications/launch-C.sh
     - ./applications/launch
   tags:
-    - t-014-build-deploy
+    - t-014-deploy
