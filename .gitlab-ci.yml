@@ -22,7 +22,7 @@ build_website:
     - docker tag t-014-website:dev ilefrjiba/t-014-website
     - docker push ilefrjiba/t-014-website
   tags:
-    - t-014-build-deploy
+    - t-014-build-protected
 
 build_qr:
 
@@ -39,7 +39,7 @@ build_qr:
     - docker tag t-014-qr:dev ilefrjiba/t-014-qr
     - docker push ilefrjiba/t-014-qr
   tags:
-    - t-014-build-deploy
+    - t-014-build-protected
 
 build_backend:
 
@@ -55,7 +55,7 @@ build_backend:
     - docker tag t-014-backend:dev ilefrjiba/t-014-backend
     - docker push ilefrjiba/t-014-backend
   tags:
-    - t-014-build-deploy
+    - t-014-build-protected
   stage: build
 
 deploy:
@@ -63,6 +63,6 @@ deploy:
   # image: docker:stable
   script:
     - chmod +x ./applications/launch-C.sh
-    - ./applications/launch-C.sh
+    - ./applications/launch
   tags:
     - t-014-build-deploy
