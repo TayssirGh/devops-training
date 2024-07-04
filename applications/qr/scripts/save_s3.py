@@ -14,7 +14,7 @@ class S3Manager:
         self.bucketPath = EnvValidator.bucket_path()
 
         self.minioClient = Minio(self.endpoint, access_key=self.accessKey,
-                                 secret_key=self.secretKey, secure=False)
+                                 secret_key=self.secretKey)
 
     def init_bucket(self):
         if not self.minioClient.bucket_exists(self.bucketName):
