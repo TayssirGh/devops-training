@@ -20,7 +20,7 @@ class QrGenerator:
         qr.add_data(data)
         qr.make(fit=True)
 
-        img = qr.make_image(fill_color=EnvValidator.qr_fill_color(), back_color=EnvValidator.qr_background_color())
+        img = qr.make_image(fill_color=f'#{EnvValidator.qr_fill_color()}', back_color=f'#{EnvValidator.qr_background_color()}' )
         img.save(qr_path)
 
         return qr_path

@@ -40,8 +40,9 @@ export class AppClientService {
       qr_url: string
       access_date: any
       is_s3: boolean
-    }>(this.envLoader.getBackendUrl(), {
-      qr_content: value
+      }>(this.envLoader.getBackendUrl(), {
+        qr_content: value
     }).toPromise()
   }
+  
 }

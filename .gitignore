@@ -5,6 +5,7 @@
 **/generated_qr
 applications/website/src/assets/configs/app-config.json
 **/.env
+applications/qr/.myenv
 
 # compiled output
 **/dist
@@ -38,3 +39,5 @@ applications/website/src/assets/configs/app-config.json
 # System Files
 **/.DS_Store
 **/Thumbs.db
+
+

@@ -23,6 +23,7 @@ export class EnvLoaderService {
   init(): Promise<void> {
     return new Promise(resolve => {
       this.http.get<any>(`assets/configs/app-config.json`).toPromise().then(data => {
+        console.log(data)
         this.backendUrl = data.backendUrl
         resolve();
       })
