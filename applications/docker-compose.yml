@@ -7,7 +7,7 @@ services:
       replicas: 2
     volumes:
       - qr_codes:/usr/share/nginx/html/assets/data:ro
-      - ./website/src/assets/configs/app-config-nginx.json:/usr/share/nginx/html/assets/configs/app-config.json
+      - ./website/src/assets/configs/app-config-ssl.json:/usr/share/nginx/html/assets/configs/app-config.json
     image: ilefrjiba/t-014-website
     depends_on:
     - backend
@@ -38,7 +38,7 @@ services:
    networks:
     - private-network
    env_file:
-    - ./qr/.env2
+    - ./qr/.env3
    depends_on:
     - minio
 
@@ -54,6 +54,7 @@ services:
       - private-network
     volumes:
       - minio_data:/data
+      - ./ssl:/root/.minio/certs
     command: server /data --console-address ":9001"
   
   nginx:
@@ -67,19 +68,16 @@ services:
       - backend
       - website
       - minio 
+
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./nginx/nginx-http-https.conf:/etc/nginx/conf.d/default.conf
+      # - ./nginx/certs/training.key:/etc/ssl/private/training.key
+      # - ./nginx/certs/training.crt:/etc/ssl/certs/training.crt
+      - ./ssl/localhost.crt:/etc/ssl/certs/localhost.crt
+      - ./ssl/localhost.decrypted.key:/etc/ssl/certs/localhost.decrypted.key
+      - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
+
     image:  nginx:stable-alpine
-  
-    certbot:
-      image: certbot/certbot
-      container_name: certbot
-      volumes: 
-        - ./certbot/conf:/etc/letsencrypt
-        - ./certbot/www:/var/www/certbot
-      command: certonly --webroot -w /var/www/certbot --force-renewal -d training.comwork --agree-tos
 
 volumes:
   qr_codes:
