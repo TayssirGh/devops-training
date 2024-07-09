@@ -15,7 +15,6 @@ if EnvValidator.use_bucket():
 @atom.post("/")
 def generate_qr(qr: QR):
     resulting_qr_path = QrGenerator.generate_qr(qr.content, qr.id)
-    print(EnvValidator.use_bucket())
     if EnvValidator.use_bucket():
         res = s3.save_into_s3(qr_id=qr.id, qr_path=resulting_qr_path, path_under_bucket=qr.path_under_bucket)
         return {"res": res, "s3": EnvValidator.use_bucket()}

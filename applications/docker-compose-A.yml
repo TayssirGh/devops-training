@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+  qr:
+    build: 
+      context: ./qr
+      dockerfile: Dockerfile
+    container_name: qr  
+    env_file:
+      - ./qr/.env
+    ports:
+      - "8420:8420"
+    volumes:
+      - qr_volume:/app/scripts/generated_qr
+    networks:
+      - appnetwork
+
+    
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8082:3040"
+    depends_on:
+      - qr
+    networks:
+      - appnetwork
+  
+
+  website:
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    container_name: website
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - backend
+      - qr
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
+
+volumes:
+  qr_volume:
