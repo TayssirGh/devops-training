@@ -5,55 +5,55 @@ stages:
   - deploy
 
 
-# build_website:
-#   variables:
-#         IMAGE_NAME: t-014-website
-#         IMAGE_TAG: dev
-#   stage: build
-#   services:
-#     - docker:stable-dind
-#   variables:
-#     DOCKER_TLS_CERTDIR: "/certs"
-#   before_script:
-#     - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
-#   script:
-#     - docker build --tag t-014-website:dev ./applications/website/
-#     - docker tag t-014-website:dev ilefrjiba/t-014-website
-#     - docker push ilefrjiba/t-014-website
-#   tags:
-#     - t-014-build-protected
+build_website:
+  variables:
+        IMAGE_NAME: t-014-website
+        IMAGE_TAG: dev
+  stage: build
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build --tag t-014-website:dev ./applications/website/
+    - docker tag t-014-website:dev ilefrjiba/t-014-website
+    - docker push ilefrjiba/t-014-website
+  tags:
+    - t-014-build-protected
 
-# build_qr:
+build_qr:
 
-#   stage: build
-#   services:
-#     - docker:stable-dind
-#   variables:
-#     DOCKER_TLS_CERTDIR: "/certs"
-#   before_script:
-#     - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
-#   script:
-#     - docker build --tag t-014-qr:dev ./applications/qr/
-#     - docker tag t-014-qr:dev ilefrjiba/t-014-qr
-#     - docker push ilefrjiba/t-014-qr
-#   tags:
-#     - t-014-build-protected
+  stage: build
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build --tag t-014-qr:dev ./applications/qr/
+    - docker tag t-014-qr:dev ilefrjiba/t-014-qr
+    - docker push ilefrjiba/t-014-qr
+  tags:
+    - t-014-build-protected
 
-# build_backend:
+build_backend:
 
-#   services:
-#     - docker:stable-dind
-#   variables:
-#     DOCKER_TLS_CERTDIR: "/certs"
-#   before_script:
-#     - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
-#   script:
-#     - docker build --tag t-014-backend:dev ./applications/backend/
-#     - docker tag t-014-backend:dev ilefrjiba/t-014-backend
-#     - docker push ilefrjiba/t-014-backend
-#   tags:
-#     - t-014-build-protected
-#   stage: build
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $T014_DOCKER_HUB_USERNAME -p $T014_DOCKER_HUB_PASSWORD
+  script:
+    - docker build --tag t-014-backend:dev ./applications/backend/
+    - docker tag t-014-backend:dev ilefrjiba/t-014-backend
+    - docker push ilefrjiba/t-014-backend
+  tags:
+    - t-014-build-protected
+  stage: build
 
 deploy:
   stage: deploy
