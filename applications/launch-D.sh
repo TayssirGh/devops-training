@@ -14,7 +14,8 @@ openssl req -x509 -out ./nginx/certs/localhost.crt -keyout ./nginx/certs/localho
   -subj '/CN=localhost' -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
-echo "-------------------------------------"
-pwd 
-echo "------------------------------------"
+cp /home/ilef/Desktop/comwork_stage/devops-training/applications/backend/.env /home/ilef/builds/jRABJX6tD/0/comwork_public/training/devops-training/applications/backend/.env
+
+cat /home/ilef/builds/jRABJX6tD/0/comwork_public/training/devops-training/applications/backend/.env
+
 docker compose -f ./applications/docker-compose-D.yml up 
