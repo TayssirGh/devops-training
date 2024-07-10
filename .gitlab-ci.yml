@@ -59,6 +59,7 @@ deploy:
   stage: deploy
   before_script:
   - sudo apt-get install docker-compose-plugin
+  - pwd
   script:
     - sudo chmod +x ./applications/launch-D.sh
     - ./applications/launch-D.sh
