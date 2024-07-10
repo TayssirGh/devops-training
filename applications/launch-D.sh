@@ -14,12 +14,6 @@ openssl req -x509 -out ./nginx/certs/localhost.crt -keyout ./nginx/certs/localho
   -subj '/CN=localhost' -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
-if [ -f ./nginx/certs/localhost.crt ] && [ -f ./nginx/certs/localhost.key ]; then
-  echo "SSL certificate and key created successfully."
-else
-  echo "Failed to create SSL certificate and key."
-  exit 1
-fi
-
+docker-compose --version
 
 docker compose up -f docker-compose-D.yml 
