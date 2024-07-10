@@ -19,4 +19,4 @@ sudo apt-get install docker-compose-plugin
 
 docker compose version
 
-docker-compose up --file docker-compose-D.yml 
+docker compose -f docker-compose-D.yml up 
