@@ -14,9 +14,4 @@ openssl req -x509 -out ./nginx/certs/localhost.crt -keyout ./nginx/certs/localho
   -subj '/CN=localhost' -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
-# Install Docker Compose
-sudo apt-get install docker-compose-plugin
-
-docker compose version
-
-docker compose -f docker-compose-D.yml up 
+docker compose -f ./applications/docker-compose-D.yml up 
