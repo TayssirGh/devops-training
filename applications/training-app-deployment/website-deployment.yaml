@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  namespace: training-app-frontend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+        - name: website
+          image: tayssirgh/t013-website:dev
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: configs
+              mountPath: /usr/share/nginx/html/assets/configs
+      volumes:
+        - name: configs
+          configMap:
+            name: website-configmap
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-service
+  namespace: training-app-frontend-prod
+spec:
+  selector:
+    app: website
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
