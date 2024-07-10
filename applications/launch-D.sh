@@ -16,6 +16,4 @@ openssl req -x509 -out ./nginx/certs/localhost.crt -keyout ./nginx/certs/localho
 
 cp /home/ilef/Desktop/comwork_stage/devops-training/applications/backend/.env /home/ilef/builds/jRABJX6tD/0/comwork_public/training/devops-training/applications/backend/.env
 
-cat /home/ilef/builds/jRABJX6tD/0/comwork_public/training/devops-training/applications/backend/.env
-
-docker compose -f ./applications/docker-compose-D.yml up 
+docker compose -f ./applications/docker-compose-D.yml up -d
