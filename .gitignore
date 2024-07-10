@@ -39,3 +39,6 @@ applications/website/src/assets/configs/app-config-nginx.json
 # System Files
 **/.DS_Store
 **/Thumbs.db
+
+# certificates
+**/ssl 
