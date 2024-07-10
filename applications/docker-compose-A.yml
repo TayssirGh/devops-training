@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
 
@@ -12,7 +12,7 @@ services:
     ports:
       - "8420:8420"
     volumes:
-      - qr_volume:/app/scripts/generated_qr
+      - qr_volume:/generated_qr
     networks:
       - appnetwork
 
@@ -43,6 +43,8 @@ services:
     depends_on:
       - backend
       - qr
+    volumes:
+      - qr_volume:/generated_qr  
     networks:
       - appnetwork
 
