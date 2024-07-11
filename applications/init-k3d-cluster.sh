@@ -1,6 +1,6 @@
 #!/bin/bash
 #k3d installation--
-curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh
 #kubectl installation--
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
