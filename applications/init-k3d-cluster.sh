@@ -6,7 +6,7 @@ then
     exit
 fi
 
-CLUSTER_NAME="kube-training"
+CLUSTER_NAME="cluster"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
 else
