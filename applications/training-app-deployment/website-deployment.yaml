@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: website-configmap
+  namespace: training-app-frontend-prod
+data:
+  app-config.json: |-
+    {
+      "backendUrl": "https://app.backend.local/access"
+    }
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,3 +53,26 @@ spec:
       port: 80
       targetPort: 80
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-ingress
+  namespace: training-app-frontend-prod
+spec:
+  tls:
+    - hosts:
+        - "app.frontend.local"
+    - secretName: tls-secret
+  rules:
+    - host: "app.frontend.local"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: website-service
+                port:
+                  number: 80
+  ingressClassName: nginx

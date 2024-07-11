@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: training-app-backend-prod
+data:
+  APP_PORT : "3000"
+  QR_URL : "http://qr-service:8420/"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,3 +45,28 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  namespace: training-app-backend-prod
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - "app.backend.local"
+    - secretName: tls-backend-secret
+  rules:
+    - host: "app.backend.local"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 3000
+  ingressClassName: nginx

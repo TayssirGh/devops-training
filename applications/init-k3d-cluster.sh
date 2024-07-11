@@ -1,4 +1,8 @@
 #!/bin/bash
+#k3d installation--
+curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+#kubectl installation--
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
 if ! command -v k3d &> /dev/null
 then
@@ -17,3 +21,5 @@ k3d cluster create $CLUSTER_NAME \
     --volume ~/cluster_data:/data
 
 echo "Cluster $CLUSTER_NAME created successfully."
+
+

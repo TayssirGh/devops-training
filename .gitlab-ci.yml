@@ -8,6 +8,9 @@ image: docker:latest
 variables:
   SCRIPT_PATH: "./ci-scripts/img_push.sh"
   LAUNCH_D: "./applications/launch-D.sh"
+  INIT_CLUSTER: "./applications/init-k3d-cluster.sh"
+  SEAL: "./applications/training-app-deployment/secrets/seal.sh"
+  DEPLOY: "./applications/training-app-deployment/deploy.sh"
 
 build_website:
   stage: build
@@ -69,12 +72,24 @@ push_qr:
     - build_qr
   only:
     - t-013-dev
-deploy_D:
+deploy_Kube:
   stage: deploy
+  before_script:
+    - chmod +x $INIT_CLUSTER
+    - chmod +x $SEAL
+    - chmod +s $DEPLOY
   script:
-    - chmod +x  $LAUNCH_D
-    - sh $LAUNCH_D $PUBLIC_BUCKET_ACCESS_KEY $PUBLIC_BUCKET_ENDPOINT $PUBLIC_BUCKET_SECRET_KEY
+    - sh $INIT_CLUSTER
+    - sh $SEAL
+    - sh $DEPLOY
   tags:
     - t-013-deploy
   only:
     - t-013-dev
+#  script:
+#    - chmod +x  $LAUNCH_D
+#    - sh $LAUNCH_D $PUBLIC_BUCKET_ACCESS_KEY $PUBLIC_BUCKET_ENDPOINT $PUBLIC_BUCKET_SECRET_KEY
+#  tags:
+#    - t-013-deploy
+#  only:
+#    - t-013-dev
