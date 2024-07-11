@@ -19,4 +19,5 @@ else
         --volume ~/cluster_data:/data
     echo "Cluster $CLUSTER_NAME created successfully."
 fi
+docker ps
 
