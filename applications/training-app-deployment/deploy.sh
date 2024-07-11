@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl apply -f ./applications/training-app-deployment
+kubectl apply -f ./applications/training-app-deployment/namespaces.yaml
