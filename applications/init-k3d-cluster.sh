@@ -1,8 +1,4 @@
 #!/bin/bash
-##k3d installation--
-#curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh
-##kubectl installation--
-#curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
 if ! command -v k3d &> /dev/null
 then
@@ -11,15 +7,16 @@ then
 fi
 
 CLUSTER_NAME="kube-training"
-
-
-k3d cluster create $CLUSTER_NAME \
-    --servers 1 \
-    --agents 1 \
-    --port 80:80@loadbalancer \
-    --port 443:443@loadbalancer \
-    --volume ~/cluster_data:/data
-
-echo "Cluster $CLUSTER_NAME created successfully."
-
+if k3d cluster list | grep -q "$CLUSTER_NAME"; then
+    echo "Cluster already exists ! "
+else
+    echo "Creating a new cluster..."
+    k3d cluster create $CLUSTER_NAME \
+        --servers 1 \
+        --agents 1 \
+        --port 80:80@loadbalancer \
+        --port 443:443@loadbalancer \
+        --volume ~/cluster_data:/data
+    echo "Cluster $CLUSTER_NAME created successfully."
+fi
 
