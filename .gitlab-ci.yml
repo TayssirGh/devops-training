@@ -74,8 +74,23 @@ variables:
 #    - t-013-dev
 deploy_Kube:
   stage: deploy
-  image: alpine:3.7
+  image: docker:stable
+  variables:
+    KUBECTL: v1.21.3
+  services:
+    - docker:stable-dind
   before_script:
+    - apk add -U wget bash curl
+    # install kubectl
+    - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL}/bin/linux/amd64/kubectl
+    - chmod +x /usr/local/bin/kubectl
+    # install k3d
+    - wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
+    - k3d help
+    - k3d version
+    - k3d cluster create testgitlabci --agents 1 --servers 1 --servers-memory 1g --agents-memory 1g --wait
+
+    - kubectl cluster-info
     - apk update  && apk add --no-cache curl
     - chmod +x $INIT_CLUSTER
     - chmod +x $SEAL
