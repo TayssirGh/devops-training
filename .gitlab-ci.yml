@@ -74,9 +74,9 @@ variables:
 #    - t-013-dev
 deploy_Kube:
   stage: deploy
-  image: bitnami/kubectl:latest
+  image: alpine:3.7
   before_script:
-    - wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+    - apk update  && apk add --no-cache curl
     - chmod +x $INIT_CLUSTER
     - chmod +x $SEAL
     - chmod +x $DEPLOY
