@@ -11,73 +11,73 @@ variables:
   INIT_CLUSTER: "./applications/init-k3d-cluster.sh"
   SEAL: "./applications/training-app-deployment/secrets/seal.sh"
   DEPLOY: "./applications/training-app-deployment/deploy.sh"
-
-build_website:
-  stage: build
-  script:
-    - docker build -t t013-website:dev ./applications/website
-  tags:
-    - t-013-deploy
-  only:
-    - t-013-dev
-
-build_backend:
-  stage: build
-  script:
-    - docker build -t t013-backend:dev ./applications/backend
-  tags:
-    - t-013-deploy
-  only:
-    - t-013-dev
-
-build_qr:
-  stage: build
-  script:
-    - docker build -t t013-qr:dev ./applications/qr
-  tags:
-    - t-013-deploy
-  only:
-    - t-013-dev
-
-push_website:
-  stage: push
-  script:
-    - chmod +x $SCRIPT_PATH
-    - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
-  tags:
-    - t-013-deploy
-  dependencies:
-    - build_website
-  only:
-    - t-013-dev
-push_backend:
-  stage: push
-  script:
-    - chmod +x $SCRIPT_PATH
-    - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
-  tags:
-    - t-013-deploy
-  dependencies:
-    - build_backend
-  only:
-    - t-013-dev
-push_qr:
-  stage: push
-  script:
-    - chmod +x $SCRIPT_PATH
-    - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
-  tags:
-    - t-013-deploy
-  dependencies:
-    - build_qr
-  only:
-    - t-013-dev
+#
+#build_website:
+#  stage: build
+#  script:
+#    - docker build -t t013-website:dev ./applications/website
+#  tags:
+#    - t-013-deploy
+#  only:
+#    - t-013-dev
+#
+#build_backend:
+#  stage: build
+#  script:
+#    - docker build -t t013-backend:dev ./applications/backend
+#  tags:
+#    - t-013-deploy
+#  only:
+#    - t-013-dev
+#
+#build_qr:
+#  stage: build
+#  script:
+#    - docker build -t t013-qr:dev ./applications/qr
+#  tags:
+#    - t-013-deploy
+#  only:
+#    - t-013-dev
+#
+#push_website:
+#  stage: push
+#  script:
+#    - chmod +x $SCRIPT_PATH
+#    - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+#  tags:
+#    - t-013-deploy
+#  dependencies:
+#    - build_website
+#  only:
+#    - t-013-dev
+#push_backend:
+#  stage: push
+#  script:
+#    - chmod +x $SCRIPT_PATH
+#    - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+#  tags:
+#    - t-013-deploy
+#  dependencies:
+#    - build_backend
+#  only:
+#    - t-013-dev
+#push_qr:
+#  stage: push
+#  script:
+#    - chmod +x $SCRIPT_PATH
+#    - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+#  tags:
+#    - t-013-deploy
+#  dependencies:
+#    - build_qr
+#  only:
+#    - t-013-dev
 deploy_Kube:
   stage: deploy
   image: bitnami/kubectl:latest
   before_script:
     - apt-get update && apt-get install -y wget sudo bash
-    - wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+#    - wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
     - chmod +x $INIT_CLUSTER
     - chmod +x $SEAL
     - chmod +x $DEPLOY
