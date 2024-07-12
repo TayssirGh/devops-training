@@ -109,13 +109,19 @@ deploy_Kube:
     - chmod +x /usr/local/bin/kubectl
     # install k3d
     - wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
+#    install helm
+    - wget https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
+    - tar -zxvf helm-v3.8.0-linux-amd64.tar.gz
+    - mv linux-amd64/helm /usr/local/bin/helm
+    - chmod +x /usr/local/bin/helm
+
     - chmod +x $INIT_CLUSTER
     - chmod +x $SEAL
     - chmod +x $DEPLOY
   script:
     - sh $INIT_CLUSTER
-#    - sh $SEAL
-    - sh $DEPLOY
+    - sh $SEAL
+#    - sh $DEPLOY
   tags:
     - t-013-deploy
   only:
