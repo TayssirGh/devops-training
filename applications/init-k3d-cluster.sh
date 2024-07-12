@@ -5,8 +5,9 @@ then
     echo "k3d could not be found. Please install k3d and try again."
     exit
 fi
+kubectl config get-contexts
 
-CLUSTER_NAME="test"
+CLUSTER_NAME="kube"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
 else
