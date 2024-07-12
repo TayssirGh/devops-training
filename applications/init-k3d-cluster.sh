@@ -7,7 +7,7 @@ then
 fi
 kubectl config get-contexts
 
-CLUSTER_NAME="kube"
+CLUSTER_NAME="klust"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
 else
