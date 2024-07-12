@@ -7,7 +7,7 @@ then
 fi
 k3d cluster list
 
-CLUSTER_NAME="k"
+CLUSTER_NAME="newCluster"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
 else
@@ -17,7 +17,7 @@ else
         --agents 1 \
         --port 80:80@loadbalancer \
         --port 443:443@loadbalancer \
-#        --volume ~/cluster_data:/data
+        --volume ~/cluster_data:/data
     echo "Cluster $CLUSTER_NAME created successfully."
 fi
 docker ps
