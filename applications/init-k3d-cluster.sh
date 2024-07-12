@@ -6,7 +6,7 @@ then
     exit
 fi
 
-CLUSTER_NAME="tsts"
+CLUSTER_NAME="test"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
 else
