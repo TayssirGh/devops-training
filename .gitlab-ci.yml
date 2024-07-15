@@ -120,7 +120,7 @@ deploy_Kube:
     - chmod +x $DEPLOY
   script:
     - sh $INIT_CLUSTER
-    - sh $SEAL
+#    - sh $SEAL
 #    - sh $DEPLOY
   tags:
     - t-013-deploy
