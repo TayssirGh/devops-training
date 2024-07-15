@@ -99,7 +99,7 @@ push_qr:
 deploy_Kube:
   stage: deploy
   variables:
-    KUBECTL: v1.21.3
+    KUBECTL: v1.30.2
   services:
     - docker:stable-dind
   before_script:
@@ -121,7 +121,7 @@ deploy_Kube:
   script:
     - sh $INIT_CLUSTER
 #    - sh $SEAL
-#    - sh $DEPLOY
+    - sh $DEPLOY
   tags:
     - t-013-deploy
   only:
