@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+    qr: 
+     extends:
+        file: docker-compose-B.yml
+        service: qr
+     deploy:
+        mode: replicated
+        replicas: 2
+     depends_on:
+      - minios3
+   
+   
+
+    backend:
+      extends:
+          file: docker-compose-B.yml
+          service: backend 
+      deploy:
+          mode: replicated
+          replicas: 2
+      depends_on:
+        - qr
+    
+
+    website:
+      extends: 
+          file: docker-compose-B.yml
+          service: website 
+      deploy:
+          mode: replicated
+          replicas: 2
+      depends_on:
+          - backend    
+
+    minios3:    
+      extends:
+        file: docker-compose-B.yml
+        service: minios3
+
+    nginxproxy:
+        image: nginx:latest
+        ports:
+          - 80:80
+        volumes:
+          - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+          - appnetwork
+          - privatenetwork
+        depends_on:
+          - qr
+          - backend
+          - website
+
+  
+       
+
+volumes:
+  minio_data:
+  qr_volume:
+
+networks:
+  appnetwork:
+  privatenetwork:

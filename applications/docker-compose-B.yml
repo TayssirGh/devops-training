@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3'
 
 services: 
   
@@ -19,6 +19,7 @@ services:
 
    minios3:
      image: minio/minio
+     container_name: minios3
      ports:
       - 9000:9000
       - 9001:9001
@@ -29,7 +30,7 @@ services:
       - ./minio_data:/data
      command: server /data --console-address ":9001"
      networks: 
-      - appnetwork
+      - privatenetwork
  
 volumes:
   minio_data:
@@ -37,3 +38,4 @@ volumes:
 
 networks:
   appnetwork:
+  privatenetwork:
