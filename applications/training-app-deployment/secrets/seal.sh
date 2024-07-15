@@ -1,18 +1,18 @@
 #!/bin/bash
-#installation part--
-helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
-helm install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
-# shellcheck disable=SC2034
-KUBESEAL_VERSION=$(curl -s https://api.github.com/repos/bitnami-labs/sealed-secrets/tags | jq -r '.[0].name' | cut -c 2-)
-if [ -z "$KUBESEAL_VERSION" ]; then
-    echo "Failed to fetch the latest KUBESEAL_VERSION"
-    exit 1
-fi
-curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz"
-tar -xvzf kubeseal-"${KUBESEAL_VERSION}"-linux-amd64.tar.gz kubeseal
-sudo install -m 755 kubeseal /usr/local/bin/kubeseal
-
-#sealing the secrets--
+##installation part--
+#helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+#helm install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
+## shellcheck disable=SC2034
+#KUBESEAL_VERSION=$(curl -s https://api.github.com/repos/bitnami-labs/sealed-secrets/tags | jq -r '.[0].name' | cut -c 2-)
+#if [ -z "$KUBESEAL_VERSION" ]; then
+#    echo "Failed to fetch the latest KUBESEAL_VERSION"
+#    exit 1
+#fi
+#curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz"
+#tar -xvzf kubeseal-"${KUBESEAL_VERSION}"-linux-amd64.tar.gz kubeseal
+#sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+#
+##sealing the secrets--
 SEALED_DIR="sealedsecret"
 
 SECRETS=("tls-secrets.yaml" "db-secret.yaml" "s3-secret.yaml")
