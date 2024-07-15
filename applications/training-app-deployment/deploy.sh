@@ -1,2 +1,7 @@
 #!/bin/bash
-kubectl apply -f ./applications/training-app-deployment/.
+# shellcheck disable=SC2164
+cd applications/training-app-deployment
+export KUBECONFIG=/home/tayssir/.kube/config
+kubectl version
+kubectl apply -f namespaces.yaml
+kubectl apply -f ./

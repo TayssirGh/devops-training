@@ -3,7 +3,6 @@ stages:
   - push
   - deploy
 
-image: docker:stable
 
 variables:
   SCRIPT_PATH: "./ci-scripts/img_push.sh"
@@ -98,29 +97,13 @@ push_qr:
 
 deploy_Kube:
   stage: deploy
-  variables:
-    KUBECTL: v1.30.2
-  services:
-    - docker:stable-dind
   before_script:
-    - apk add -U wget bash curl
-    # install kubectl
-    - wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL}/bin/linux/amd64/kubectl
-    - chmod +x /usr/local/bin/kubectl
-    # install k3d
-    - wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
-#    install helm
-    - wget https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
-    - tar -zxvf helm-v3.8.0-linux-amd64.tar.gz
-    - mv linux-amd64/helm /usr/local/bin/helm
-    - chmod +x /usr/local/bin/helm
-
     - chmod +x $INIT_CLUSTER
     - chmod +x $SEAL
     - chmod +x $DEPLOY
   script:
     - sh $INIT_CLUSTER
-#    - sh $SEAL
+    - sh $SEAL
     - sh $DEPLOY
   tags:
     - t-013-deploy

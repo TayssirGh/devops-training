@@ -7,11 +7,12 @@ then
 fi
 k3d cluster list
 
-CLUSTER_NAME="newCluster"
+CLUSTER_NAME="training"
 if k3d cluster list | grep -q "$CLUSTER_NAME"; then
     echo "Cluster already exists ! "
+    kubectl config set-context k3d-$CLUSTER_NAME
 else
-    echo "Creating a new cluster..."
+    echo "New cluster"
     k3d cluster create $CLUSTER_NAME \
         --servers 1 \
         --agents 1 \
@@ -20,6 +21,5 @@ else
         --volume ~/cluster_data:/data
     echo "Cluster $CLUSTER_NAME created successfully."
 fi
-kubectl config set-context k3d-tsts
 docker ps
 
