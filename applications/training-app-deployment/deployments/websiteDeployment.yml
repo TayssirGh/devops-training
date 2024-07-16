@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  namespace: training-app-frontend-prod
+spec:
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+      - name: website
+        image: ilefrjiba/t-014-website
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: website-config
+          mountPath: /usr/share/nginx/html/assets/configs
+
+      volumes:
+      - name: website-config
+        configMap:
+          name: website-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: websiteservice
+  namespace: training-app-frontend-prod
+spec:
+  selector:
+    app: website
+  ports:
+  - port: 80
+    targetPort: 80
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-ingress
+  labels:
+    name: website-ingress
+  namespace: training-app-frontend-prod
+spec:
+  tls:
+  - hosts:
+    - comwork.com
+    secretName: certificate-secret
+  rules:
+  - host: comwork.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: websiteservice
+            port:
+              number: 80

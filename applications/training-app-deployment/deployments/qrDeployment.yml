@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qr
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    matchLabels:
+      app: qr
+  template:
+    metadata:
+      labels:
+        app: qr
+    spec:
+      containers:
+      - name: qr
+        image: ilefrjiba/t-014-qr
+        ports:
+        - containerPort: 8420
+        envFrom:
+        - secretRef:
+            name: s3secret
+        - configMapRef:
+            name: s3-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-service
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    app: qr
+  ports:
+  - port: 8420
+    targetPort: 8420
