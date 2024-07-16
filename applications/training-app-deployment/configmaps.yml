@@ -8,7 +8,7 @@ data:
     {
       "backendUrl": "https://backend.com/access"
     }
-    
+
 ---
 apiVersion: v1
 kind: ConfigMap

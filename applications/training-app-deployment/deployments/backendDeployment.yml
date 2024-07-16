@@ -60,3 +60,4 @@ spec:
             name: backend-service
             port:
               number: 3000
+
