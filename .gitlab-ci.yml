@@ -84,12 +84,14 @@ kubernetes_deployment:
   - sudo apt update -y && apt upgrade -y
   - sudo apt install wget jq
   - sudo apt autoremove -y
-  - docker --version
-  # - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   - cat /etc/hosts
   - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
   - ./applications/init-k3d-cluster.sh
+  - cd applications/training-app-deployment
+  - kubectl apply -f namespaces.yml
+  - chmod +x seal-secrets.sh
+  - ./seal-secrets.sh
   tags:
   - t-014-deploy

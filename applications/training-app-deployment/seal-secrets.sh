@@ -1,3 +1,6 @@
+- echo "getting into second script"
+- echo "____________________________________________________________"
+
 #Installation of sealedsecrets
 
 helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
