@@ -68,15 +68,15 @@ build_backend:
     - ./applications/backend/
 
 
-deploy:
-  stage: docker-compose
-  before_script:
-  - sudo apt-get install docker-compose-plugin
-  script:
-  - sudo chmod +x ./applications/launch-D.sh
-  - ./applications/launch-D.sh
-  tags:
-  - t-014-deploy
+# deploy:
+#   stage: docker-compose
+#   before_script:
+#   - sudo apt-get install docker-compose-plugin
+#   script:
+#   - sudo chmod +x ./applications/launch-D.sh
+#   - ./applications/launch-D.sh
+#   tags:
+#   - t-014-deploy
 
 kubernetes_deployment:
   stage: kubernetes
