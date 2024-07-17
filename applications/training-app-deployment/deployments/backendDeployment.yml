@@ -44,6 +44,8 @@ metadata:
   labels:
     name: backend-ingress
   namespace: training-app-backend-prod
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
 spec:
   tls:
   - hosts:
