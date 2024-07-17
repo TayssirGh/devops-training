@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo "getting into second script"
+echo "____________________________________________________________"
+echo "getting into seal-secrets script"
 echo "____________________________________________________________"
 
 #Installation of sealedsecrets
@@ -29,6 +30,8 @@ kubeseal --fetch-cert --controller-name my-release-sealed-secrets --controller-n
 kubeseal --controller-name my-release-sealed-secrets --controller-namespace default --format yaml < secrets.yml > sealed-secret.yaml
 
 kubectl apply -f sealed-secret.yaml
+
+pwd
 
 # deleting regular secrets from the Git tree
 

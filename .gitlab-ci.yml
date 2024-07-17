@@ -93,9 +93,12 @@ kubernetes_deployment:
   - ./applications/init-k3d-cluster.sh
   - cd applications/training-app-deployment
   - kubectl apply -f namespaces.yml
-  - pwd
   - chmod +x seal-secrets.sh
   - ./seal-secrets.sh
+  - docker pull nginx/nginx-ingress
+  - docker images
+  - docker run nginx/nginx-ingress
+  - docker ps
   - kubectl apply -k Kustomization.yml
   tags:
   - t-014-deploy
