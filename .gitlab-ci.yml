@@ -83,7 +83,11 @@ kubernetes_deployment:
   before_script:
   - sudo apt update -y && apt upgrade -y 
   - sudo apt install wget jq
-  - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  - sudo apt autoremove
+  - docker --version
+  # - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  - cat /etc/hosts
+  - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
   - ./applications/init-k3d-cluster.sh
