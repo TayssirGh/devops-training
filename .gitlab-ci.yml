@@ -81,10 +81,10 @@ build_backend:
 kubernetes_deployment:
   stage: kubernetes
   before_script:
-  - sudo apt update -y && apt upgrade -y
-  - sudo apt install wget jq
-  - sudo apt autoremove -y
-  - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  # - sudo apt update -y && apt upgrade -y
+  # - sudo apt install wget jq
+  # - sudo apt autoremove -y
+  # - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   - k3d cluster delete comwork
   - sudo chmod +x install_kubectl.sh
   - ./install_kubectl.sh
@@ -96,6 +96,6 @@ kubernetes_deployment:
   - pwd
   - chmod +x seal-secrets.sh
   - ./seal-secrets.sh
-  - kubctl apply -k Kustomization.yml
+  - kubectl apply -k Kustomization.yml
   tags:
   - t-014-deploy

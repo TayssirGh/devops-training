@@ -1,7 +1,7 @@
 #!/bin/bash
 
-- echo "getting into second script"
-- echo "____________________________________________________________"
+echo "getting into second script"
+echo "____________________________________________________________"
 
 #Installation of sealedsecrets
 
