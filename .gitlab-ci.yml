@@ -93,5 +93,6 @@ kubernetes_deployment:
   - kubectl apply -f namespaces.yml
   - chmod +x seal-secrets.sh
   - ./seal-secrets.sh
+  - kubctl apply -k Kustomization.yml
   tags:
   - t-014-deploy
