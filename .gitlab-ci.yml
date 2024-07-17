@@ -81,9 +81,9 @@ build_backend:
 kubernetes_deployment:
   stage: kubernetes
   before_script:
-  - sudo apt update -y && apt upgrade -y 
+  - sudo apt update -y && apt upgrade -y
   - sudo apt install wget jq
-  - sudo apt autoremove
+  - sudo apt autoremove -y
   - docker --version
   # - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   - cat /etc/hosts
