@@ -84,13 +84,16 @@ kubernetes_deployment:
   - sudo apt update -y && apt upgrade -y
   - sudo apt install wget jq
   - sudo apt autoremove -y
-  - cat /etc/hosts
   - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  - k3d cluster delete comwork
+  - sudo chmod +x install_kubectl.sh
+  - ./install_kubectl.sh
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
   - ./applications/init-k3d-cluster.sh
   - cd applications/training-app-deployment
   - kubectl apply -f namespaces.yml
+  - pwd
   - chmod +x seal-secrets.sh
   - ./seal-secrets.sh
   - kubctl apply -k Kustomization.yml

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 - echo "getting into second script"
 - echo "____________________________________________________________"
 
