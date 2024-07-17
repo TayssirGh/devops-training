@@ -2,7 +2,8 @@ image: docker:stable
 
 stages:
 - build
-- deploy
+# - docker-compose
+- kubernetes
 
 
 build_website:
@@ -68,11 +69,23 @@ build_backend:
 
 
 deploy:
-  stage: deploy
+  stage: docker-compose
   before_script:
   - sudo apt-get install docker-compose-plugin
   script:
   - sudo chmod +x ./applications/launch-D.sh
   - ./applications/launch-D.sh
+  tags:
+  - t-014-deploy
+
+kubernetes_deployment:
+  stage: kubernetes
+  before_script:
+  - sudo apt update && apt upgrade
+  - sudo apt install wget
+  - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  script:
+  - sudo chmod +x ./applications/init-k3d-cluster.sh
+  - ./applications/init-k3d-cluster.sh
   tags:
   - t-014-deploy
