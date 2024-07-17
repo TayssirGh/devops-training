@@ -1,0 +1,8 @@
+[init]
+	defaultBranch = none
+[fetch]
+	recurseSubmodules = false
+[transfer]
+	bundleURI = true
+[http "https://gitlab.comwork.io"]
+	sslCAInfo = /home/ilef/Desktop/comwork_stage/devops-training/applications/training-app-deployment/builds/RS1Yofv8M/0/comwork_public/training/devops-training.tmp/CI_SERVER_TLS_CA_FILE

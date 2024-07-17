@@ -81,7 +81,7 @@ build_backend:
 kubernetes_deployment:
   stage: kubernetes
   before_script:
-  - sudo apt update && apt upgrade
+  - sudo apt update -y && apt upgrade -y 
   - sudo apt install wget
   - sudo wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
   script:
