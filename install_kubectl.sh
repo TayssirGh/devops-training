@@ -16,6 +16,6 @@ else
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 fi 
 
-kubectl version --client
+sudo kubectl version
 
-export KUBECONFIG=$HOME/.kube/config 
+sudo export KUBECONFIG=$HOME/.kube/config 
