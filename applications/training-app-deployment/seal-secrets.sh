@@ -7,7 +7,7 @@ echo "____________________________________________________________"
 #Installation of sealedsecrets
 
 if helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets | grep already; 
-then echo "----------------- installing kubeseal -----------------"
+then echo "sealedsecrets already installed"
 else helm install my-release sealed-secrets/sealed-secrets
 fi 
 

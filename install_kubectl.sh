@@ -2,7 +2,7 @@
 
 echo "----------------- installing kubectl -----------------"
 
-if  kubectl version | grep Server ; 
+if  kubectl version | grep Client ; 
 
 then echo "kubectl already installed"
 
