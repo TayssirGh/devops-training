@@ -2,7 +2,7 @@
 
 echo "----------------- installing kubectl -----------------"
 
-if sudo kubectl version | grep Server ; 
+if  kubectl version | grep Server ; 
 
 then echo "kubectl already installed"
 
@@ -16,6 +16,6 @@ else
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 fi 
 
-sudo kubectl version
+ kubectl version
 
-sudo export KUBECONFIG=$HOME/.kube/config 
+ export KUBECONFIG=$HOME/.kube/config 

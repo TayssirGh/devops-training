@@ -81,6 +81,7 @@ build_backend:
 kubernetes_deployment:
   stage: kubernetes
   before_script:
+  - sudo chmod +x ./install_kubectl.sh
   - ./install_kubectl.sh
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
