@@ -1,0 +1,40 @@
+stages:
+  - build_push
+
+before_script:
+  - echo "$T015_DOCKER_HUB_TOKEN" | docker login -u T015_REGISTRY_USER_NAME --password-stdin
+
+
+qr_build_push:
+  stage: build_push
+  variables:
+    image_name : qr
+    image_tag : dev
+  script:
+    - chmod +x ./ci-script/./ci-script/build_push_images.sh
+    - sh ./ci-script/build_push_images.sh
+  tags:
+    - t015-buildpush
+
+
+backend_build_push:
+  stage: build_push
+  variables:
+    image_name : backend
+    image_tag: dev
+  script:
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t015-buildpush
+
+website_build_push:
+  stage: build_push
+  variables:
+    image_name : website
+    image_tag: dev
+  script:
+    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
+  tags:
+    - t015-buildpush
