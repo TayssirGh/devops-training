@@ -10,6 +10,7 @@ fi
 
 echo "setting comwork-cluster as context"
 kubectl config use-context k3d-comwork-cluster
+
 echo "____________________________________________________________"
 
 echo "init-k3d-cluster.sh finished successfully"

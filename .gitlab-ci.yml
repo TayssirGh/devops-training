@@ -81,16 +81,7 @@ build_backend:
 kubernetes_deployment:
   stage: kubernetes
   before_script:
-  # - sudo apt update -y && apt upgrade -y
-  # - sudo apt install wget jq
-  # - sudo apt autoremove -y
-  # - curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-  # - k3d cluster list
-  # - sudo chmod +x install_kubectl.sh
-  # - ./install_kubectl.sh
-  - export KUBECONFIG=$HOME/.kube/config
-  - docker ps
-  - pwd
+  - ./install_kubectl.sh
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
   - ./applications/init-k3d-cluster.sh
