@@ -18,4 +18,4 @@ else
     kubectl version
 fi 
 
- export KUBECONFIG=$HOME/.kube/config 
+# export KUBECONFIG=$HOME/.kube/config 
