@@ -14,7 +14,7 @@ qr_build_push:
     - chmod +x ./ci-script/./ci-script/build_push_images.sh
     - sh ./ci-script/build_push_images.sh
   tags:
-    - t015-buildpush
+    - t-015-build-protected
 
 
 backend_build_push:
@@ -26,7 +26,7 @@ backend_build_push:
     - chmod +x ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t015-buildpush
+    - t-015-build-protected
 
 website_build_push:
   stage: build_push
@@ -37,4 +37,4 @@ website_build_push:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
-    - t015-buildpush
+    - t-015-build-protected
