@@ -1,7 +1,16 @@
 #!/bin/bash
 
-k3d cluster create comwork --agents 1 --servers 1 -p 80:80@loadbalancer -p 443:443@loadbalancer -v $(pwd)/clusterData:/data
+if k3d cluster list | grep comwork-cluster ; then 
+    echo "Cluster comwork-cluster already exists"
 
+else
+    echo "Cluster comwork-cluster does not exist. Creating it."
+    k3d cluster create comwork-cluster --agents 1 --servers 1 -p 80:80@loadbalancer -p 443:443@loadbalancer -v $(pwd)/clusterData:/data
+fi 
+
+echo "setting comwork-cluster as context"
+kubectl config use-context k3d-comwork-cluster
 echo "____________________________________________________________"
+
 echo "init-k3d-cluster.sh finished successfully"
 echo "____________________________________________________________"

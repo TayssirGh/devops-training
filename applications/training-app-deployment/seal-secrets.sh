@@ -27,11 +27,13 @@ kubeseal --fetch-cert --controller-name my-release-sealed-secrets --controller-n
 
 # sealing the secrets
 
+cp applications/training-app-deployment/secrets.yml ./
+
 kubeseal --controller-name my-release-sealed-secrets --controller-namespace default --format yaml < secrets.yml > sealed-secret.yaml
 
 kubectl apply -f sealed-secret.yaml
 
-pwd
+rm secrets.yml
 
 # deleting regular secrets from the Git tree
 
