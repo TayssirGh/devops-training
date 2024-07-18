@@ -12,18 +12,20 @@ helm install my-release sealed-secrets/sealed-secrets
 
 # installation of Kubeseal
 
-KUBESEAL_VERSION=$(curl -s https://api.github.com/repos/bitnami-labs/sealed-secrets/tags | jq -r '.[0].name' | cut -c 2-)
+# KUBESEAL_VERSION=$(curl -s https://api.github.com/repos/bitnami-labs/sealed-secrets/tags | jq -r '.[0].name' | cut -c 2-)
 
-if [ -z "$KUBESEAL_VERSION" ]; then
-    echo "Failed to fetch the latest KUBESEAL_VERSION"
-    exit 1
-fi
+# if [ -z "$KUBESEAL_VERSION" ]; then
+#     echo "Failed to fetch the latest KUBESEAL_VERSION"
+#     exit 1
+# fi
 
-curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz"
-tar -xvzf kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz kubeseal
-sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+# curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz"
+# tar -xvzf kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz kubeseal
+# sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
-kubeseal --fetch-cert --controller-name my-release-sealed-secrets --controller-namespace default
+# kubeseal --fetch-cert --controller-name my-release-sealed-secrets --controller-namespace default
+
+kubeseal --version 
 
 # sealing the secrets
 
