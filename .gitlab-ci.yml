@@ -88,6 +88,7 @@ kubernetes_deployment:
   # - k3d cluster list
   # - sudo chmod +x install_kubectl.sh
   # - ./install_kubectl.sh
+  - export KUBECONFIG=$HOME/.kube/config
   - kubectl version
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh

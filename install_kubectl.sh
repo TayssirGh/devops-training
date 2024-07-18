@@ -11,5 +11,3 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
 export KUBECONFIG=$HOME/.kube/config 
-
-    # server: https://0.0.0.0:44005
