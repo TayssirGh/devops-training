@@ -18,6 +18,10 @@ qr_build_push:
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
+  only:
+    changes:
+    - ./applications/qr/
+  
 
 
 backend_build_push:
@@ -30,6 +34,11 @@ backend_build_push:
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
+  only:
+    changes:
+    - ./applications/backend/
+
+
 
 website_build_push:
   stage: build_push
@@ -41,3 +50,6 @@ website_build_push:
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
+  only:
+    changes:
+    - ./applications/website/
