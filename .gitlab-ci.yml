@@ -11,8 +11,8 @@ qr_build_push:
     image_name : qr
     image_tag : dev
   script:
-    - chmod +x ./ci-script/./ci-script/build_push_images.sh
-    - sh ./ci-script/build_push_images.sh
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - sh ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
 
@@ -34,7 +34,7 @@ website_build_push:
     image_name : website
     image_tag: dev
   script:
-    - chmod 0755 ./ci-scripts/build_push_images.sh
+    - chmod +x ./ci-scripts/build_push_images.sh
     - sh ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
