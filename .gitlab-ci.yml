@@ -90,6 +90,7 @@ kubernetes_deployment:
   # - ./install_kubectl.sh
   - export KUBECONFIG=$HOME/.kube/config
   - docker ps
+  - pwd
   script:
   - sudo chmod +x ./applications/init-k3d-cluster.sh
   - ./applications/init-k3d-cluster.sh
