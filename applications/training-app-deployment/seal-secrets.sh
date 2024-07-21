@@ -40,7 +40,6 @@ kubeseal --version
 if find secrets.yml ; 
 then 
     kubeseal --controller-name my-release-sealed-secrets --controller-namespace default --format yaml < secrets.yml > sealed-secret.yaml
-    kubectl apply -f sealed-secret.yaml
 
     # deleting regular secrets from the Git tree
     git rm --cached secrets.yml
@@ -51,3 +50,7 @@ else
     then echo "secrets.yml not found, sealed-secret already exists"
     fi 
 fi 
+
+kubectl apply -f sealed-secret.yaml
+
+# https://medium.com/@seifeddinerajhi/securely-managing-kubernetes-passwords-with-sealed-secrets-2fb331aa83d8
