@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: backend
-        image: ilefrjiba/t-014-backend
+        image: {{ .Values.backend-deployment.image }}
         ports:
-        - containerPort: 3000
+        - containerPort: {{ .Values.backend-deployment.port }}
         envFrom:
         - secretRef:
             name: backendsecret
@@ -33,7 +33,7 @@ spec:
     app: backend
   ports:
   - port: 3000
-    targetPort: 3000
+    targetPort: {{ .Values.backend-deployment.port }}
 
 ---
 

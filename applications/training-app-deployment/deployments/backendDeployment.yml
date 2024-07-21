@@ -50,7 +50,7 @@ spec:
   tls:
   - hosts:
     - backend.com
-    secretName: certificate-secret
+    secretName: certificate-secret-backend
   rules:
   - host: backend.com
     http:

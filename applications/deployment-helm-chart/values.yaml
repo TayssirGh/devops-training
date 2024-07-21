@@ -1,0 +1,21 @@
+# values.yaml
+
+website-deployment:
+  image: "ilefrjiba/t-014-website"
+  port: 80
+
+s3-secret:
+  BUCKET_ACCESS_KEY: UTNBTTNVUTg2N1NQUVFBNDNQMkY=
+  BUCKET_SECRET_KEY: enVmK3RmdGVTbHN3UnU3Qko4Nndla2l0bmlmSUxiWmFtMUtZWTNURw==
+  BUCKET_ENDPOINT: cGxheS5taW4uaW86OTAwMA==
+
+backend-secret:
+  APP_PORT: MzAwMAo=
+
+qr-deployment:
+  image: "ilefrjiba/t-014-qr"
+  port: 8420
+
+backend-deployment:
+  image: "ilefrjiba/t-014-backend"
+  port: 3000
