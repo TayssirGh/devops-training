@@ -51,6 +51,7 @@ else
     fi 
 fi 
 
+# kubectl create -f sealed-secret.yaml
 kubectl apply -f sealed-secret.yaml
 
 # https://medium.com/@seifeddinerajhi/securely-managing-kubernetes-passwords-with-sealed-secrets-2fb331aa83d8

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: website-config
+  namespace: training-app-frontend-prod
+data:
+  app-config.json: |-
+    {
+      "backendUrl": "https://backend.com/access"
+    }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3-config
+  namespace: training-app-backend-prod
+data:
+  QR_TMP_FOLDER: "./generated_qr"
+  QR_FILL_COLOR: "#121128"
+  QR_BACKGROUND_COLOR: "#dcdbdb"
+  USE_BUCKET: "true"
+  BUCKET_NAME: "test"
+  BUCKET_PATH: ""

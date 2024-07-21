@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: qr-data
+spec:
+  volumeMode: Filesystem
+  capacity:
+    storage: 500Mi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-path
+  hostPath:
+    path: /tmp/qr-data
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qr-data-pvc
+spec:
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteMany
+  volumeName: qr-data
+  resources:
+    requests:
+      storage: 500Mi
