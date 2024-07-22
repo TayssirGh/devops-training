@@ -5,6 +5,7 @@ services:
 
 stages:
   - build_push
+  - deploy
 
 before_script:
   - echo "$T015_DOCKER_HUB_TOKEN" | docker login -u "$T015_REGISTRY_USER_NAME" --password-stdin
@@ -34,3 +35,14 @@ website_build_push:
   variables:
     image_name: website
     image_tag: dev
+
+
+deploy_applications:
+  stage: deploy
+  script:
+    - chmod 0755 ./applications/launch-D.sh
+    - sh ./applications/launch-D.sh
+  tags:
+    - t-015-deploy
+
+  
