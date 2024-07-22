@@ -98,4 +98,3 @@ deploy_Kube:
   only:
     - changes:
         - ./applications/training-app-deployment/
-    - t-013-dev
