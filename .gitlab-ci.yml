@@ -41,7 +41,6 @@ deploy_applications:
   stage: deploy
   script:
     - chmod 0755 ./applications/launch-D.sh
-    - chmod 777 ./applications/minio_data
     - sh ./applications/launch-D.sh
   tags:
     - t-015-deploy
