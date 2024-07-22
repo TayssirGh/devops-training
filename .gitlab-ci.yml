@@ -16,7 +16,7 @@ before_script:
     - chmod 0755 ./ci-scripts/build_push_images.sh
     - ./ci-scripts/build_push_images.sh
   tags:
-    - t-015-build-protected
+    - t-015-deploy
 
 qr_build_push:
   extends: .build_push_template
