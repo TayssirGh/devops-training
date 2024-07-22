@@ -6,7 +6,7 @@
 applications/website/src/assets/configs/app-config.json
 **/.env
 applications/qr/.myenv
-applications/minio_data
+applications/minio-data
 
 # compiled output
 **/dist
