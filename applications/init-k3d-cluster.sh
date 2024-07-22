@@ -19,6 +19,8 @@ else
         --port 80:80@loadbalancer \
         --port 443:443@loadbalancer \
         --volume ~/cluster_data:/data
+
+    k3d kubeconfig merge $CLUSTER_NAME --kubeconfig-switch-context
     echo "Cluster $CLUSTER_NAME created successfully."
 fi
 docker ps

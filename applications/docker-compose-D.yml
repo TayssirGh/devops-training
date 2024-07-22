@@ -19,8 +19,8 @@ services:
     image: nginx:latest
     volumes:
       - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./proxy/nginx-selfsigned.key:/etc/nginx/ssl/private.key
-      - ./proxy/nginx-selfsigned.crt:/etc/nginx/ssl/certificate.crt
+      - ./proxy/localhost.key:/etc/nginx/ssl/private.key
+      - ./proxy/localhost.crt:/etc/nginx/ssl/certificate.crt
       - qr-code:/etc/nginx/html/assets/data
     ports:
       - 80:80
