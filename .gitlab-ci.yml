@@ -1,49 +1,33 @@
 image: docker:latest
 
-
 stages:
   - build_push
 
 before_script:
-  - echo "$T015_DOCKER_HUB_TOKEN" | docker login -u $T015_REGISTRY_USER_NAME --password-stdin
+  - echo "$T015_DOCKER_HUB_TOKEN" | docker login -u "$T015_REGISTRY_USER_NAME" --password-stdin
 
+.build_push_template:
+  stage: build_push
+  script:
+    - chmod +x ./ci-scripts/build_push_images.sh
+    - ./ci-scripts/build_push_images.sh
+  tags:
+    - t-015-build-protected
 
 qr_build_push:
-  stage: build_push
+  extends: .build_push_template
   variables:
-    image_name : qr
-    image_tag : dev
-  script:
-    - chmod +x ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
-  tags:
-    - t-015-build-protected
-  
-  
-
+    image_name: qr
+    image_tag: dev
 
 backend_build_push:
-  stage: build_push
+  extends: .build_push_template
   variables:
-    image_name : backend
+    image_name: backend
     image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
-  tags:
-    - t-015-build-protected
-  
-
-
 
 website_build_push:
-  stage: build_push
+  extends: .build_push_template
   variables:
-    image_name : website
+    image_name: website
     image_tag: dev
-  script:
-    - chmod +x ./ci-scripts/build_push_images.sh
-    - sh ./ci-scripts/build_push_images.sh
-  tags:
-    - t-015-build-protected
-  
