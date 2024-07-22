@@ -6,10 +6,19 @@ services:
 stages:
   - build_push
   - deploy
+  - cleanup
+
+
 
 before_script:
   - echo "$T015_DOCKER_HUB_TOKEN" | docker login -u "$T015_REGISTRY_USER_NAME" --password-stdin
 
+cleanup_job:
+  stage: cleanup
+  script:
+    - sudo chmod -R 777 ./applications/minio_data/.minio.sys/tmp/.trash/
+    - sudo rm -rf ./applications/minio_data/.minio.sys/tmp/.trash/
+    
 .build_push_template:
   stage: build_push
   script:
