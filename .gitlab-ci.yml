@@ -1,5 +1,8 @@
 image: docker:latest
 
+services:
+  - docker:dind
+
 stages:
   - build_push
 
@@ -9,7 +12,7 @@ before_script:
 .build_push_template:
   stage: build_push
   script:
-    - chmod +x ./ci-scripts/build_push_images.sh
+    - chmod 0755 ./ci-scripts/build_push_images.sh
     - ./ci-scripts/build_push_images.sh
   tags:
     - t-015-build-protected
