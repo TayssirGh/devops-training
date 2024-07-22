@@ -4,9 +4,9 @@ services:
   - docker:dind
 
 stages:
+  - cleanup
   - build_push
   - deploy
-  - cleanup
 
 
 
