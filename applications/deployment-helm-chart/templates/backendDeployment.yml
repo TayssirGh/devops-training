@@ -15,6 +15,7 @@ spec:
       containers:
       - name: backend
         image: {{ .Values.deployment.backend.image }}
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.deployment.backend.port }}
         envFrom:

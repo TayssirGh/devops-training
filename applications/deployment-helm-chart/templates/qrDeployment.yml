@@ -15,6 +15,7 @@ spec:
       containers:
       - name: qr
         image: {{ .Values.deployment.qr.image }}
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.deployment.qr.port }}
         envFrom:

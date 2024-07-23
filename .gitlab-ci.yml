@@ -100,6 +100,9 @@ helm-chart:
   - chmod +x ./helm-initialization.sh
   - ./helm-initialization.sh
   script:
+  - echo "____________________________________________________________"
+  - k3d kubeconfig merge comwork-cluster --kubeconfig-merge-default --kubeconfig-switch-context 
+  - echo "____________________________________________________________"
   - cd ./applications/deployment-helm-chart
   - sudo helm install training-helm-chart .
   tags:

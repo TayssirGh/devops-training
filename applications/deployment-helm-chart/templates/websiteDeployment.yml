@@ -15,6 +15,7 @@ spec:
       containers:
       - name: website
         image: {{ .Values.deployment.website.image }}
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.deployment.website.port }}
         volumeMounts:
