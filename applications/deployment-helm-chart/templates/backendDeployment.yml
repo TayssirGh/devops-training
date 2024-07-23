@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: backend
-        image: {{ .Values.backend-deployment.image }}
+        image: {{ .Values.deployment.backend.image }}
         ports:
-        - containerPort: {{ .Values.backend-deployment.port }}
+        - containerPort: {{ .Values.deployment.backend.port }}
         envFrom:
         - secretRef:
             name: backendsecret
@@ -33,7 +33,7 @@ spec:
     app: backend
   ports:
   - port: 3000
-    targetPort: {{ .Values.backend-deployment.port }}
+    targetPort: {{ .Values.deployment.backend.port }}
 
 ---
 
@@ -62,4 +62,3 @@ spec:
             name: backend-service
             port:
               number: 3000
-

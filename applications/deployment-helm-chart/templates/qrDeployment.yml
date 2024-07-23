@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: qr
-        image: {{ .Values.qr-deployment.image }}
+        image: {{ .Values.deployment.qr.image }}
         ports:
-        - containerPort: {{ .Values.qr-deployment.port }}
+        - containerPort: {{ .Values.deployment.qr.port }}
         envFrom:
         - secretRef:
             name: s3secret
@@ -34,4 +34,4 @@ spec:
     app: qr
   ports:
   - port: 8420
-    targetPort: {{ .Values.qr-deployment.port }}
+    targetPort: {{ .Values.deployment.qr.port }}

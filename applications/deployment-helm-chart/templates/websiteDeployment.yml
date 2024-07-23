@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: website
-        image: {{ .Values.website-deployment.image }}
+        image: {{ .Values.deployment.website.image }}
         ports:
-        - containerPort: {{ .Values.website-deployment.port }}
+        - containerPort: {{ .Values.deployment.website.port }}
         volumeMounts:
         - name: website-config
           mountPath: /usr/share/nginx/html/assets/configs
@@ -38,7 +38,7 @@ spec:
     app: website
   ports:
   - port: 80
-    targetPort: {{ .Values.website-deployment.port }}
+    targetPort: {{ .Values.deployment.website.port }}
 
 
 ---
