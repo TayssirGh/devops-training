@@ -12,4 +12,4 @@ fi
 echo "----------------- checking if there is a running cluster -----------------"
 
 chmod +x ./applications/init-k3d-cluster.sh
-./install_kubectl.sh
+./applications/init-k3d-cluster.sh
