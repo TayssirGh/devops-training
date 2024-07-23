@@ -28,7 +28,6 @@ build_website:
     changes:
     - ./applications/website/
 
-
 build_qr:
 
   stage: build
