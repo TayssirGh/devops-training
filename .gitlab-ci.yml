@@ -3,7 +3,8 @@ image: docker:stable
 stages:
 - build
 # - docker-compose
-- kubernetes
+# - kubernetes
+- helm
 
 
 build_website:
@@ -78,18 +79,29 @@ build_backend:
 #   tags:
 #   - t-014-deploy
 
-kubernetes_deployment:
-  stage: kubernetes
+# kubernetes_deployment:
+#   stage: kubernetes
+#   before_script:
+#   - sudo chmod +x ./install_kubectl.sh
+#   - ./install_kubectl.sh
+#   script:
+#   - sudo chmod +x ./applications/init-k3d-cluster.sh
+#   - ./applications/init-k3d-cluster.sh
+#   - cd applications/training-app-deployment
+#   - kubectl apply -f namespaces.yml
+#   - chmod +x seal-secrets.sh
+#   - ./seal-secrets.sh
+#   - kubectl apply -k ./
+#   tags:
+#   - t-014-deploy
+
+helm-chart:
+  stage: helm
   before_script:
-  - sudo chmod +x ./install_kubectl.sh
-  - ./install_kubectl.sh
+  - chmod +x ./helm-initialization.sh
+  - ./helm-initialization.sh
   script:
-  - sudo chmod +x ./applications/init-k3d-cluster.sh
-  - ./applications/init-k3d-cluster.sh
-  - cd applications/training-app-deployment
-  - kubectl apply -f namespaces.yml
-  - chmod +x seal-secrets.sh
-  - ./seal-secrets.sh
-  - kubectl apply -k ./
+  - cd ./applications/deployment-helm-chart
+  - helm install training-helm-chart .  
   tags:
   - t-014-deploy

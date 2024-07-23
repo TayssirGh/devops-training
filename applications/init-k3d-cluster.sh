@@ -19,4 +19,4 @@ echo "init-k3d-cluster.sh finished successfully"
 echo "____________________________________________________________"
 
 
-# ref : https://k3d.io/v5.3.0/usage/kubeconfig/
+# reference : https://k3d.io/v5.3.0/usage/kubeconfig/
