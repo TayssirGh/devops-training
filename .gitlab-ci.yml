@@ -101,6 +101,6 @@ helm-chart:
   - ./helm-initialization.sh
   script:
   - cd ./applications/deployment-helm-chart
-  - helm install training-helm-chart .  
+  - sudo helm install training-helm-chart .
   tags:
   - t-014-deploy
