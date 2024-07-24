@@ -6,8 +6,8 @@
 **/.env
 **/clusterData
 
-applications/website/src/assets/configs/app-config.json
-applications/website/src/assets/configs/app-config-nginx.json
+**/app-config.json
+**/app-config-nginx.json
 
 # compiled output
 **/dist
@@ -45,6 +45,5 @@ applications/website/src/assets/configs/app-config-nginx.json
 # certificates
 **/ssl 
 
-/home/ilef/Desktop/comwork_stage/devops-training/applications/buildsapplications/training-app-deployment/secrets.yml
-applications/training-app-deployment/secrets.yml
-applications/builds 
+**/secrets.yml
+**/builds 
