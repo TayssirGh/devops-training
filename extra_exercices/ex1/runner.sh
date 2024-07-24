@@ -5,6 +5,8 @@ LAST_DETECTED_DOWNTIME="none"
 run_uptime() {
   status_code="$(curl -w '%{http_code}' -s -o /dev/null -L "${WEBSITE_URL}")"
 
+  echo $status_code
+
   if [[ "$status_code" != "200" ]]; then
     if [[ "$LAST_DETECTED_DOWNTIME" == "none" ]]; then
       LAST_DETECTED_DOWNTIME="$(date '+%x %X %Z')"
@@ -16,6 +18,8 @@ run_uptime() {
       echo "${WEBSITE_URL} is up!"
       echo -e "Downtime detected at '${LAST_DETECTED_DOWNTIME}' \nUptime detected at '$(date '+%x %X %Z')'"
       LAST_DETECTED_DOWNTIME="none"
+    else 
+     echo "${WEBSITE_URL} is up!, no downtime detected"
     fi
   fi
 }
