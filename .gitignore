@@ -47,3 +47,4 @@ applications/website/src/assets/configs/app-config-nginx.json
 
 /home/ilef/Desktop/comwork_stage/devops-training/applications/buildsapplications/training-app-deployment/secrets.yml
 applications/training-app-deployment/secrets.yml
+applications/builds 
