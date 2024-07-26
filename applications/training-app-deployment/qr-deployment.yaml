@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qr-config
+  namespace: training-app-backend-prod
+data:
+  QR_TMP_FOLDER: "./generated_qr"
+  QR_FILL_COLOR: "#121128"
+  QR_BACKGROUND_COLOR: "#dcdbdb"
+  USE_BUCKET: "true"
+  BUCKET_NAME: "test"
+  BUCKET_PATH: ""
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qr-deployment
+  namespace: training-app-backend-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qr
+  template:
+    metadata:
+      labels:
+        app: qr
+    spec:
+      containers:
+        - name: qr
+          image: tayssirgh/t013-qr:dev
+          ports:
+            - containerPort: 8420
+          envFrom:
+            - configMapRef:
+                name: qr-config
+            - secretRef:
+
+                name: s3-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-service
+  namespace: training-app-backend-prod
+spec:
+  selector:
+    app: qr
+  ports:
+    - protocol: TCP
+      port: 8420
+      targetPort: 8420

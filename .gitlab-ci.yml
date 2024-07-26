@@ -1,0 +1,100 @@
+stages:
+  - build
+  - push
+  - deploy
+
+
+variables:
+  SCRIPT_PATH: "./ci-scripts/img_push.sh"
+  LAUNCH_D: "./applications/launch-D.sh"
+  INIT_CLUSTER: "./applications/init-k3d-cluster.sh"
+  SEAL: "./applications/training-app-deployment/secrets/seal.sh"
+  DEPLOY: "./applications/training-app-deployment/deploy.sh"
+
+build_website:
+  stage: build
+  script:
+    - docker build -t t013-website:dev ./applications/website
+  tags:
+    - t-013-deploy
+  only:
+    changes:
+      - ./applications/website/
+
+
+build_backend:
+  stage: build
+  script:
+    - docker build -t t013-backend:dev ./applications/backend
+  tags:
+    - t-013-deploy
+  only:
+    changes:
+      - ./applications/backend/
+
+
+build_qr:
+  stage: build
+  script:
+    - docker build -t t013-qr:dev ./applications/qr
+  tags:
+    - t-013-deploy
+  only:
+    changes:
+      - ./applications/qr/
+
+
+push_website:
+  stage: push
+  script:
+    - chmod +x $SCRIPT_PATH
+    - sh $SCRIPT_PATH t013-website $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+  tags:
+    - t-013-deploy
+  dependencies:
+    - build_website
+  only:
+    changes:
+      - ./applications/website/
+
+push_backend:
+  stage: push
+  script:
+    - chmod +x $SCRIPT_PATH
+    - sh $SCRIPT_PATH t013-backend $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+  tags:
+    - t-013-deploy
+  dependencies:
+    - build_backend
+  only:
+    changes:
+      - ./applications/backend/
+
+push_qr:
+  stage: push
+  script:
+    - chmod +x $SCRIPT_PATH
+    - sh $SCRIPT_PATH t013-qr $T013_REGISTRY_USERNAME $T013_REGISTRY_PASSWORD
+  tags:
+    - t-013-deploy
+  dependencies:
+    - build_qr
+  only:
+    changes:
+      - ./applications/qr/
+
+deploy_Kube:
+  stage: deploy
+  before_script:
+    - chmod +x $INIT_CLUSTER
+    - chmod +x $SEAL
+    - chmod +x $DEPLOY
+  script:
+    - sh $INIT_CLUSTER
+    - sh $SEAL
+    - sh $DEPLOY
+  tags:
+    - t-013-deploy
+  only:
+    - changes:
+        - ./applications/training-app-deployment/

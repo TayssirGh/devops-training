@@ -1,0 +1,29 @@
+upstream website{
+        server applications-website-3:80;
+        server applications-website-4:80;
+
+    }
+
+upstream backend{
+        server applications-backend-1:3000;
+        server applications-backend-2:3000;
+}
+
+upstream qr{
+        server applications-qr-3:8420;
+        server applications-qr-2:8420;
+}
+
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+        proxy_pass http://website;
+    }
+    location /backend/access {
+        proxy_pass http://backend/access;
+    }
+    location /qr {
+        proxy_pass http://qr/;
+    }
+}

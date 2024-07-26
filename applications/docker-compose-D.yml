@@ -1,0 +1,37 @@
+services:
+  minio:
+    extends:
+      file: docker-compose-C.yaml
+      service: minio
+  qr:
+    extends:
+      file: docker-compose-C.yaml
+      service: qr
+  backend:
+    extends:
+      file: docker-compose-C.yaml
+      service: backend
+  website:
+    extends:
+      file: docker-compose-C.yaml
+      service: website
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./proxy/localhost.key:/etc/nginx/ssl/private.key
+      - ./proxy/localhost.crt:/etc/nginx/ssl/certificate.crt
+      - qr-code:/etc/nginx/html/assets/data
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - qr_net
+    depends_on:
+      - website
+networks:
+  qr_net:
+    driver: bridge
+volumes:
+  qr-code:
+  minio-data:
