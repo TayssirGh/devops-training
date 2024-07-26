@@ -1,7 +1,0 @@
-{{- range $ns := .Values.namespaces}}
----
-apiVersion: {{$ns.apiVersion}}
-kind: {{$ns.kind}}
-metadata:
-  name: {{$ns.metadata.name}}
-{{- end}}

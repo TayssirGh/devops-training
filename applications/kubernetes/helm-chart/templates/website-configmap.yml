@@ -1,8 +1,0 @@
-apiVersion: {{ index .Values.configMaps.apiVersion}}
-kind: {{.Values.configMaps.kind}}
-metadata:
-  name: {{.Values.configMaps.metadata.name}}
-  namespace: {{.Values.configMaps.metadata.namespace}}
-data:
-  app-config.json: |-
-    {{- .Files.Get "configs/config.json" | nindent 4 -}}
