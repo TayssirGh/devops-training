@@ -97,3 +97,5 @@ Provides basic security controls to restrict access to your virtual network and 
 - **AKS**: Better for containerized applications with scalability needs.
 - **App** Service: Simplifies deployment but offers less control and flexibility.
   
+###### _This [url](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) is really helpful btw ! ~docs_
+###### _This [repo](https://github.com/hashicorp/terraform-provider-azurerm) is also helpful ,I can use some examples_
