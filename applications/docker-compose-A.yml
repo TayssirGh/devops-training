@@ -1,14 +1,12 @@
 services:
   qr:
-    image: tayssirgh/t013-qr
+    image: tayssirgh/t013-qr:dev
     container_name: qr
     env_file: ./qr/.env
     ports:
       - "8420:8420"
     networks:
       - qr_net
-    volumes:
-      - qr-code:/qr/generated_qr
   backend:
     image: tayssirgh/t013-backend
     container_name: backend
@@ -19,7 +17,7 @@ services:
     depends_on:
       - qr
     ports:
-      - "8082:3000"
+      - "3000:3000"
     networks:
       - qr_net
   website:
@@ -33,9 +31,6 @@ services:
       - qr_net
     volumes:
       - ./website/src/assets/configs:/usr/share/nginx/html/assets/configs
-      - qr-code:/src/assets/data
 networks:
   qr_net :
     driver: bridge
-volumes:
-  qr-code:
