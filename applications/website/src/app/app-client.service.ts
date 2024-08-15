@@ -1,10 +1,7 @@
-// @ts-ignore
 import {Injectable} from '@angular/core';
-// @ts-ignore
 import {HttpClient} from "@angular/common/http";
 import {EnvLoaderService} from "./env-loader.service";
 
-// @ts-ignore
 @Injectable({
   providedIn: 'root'
 })
