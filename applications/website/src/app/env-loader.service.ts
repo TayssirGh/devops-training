@@ -1,7 +1,11 @@
+// @ts-ignore
 import {Injectable} from '@angular/core';
+// @ts-ignore
 import {HttpClient} from "@angular/common/http";
+// @ts-ignore
 import {Observable} from "rxjs";
 
+// @ts-ignore
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +26,7 @@ export class EnvLoaderService {
 
   init(): Promise<void> {
     return new Promise(resolve => {
+      // @ts-ignore
       this.http.get<any>(`assets/configs/app-config.json`).toPromise().then(data => {
         this.backendUrl = data.backendUrl
         resolve();
