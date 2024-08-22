@@ -1,0 +1,19 @@
+---
+- name: Configure Azure VM
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update the system
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
